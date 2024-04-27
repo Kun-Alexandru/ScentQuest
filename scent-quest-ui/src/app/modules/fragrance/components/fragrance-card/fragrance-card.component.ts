@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
+import {FragranceRequest} from "../../../../services/models/fragrance-request";
 
 @Component({
   selector: 'app-fragrance-card',
@@ -41,6 +42,7 @@ export class FragranceCardComponent {
   @Output() private edit: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private delete: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private favourite: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+  @Output() private review: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
 
   onShowDetails() {
     this.details.emit(this._fragrance);
@@ -56,5 +58,9 @@ export class FragranceCardComponent {
 
   onDelete() {
     this.delete.emit(this._fragrance);
+  }
+
+  onReview() {
+    this.review.emit(this._fragrance);
   }
 }

@@ -3,9 +3,9 @@
 export interface FragranceRequest {
   FragranceId?: number;
   brand: string;
-  discontinued: boolean;
+  discontinued?: boolean;
   name: string;
   recommendedSeason: string;
-  releaseDate: string;
+  releaseDate?: string;
   shortDescription: string;
 }

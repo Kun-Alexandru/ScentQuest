@@ -26,6 +26,7 @@ public class FragranceMapper {
                 .shortDescription(fragrance.getShortDescription())
                 .discontinued(fragrance.getDiscontinued())
                 .adder(fragrance.getAdder().getFullName())
+                .releaseDate(fragrance.getReleaseDate())
                 .averageRating(fragrance.getRate())
                 .picture(FileUtils.readFileFromLocation(fragrance.getPicture()))
                 .build();

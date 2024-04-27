@@ -74,5 +74,9 @@ export class FragranceListComponent implements OnInit {
   displayFragranceDetails(fragrance: FragranceResponse) {
     this.router.navigate(['fragrances', 'details', fragrance.fragranceId]);
   }
-}
+
+  reviewFragrance(fragrance: FragranceResponse) {
+      this.router.navigate(['fragrances', 'review', fragrance.fragranceId]);
+    }
+  }
 

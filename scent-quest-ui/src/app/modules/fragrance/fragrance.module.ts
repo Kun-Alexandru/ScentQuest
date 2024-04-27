@@ -10,6 +10,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { MyFragrancesComponent } from './pages/my-fragrances/my-fragrances.component';
 import { ManageFragranceComponent } from './pages/manage-fragrance/manage-fragrance.component';
 import {FormsModule} from "@angular/forms";
+import { LeaveFeedbackComponent } from './pages/leave-feedback/leave-feedback.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {FormsModule} from "@angular/forms";
     FragranceCardComponent,
     RatingComponent,
     MyFragrancesComponent,
-    ManageFragranceComponent
+    ManageFragranceComponent,
+    LeaveFeedbackComponent
   ],
   imports: [
     CommonModule,

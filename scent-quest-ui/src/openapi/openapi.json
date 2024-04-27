@@ -564,10 +564,8 @@
       "FragranceRequest": {
         "required": [
           "brand",
-          "discontinued",
           "name",
           "recommendedSeason",
-          "releaseDate",
           "shortDescription"
         ],
         "type": "object",
@@ -720,6 +718,10 @@
               "type": "string",
               "format": "byte"
             }
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
           },
           "averageRating": {
             "type": "number",

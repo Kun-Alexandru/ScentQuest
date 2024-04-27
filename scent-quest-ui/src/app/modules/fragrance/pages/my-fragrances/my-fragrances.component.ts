@@ -78,6 +78,6 @@ export class MyFragrancesComponent implements OnInit {
   }
 
   editFragrance(fragrance: FragranceResponse) {
-
+    this.router.navigate(['fragrances', 'manage', fragrance.fragranceId]);
   }
 }

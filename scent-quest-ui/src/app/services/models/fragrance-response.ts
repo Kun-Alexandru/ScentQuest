@@ -9,5 +9,6 @@ export interface FragranceResponse {
   name?: string;
   picture?: Array<string>;
   recommendedSeason?: string;
+  releaseDate?: string;
   shortDescription?: string;
 }

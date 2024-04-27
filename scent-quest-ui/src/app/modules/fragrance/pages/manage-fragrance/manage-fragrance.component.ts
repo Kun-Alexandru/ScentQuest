@@ -2,14 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {FragranceRequest} from "../../../../services/models/fragrance-request";
 import {saveFragrance} from "../../../../services/fn/fragrance/save-fragrance";
 import {FragranceService} from "../../../../services/services/fragrance.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-manage-fragrance',
   templateUrl: './manage-fragrance.component.html',
   styleUrl: './manage-fragrance.component.scss'
 })
-export class ManageFragranceComponent {
+export class ManageFragranceComponent implements OnInit {
   fragranceRequest: FragranceRequest = {
     brand: "",
     discontinued: false,
@@ -25,8 +25,30 @@ export class ManageFragranceComponent {
 
   constructor(
     private fragranceService: FragranceService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    const fragranceId = this.activatedRoute.snapshot.params['id'];
+    if (fragranceId) {
+      this.fragranceService.findFragranceById({
+        'fragrance-id': fragranceId
+      }).subscribe({
+        next: (fragrance) => {
+          this.fragranceRequest = {
+            name: fragrance.name as string,
+            brand: fragrance.brand as string,
+            recommendedSeason: fragrance.recommendedSeason as string,
+            releaseDate: fragrance.releaseDate as string,
+            shortDescription: fragrance.shortDescription as string,
+            discontinued: fragrance.discontinued as boolean
+          };
+          this.selectedPicture='data:image/jpg;base64,' + fragrance.picture;
+        }
+      });
+    }
+  }
 
   onFileSelected(event: Event) {
     this.selectedFragranceCover = (event.target as HTMLInputElement).files?.[0];

@@ -2,6 +2,8 @@ package com.kun.scentquest.fragrance;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,6 +19,7 @@ public class FragranceResponse {
     private String shortDescription;
     private String adder;
     private byte[] picture;
+    private LocalDate releaseDate;
     private double averageRating;
     private boolean discontinued;
 
