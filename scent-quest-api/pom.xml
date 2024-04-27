@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.kun</groupId>
     <artifactId>scent-quest</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.3</version>
     <name>scent-quest-api</name>
     <description>scent-quest-api</description>
     <properties>

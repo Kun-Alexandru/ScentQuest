@@ -20,6 +20,24 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
+  scentquest-api:
+    container_name: scentquest-api
+    image: scentquest/scentquest:1.0.3
+    ports:
+      - 8088:8088
+    networks:
+      - spring-demo
+    depends_on:
+      - postgres
+  scentquest-ui:
+    container_name: scentquest-ui
+    image: scentquest/scentquest-ui:1.0.0
+    ports:
+      - 8080:80
+    networks:
+      - spring-demo
+    depends_on:
+      - scentquest-api
 networks:
   spring-demo:
     driver: bridge
