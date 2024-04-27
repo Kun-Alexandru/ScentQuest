@@ -1,21 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {PageResponseFragranceResponse} from "../../../../services/models/page-response-fragrance-response";
-import {Router} from "@angular/router";
 import {FragranceService} from "../../../../services/services/fragrance.service";
+import {Router} from "@angular/router";
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
 
 @Component({
-  selector: 'app-fragrance-list',
-  templateUrl: './fragrance-list.component.html',
-  styleUrl: './fragrance-list.component.scss'
+  selector: 'app-my-fragrances',
+  templateUrl: './my-fragrances.component.html',
+  styleUrl: './my-fragrances.component.scss'
 })
-export class FragranceListComponent implements OnInit {
+export class MyFragrancesComponent implements OnInit {
   fragranceResponse: PageResponseFragranceResponse = {};
   page = 0;
   size = 5;
   pages: any = [];
-  message = '';
-  level: 'success' |'error' = 'success';
 
   constructor(
     private fragranceService: FragranceService,
@@ -28,7 +26,7 @@ export class FragranceListComponent implements OnInit {
   }
 
   private findAllFragrances() {
-    this.fragranceService.findAllFragrances({
+    this.fragranceService.findAllFragrancesByOwner({
       page: this.page,
       size: this.size
     })
@@ -74,5 +72,12 @@ export class FragranceListComponent implements OnInit {
   displayFragranceDetails(fragrance: FragranceResponse) {
     this.router.navigate(['fragrances', 'details', fragrance.fragranceId]);
   }
-}
 
+  deleteFragrance(fragrance: FragranceResponse) {
+
+  }
+
+  editFragrance(fragrance: FragranceResponse) {
+
+  }
+}

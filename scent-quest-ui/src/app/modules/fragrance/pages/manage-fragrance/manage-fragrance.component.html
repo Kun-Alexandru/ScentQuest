@@ -1,0 +1,66 @@
+<div class="p-2">
+  <h2>Manage my fragrances</h2>
+  <hr>
+  <div class="alert alert-danger mt-2" role="alert" *ngIf="errorMsg.length">
+    <p class="p-0 m-0" *ngFor="let msg of errorMsg">{{msg}}</p>
+  </div>
+  <div class="d-flex gap-2">
+    <div class="col-3">
+      <img class="rounded-1" width="100%" height="100%" [src]=" selectedPicture" alt="">
+      <div class="mt-2">
+        <input
+          (change)="onFileSelected($event)"
+          class="form-control"
+          type="file"
+          id="formFile"
+          accept="image/*"
+        >
+      </div>
+      <div class="alert alert-danger mt-2" role="alert" *ngIf="!isFileSelected">
+        No file selected for upload.
+      </div>
+    </div>
+    <div class="col-9">
+      <form class = "row g-3">
+        <div class = "col-12">
+          <label for="name" class="form-label">Name</label>
+          <input [(ngModel)]="fragranceRequest.name" name="name" type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class = "col-6">
+          <label for="brand" class="form-label">Brand</label>
+          <input [(ngModel)]="fragranceRequest.brand" name="brand" type="text" class="form-control" id="brand" placeholder="Brand">
+        </div>
+        <div class = "col-6">
+          <label for="reccommendedSeason" class="form-label">Season</label>
+          <input [(ngModel)]="fragranceRequest.recommendedSeason" name="reccommendedSeason" type="text" class="form-control" id="reccommendedSeason" placeholder="Name">
+        </div>
+        <div class = "col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea [(ngModel)]="fragranceRequest.shortDescription" name="description" rows = "4" class="form-control" id="description" placeholder="Description">
+          </textarea>
+        </div>
+        <div class = "col-12">
+          <label for="releaseDate" class="form-label">Release Date</label>
+          <input [(ngModel)]="fragranceRequest.releaseDate" name="releaseDate" type="date" class="form-control" id="releaseDate" placeholder="releaseDate">
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input [(ngModel)]="fragranceRequest.discontinued" name="discontinued" class="form-check-input" type="checkbox" id="gridCheck"
+                   name="discontinued">
+            <label class="form-check-label" for="gridCheck">
+              Discontinued
+            </label>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end gap-2 col-12">
+          <button  (click)="saveFragrance()" type="submit" class="btn btn-outline-primary">
+            <i class="fas fa-save"></i>&nbsp;Save
+          </button>
+          <a routerLink="/fragrances/my-fragrances" type="submit" class="btn btn-link btn text-danger">
+            <i class="fas fa-times"></i>&nbsp;Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

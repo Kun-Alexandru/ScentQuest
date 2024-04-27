@@ -7,6 +7,9 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FragranceListComponent } from './pages/fragrance-list/fragrance-list.component';
 import { FragranceCardComponent } from './components/fragrance-card/fragrance-card.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { MyFragrancesComponent } from './pages/my-fragrances/my-fragrances.component';
+import { ManageFragranceComponent } from './pages/manage-fragrance/manage-fragrance.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -15,11 +18,14 @@ import { RatingComponent } from './components/rating/rating.component';
     MenuComponent,
     FragranceListComponent,
     FragranceCardComponent,
-    RatingComponent
+    RatingComponent,
+    MyFragrancesComponent,
+    ManageFragranceComponent
   ],
   imports: [
     CommonModule,
-    FragranceRoutingModule
+    FragranceRoutingModule,
+    FormsModule
   ]
 })
 export class FragranceModule { }

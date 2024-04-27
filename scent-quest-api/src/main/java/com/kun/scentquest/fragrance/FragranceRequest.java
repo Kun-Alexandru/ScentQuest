@@ -19,11 +19,7 @@ public record FragranceRequest(
         @NotNull(message = "103")
         @NotEmpty(message = "103")
         String shortDescription,
-        @NotNull(message = "104")
-        @NotEmpty(message = "104")
         boolean discontinued,
-        @NotNull(message = "105")
-        @NotEmpty(message = "105")
         LocalDate releaseDate
 
 ) {
