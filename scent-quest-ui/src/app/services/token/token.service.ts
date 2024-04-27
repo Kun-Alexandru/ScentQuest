@@ -7,8 +7,18 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class TokenService {
 
-  set token(token: string) {
-    localStorage.setItem('token', token);
+  set token(token: string | null) {
+    if (token) {
+      const jwtHelper = new JwtHelperService();
+      localStorage.setItem('token', token);
+      const decodedToken = jwtHelper.decodeToken(token);
+      localStorage.setItem('fullName', decodedToken.fullName);
+      localStorage.setItem('userId', decodedToken.userId);
+    } else {
+      localStorage.removeItem('token');
+      localStorage.removeItem('fullName');
+      localStorage.removeItem('userId');
+    }
   }
 
   get token() {

@@ -6,6 +6,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  fullName: string | null = localStorage.getItem('fullName');
+
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link');
     linkColor.forEach(link => {
@@ -21,6 +23,8 @@ export class MenuComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('fullName');
+    localStorage.removeItem('userId');
     window.location.reload();
   }
 }
