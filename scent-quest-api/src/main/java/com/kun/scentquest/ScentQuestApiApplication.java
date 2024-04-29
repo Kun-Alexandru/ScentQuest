@@ -5,6 +5,7 @@ import com.kun.scentquest.role.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -21,8 +22,8 @@ public class ScentQuestApiApplication {
     @Bean
     public CommandLineRunner runner(RoleRepository roleRepository) {
         return args -> {
-            if(roleRepository.findByName("USER").isEmpty()) {
-                roleRepository.save(Role.builder().name("USER").build());
+            if(roleRepository.findByName("ROLE_USER").isEmpty()) {
+                roleRepository.save(Role.builder().name("ROLE_USER").build());
             }
         };
     }

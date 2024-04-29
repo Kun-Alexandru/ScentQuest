@@ -4,6 +4,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {ActivateAccountComponent} from "./pages/activate-account/activate-account.component";
 import {authGuard} from "./services/guard/auth.guard";
+import {AccessDeniedComponent} from "./pages/access-denied/access-denied.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
     path: 'fragrances',
     loadChildren: () => import('./modules/fragrance/fragrance.module').then(m => m.FragranceModule),
     canActivate: [authGuard]
+  },
+  {
+    path: 'access-denied',
+    component: AccessDeniedComponent
   }
 ];
 

@@ -25,6 +25,24 @@ export class TokenService {
     return localStorage.getItem('token') as string;
   }
 
+  get authorities() {
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken.authorities;
+    }
+  }
+
+  isAdmin() {
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken.authorities.includes('ROLE_ADMIN');
+    }
+  }
+
   isTokenValid() {
     const token = this.token;
     if (!token) {

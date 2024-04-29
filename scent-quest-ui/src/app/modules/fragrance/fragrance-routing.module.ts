@@ -6,6 +6,7 @@ import {MyFragrancesComponent} from "./pages/my-fragrances/my-fragrances.compone
 import {ManageFragranceComponent} from "./pages/manage-fragrance/manage-fragrance.component";
 import {LeaveFeedbackComponent} from "./pages/leave-feedback/leave-feedback.component";
 import {authGuard} from "../../services/guard/auth.guard";
+import {AdminGuard} from "../../services/admin/admin.guard";
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
       {
         path: 'manage',
         component: ManageFragranceComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard, AdminGuard]
       },
       {
         path: 'manage/:id',
