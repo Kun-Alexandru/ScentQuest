@@ -1,7 +1,7 @@
 package com.kun.scentquest.fragrance;
 
-import com.kun.scentquest.Feedback.Reaction;
-import com.kun.scentquest.Feedback.Review;
+import com.kun.scentquest.feedback.Reaction;
+import com.kun.scentquest.feedback.Review;
 import com.kun.scentquest.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,6 +30,7 @@ public class Fragrance {
     private String picture;
     private boolean discontinued;
     private LocalDate releaseDate;
+    private Integer number_of_likes;
 
     @ManyToOne
     @JoinColumn(name = "adder_id")

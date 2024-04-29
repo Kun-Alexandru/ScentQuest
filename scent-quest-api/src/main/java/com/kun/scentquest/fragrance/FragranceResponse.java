@@ -22,5 +22,6 @@ public class FragranceResponse {
     private LocalDate releaseDate;
     private double averageRating;
     private boolean discontinued;
+    private Integer number_of_likes;
 
 }

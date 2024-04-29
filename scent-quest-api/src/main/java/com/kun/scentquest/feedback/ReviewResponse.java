@@ -1,4 +1,4 @@
-package com.kun.scentquest.Feedback;
+package com.kun.scentquest.feedback;
 
 import lombok.*;
 

@@ -20,7 +20,8 @@ public record FragranceRequest(
         @NotEmpty(message = "103")
         String shortDescription,
         boolean discontinued,
-        LocalDate releaseDate
+        LocalDate releaseDate,
+        Integer number_of_likes
 
 ) {
 }

@@ -7,6 +7,7 @@ export interface FragranceResponse {
   discontinued?: boolean;
   fragranceId?: number;
   name?: string;
+  number_of_likes?: number;
   picture?: Array<string>;
   recommendedSeason?: string;
   releaseDate?: string;

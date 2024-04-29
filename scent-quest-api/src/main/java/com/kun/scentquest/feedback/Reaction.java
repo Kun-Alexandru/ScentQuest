@@ -1,6 +1,5 @@
-package com.kun.scentquest.Feedback;
+package com.kun.scentquest.feedback;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kun.scentquest.fragrance.Fragrance;
 import com.kun.scentquest.user.User;
 import jakarta.persistence.*;

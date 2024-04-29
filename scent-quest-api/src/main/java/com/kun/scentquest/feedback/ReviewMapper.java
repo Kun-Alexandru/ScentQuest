@@ -1,4 +1,4 @@
-package com.kun.scentquest.Feedback;
+package com.kun.scentquest.feedback;
 
 import com.kun.scentquest.fragrance.Fragrance;
 import org.springframework.stereotype.Service;

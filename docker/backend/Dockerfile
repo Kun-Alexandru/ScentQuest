@@ -16,6 +16,7 @@ COPY --from=build /build/target/scent-quest-*.jar /app/
 
 EXPOSE 8088
 
+ENV APP_PASSWORD=password
 ENV DB_URL=jdbc:postgresql://postgres-sql-scentquest:5432/scent_quest
 ENV MAILDEV_URL=maildev-scentquest:1080
 

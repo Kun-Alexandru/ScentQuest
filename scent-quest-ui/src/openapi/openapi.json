@@ -592,6 +592,10 @@
           "releaseDate": {
             "type": "string",
             "format": "date"
+          },
+          "number_of_likes": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -729,6 +733,10 @@
           },
           "discontinued": {
             "type": "boolean"
+          },
+          "number_of_likes": {
+            "type": "integer",
+            "format": "int32"
           },
           "fragranceId": {
             "type": "integer",
