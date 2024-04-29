@@ -1,7 +1,7 @@
-<h3>My Fragrance list</h3>
-<hr>
-<div class = "d-flex justify-content-end mb-3">
-  <a routerLink="/fragrances/manage" class="btn btn-outline-primary">
+<h2 class="display-4">My Fragrance list</h2>
+<hr class="my-4">
+<div class="d-flex justify-content-end mb-3">
+  <a routerLink="/fragrances/manage" class="btn btn-outline-primary fs-5">
     <i class="fas fa-plus"></i>&nbsp; New fragrance
   </a>
 </div>
@@ -12,7 +12,6 @@
     *ngFor="let fragrance of fragranceResponse.content"
     (delete)="deleteFragrance($event)"
     (edit)="editFragrance($event)"
-
   >
   </app-fragrance-card>
 </div>
@@ -22,7 +21,7 @@
       <li class="page-item">
         <a
           (click)="goToFirstPage()"
-          class="page-link"
+          class="page-link fs-5"
           href="javascript:void(0)"
           aria-label="Previous"
           [class.disabled]="page === 0"
@@ -33,7 +32,7 @@
       <li class="page-item">
         <a
           (click)="goToPreviousPage()"
-          class="page-link"
+          class="page-link fs-5"
           href="javascript:void(0)"
           aria-label="Previous"
           [class.disabled]="page === 0"
@@ -47,7 +46,7 @@
       >
         <a
           (click)="gotToPage(pageIndex)"
-          class="page-link"
+          class="page-link fs-5"
           [class.active]="page === pageIndex"
           href="javascript:void(0)"
         >{{ pageIndex + 1 }}</a>
@@ -55,7 +54,7 @@
       <li class="page-item">
         <a
           (click)="goToNextPage()"
-          class="page-link"
+          class="page-link fs-5"
           href="javascript:void(0)"
           aria-label="Next"
           [class.disabled]="isLastPage"
@@ -66,7 +65,7 @@
       <li class="page-item">
         <a
           (click)="goToLastPage()"
-          class="page-link"
+          class="page-link fs-5"
           href="javascript:void(0)"
           aria-label="Next"
           [class.disabled]="isLastPage"

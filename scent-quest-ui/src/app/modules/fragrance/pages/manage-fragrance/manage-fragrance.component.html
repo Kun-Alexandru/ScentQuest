@@ -1,64 +1,56 @@
-<div class="p-2">
-  <h2>Manage my fragrances</h2>
-  <hr>
-  <div class="alert alert-danger mt-2" role="alert" *ngIf="errorMsg.length">
-    <p class="p-0 m-0" *ngFor="let msg of errorMsg">{{msg}}</p>
+<div class="p-3">
+  <h1 class="display-4">Manage my fragrances</h1>
+  <hr class="my-4">
+  <div class="alert alert-danger mt-3" role="alert" *ngIf="errorMsg.length">
+    <p class="fs-5 m-0" *ngFor="let msg of errorMsg">{{msg}}</p>
   </div>
-  <div class="d-flex gap-2">
-    <div class="col-3">
-      <img class="rounded-1" width="100%" height="100%" [src]=" selectedPicture" alt="">
-      <div class="mt-2">
+  <div class="d-flex gap-3">
+    <div class="col-4">
+      <img class="rounded-3" width="100%" height="auto" [src]="selectedPicture" alt="">
+      <div class="mt-3">
         <input
           (change)="onFileSelected($event)"
-          class="form-control"
+          class="form-control fs-5"
           type="file"
           id="formFile"
           accept="image/*"
         >
       </div>
-      <div class="alert alert-danger mt-2" role="alert" *ngIf="!isFileSelected">
-        No file selected for upload.
+      <div class="alert alert-danger mt-3" role="alert" *ngIf="!isFileSelected">
+        <p class="fs-5">No file selected for upload.</p>
       </div>
     </div>
-    <div class="col-9">
-      <form class = "row g-3">
-        <div class = "col-12">
-          <label for="name" class="form-label">Name</label>
-          <input [(ngModel)]="fragranceRequest.name" name="name" type="text" class="form-control" id="name" placeholder="Name">
+    <div class="col-8">
+      <form class="row g-3">
+        <div class="col-12 mb-3">
+          <label for="name" class="form-label fs-5">Name</label>
+          <input [(ngModel)]="fragranceRequest.name" name="name" type="text" class="form-control fs-5" id="name" placeholder="Name">
         </div>
-        <div class = "col-6">
-          <label for="brand" class="form-label">Brand</label>
-          <input [(ngModel)]="fragranceRequest.brand" name="brand" type="text" class="form-control" id="brand" placeholder="Brand">
+        <div class="col-6 mb-3">
+          <label for="brand" class="form-label fs-5">Brand</label>
+          <input [(ngModel)]="fragranceRequest.brand" name="brand" type="text" class="form-control fs-5" id="brand" placeholder="Brand">
         </div>
-        <div class = "col-6">
-          <label for="reccommendedSeason" class="form-label">Season</label>
-          <input [(ngModel)]="fragranceRequest.recommendedSeason" name="reccommendedSeason" type="text" class="form-control" id="reccommendedSeason" placeholder="Name">
+        <div class="col-6 mb-3">
+          <label for="recommendedSeason" class="form-label fs-5">Season</label>
+          <input [(ngModel)]="fragranceRequest.recommendedSeason" name="recommendedSeason" type="text" class="form-control fs-5" id="recommendedSeason" placeholder="Season">
         </div>
-        <div class = "col-12">
-          <label for="description" class="form-label">Description</label>
-          <textarea [(ngModel)]="fragranceRequest.shortDescription" name="description" rows = "4" class="form-control" id="description" placeholder="Description">
-          </textarea>
+        <div class="col-12 mb-3">
+          <label for="description" class="form-label fs-5">Description</label>
+          <textarea [(ngModel)]="fragranceRequest.shortDescription" name="description" rows="4" class="form-control fs-5" id="description" placeholder="Description"></textarea>
         </div>
-        <div class = "col-12">
-          <label for="releaseDate" class="form-label">Release Date</label>
-          <input [(ngModel)]="fragranceRequest.releaseDate" name="releaseDate" type="date" class="form-control" id="releaseDate" placeholder="releaseDate">
+        <div class="col-12 mb-3">
+          <label for="releaseDate" class="form-label fs-5">Release Date</label>
+          <input [(ngModel)]="fragranceRequest.releaseDate" name="releaseDate" type="date" class="form-control fs-5" id="releaseDate">
         </div>
-        <div class="col-12">
+        <div class="col-12 mb-3">
           <div class="form-check">
-            <input [(ngModel)]="fragranceRequest.discontinued" name="discontinued" class="form-check-input" type="checkbox" id="gridCheck"
-                   name="discontinued">
-            <label class="form-check-label" for="gridCheck">
-              Discontinued
-            </label>
+            <input [(ngModel)]="fragranceRequest.discontinued" name="discontinued" class="form-check-input fs-5" type="checkbox" id="gridCheck">
+            <label class="form-check-label fs-5" for="gridCheck">Discontinued</label>
           </div>
         </div>
-        <div class="d-flex justify-content-end gap-2 col-12">
-          <button  (click)="saveFragrance()" type="submit" class="btn btn-outline-primary">
-            <i class="fas fa-save"></i>&nbsp;Save
-          </button>
-          <a routerLink="/fragrances/my-fragrances" type="submit" class="btn btn-link btn text-danger">
-            <i class="fas fa-times"></i>&nbsp;Cancel
-          </a>
+        <div class="d-flex justify-content-end gap-3 col-12">
+          <button (click)="saveFragrance()" type="submit" class="btn btn-outline-primary fs-5"><i class="fas fa-save"></i>&nbsp;Save</button>
+          <a routerLink="/fragrances/my-fragrances" class="btn btn-link btn text-danger fs-5"><i class="fas fa-times"></i>&nbsp;Cancel</a>
         </div>
       </form>
     </div>

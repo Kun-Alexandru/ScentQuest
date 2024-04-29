@@ -1,9 +1,24 @@
-div {
-  &.card {
-    max-height: 450px;
-    min-height: 450px;
-  }
+/* Ensure that the card body scrolls if the description is too long */
+.card-body {
+  overflow-y: auto;
 }
-i {
-  cursor: pointer;
+
+/* Adjust the height of the card */
+.card {
+  height: 500px; /* Change to max-height if you want it to grow as needed */
+}
+
+/* Make sure the buttons are always visible */
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+/* Increase the font size */
+.card-title,
+.card-subtitle,
+.card-text {
+  font-size: 1.25rem; /* Adjust as needed */
 }

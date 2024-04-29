@@ -1,0 +1,25 @@
+.bg-image {
+  //background-image: url('abstract_background.jpg');
+  height: 100vh; /* Change height to 100vh */
+  background-size: cover; /* Ensure the background covers the entire viewport */
+}
+
+.login-container {
+  width: 800px !important;
+  position: absolute;
+  left: 50%; /* Move the container to the center horizontally */
+  transform: translateX(-50%); /* Adjust to center horizontally */
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.login-container h3,
+.login-container p,
+.login-container label,
+.login-container input,
+.login-container button {
+  font-size: 1.25rem; /* Adjust as needed */
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
