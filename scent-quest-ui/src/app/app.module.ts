@@ -12,6 +12,7 @@ import {CodeInputModule} from "angular-code-input";
 import {HttpTokenInterceptor} from "./services/interceptor/http-token.interceptor";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AccessDeniedComponent } from './pages/access-denied/access-denied.compo
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CodeInputModule
+    CodeInputModule,
+    MatSelectModule
   ],
   providers: [
     provideClientHydration(),

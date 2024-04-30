@@ -107,15 +107,15 @@ export class MyFavoriteListComponent implements OnInit {
       'fragrance-id': fragrance.fragranceId as number
     }).subscribe({
       next: () => {
-        this.level = 'success';
-        this.message = 'Fragrance successfully favorited';
+        //this.level = 'success';
+        //this.message = 'Fragrance successfully favorited';
         this.findAllFavourites();
         this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
-        this.level = 'error';
-        this.message = err.error.error;
+        //this.level = 'error';
+        //this.message = err.error.error;
       }
     });
   }
@@ -125,15 +125,15 @@ export class MyFavoriteListComponent implements OnInit {
       'fragrance-id': fragrance.fragranceId as number
     }).subscribe({
       next: () => {
-        this.level = 'success';
-        this.message = 'Fragrance removed from favourites';
+        //this.level = 'success';
+        //this.message = 'Fragrance removed from favourites';
         this.findAllFavourites();
         this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
-        this.level = 'error';
-        this.message = err.error.error;
+        //this.level = 'error';
+        //this.message = err.error.error;
       }
     });
   }

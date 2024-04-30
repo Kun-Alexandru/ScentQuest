@@ -1,22 +1,40 @@
-import {Component, OnInit} from '@angular/core';
-import {FragranceRequest} from "../../../../services/models/fragrance-request";
-import {saveFragrance} from "../../../../services/fn/fragrance/save-fragrance";
-import {FragranceService} from "../../../../services/services/fragrance.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FragranceRequest } from '../../../../services/models/fragrance-request';
+import { FragranceService } from '../../../../services/services/fragrance.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+
+interface City {
+  name: string,
+  code: string
+}
 
 @Component({
   selector: 'app-manage-fragrance',
   templateUrl: './manage-fragrance.component.html',
-  styleUrl: './manage-fragrance.component.scss'
+  styleUrls: ['./manage-fragrance.component.scss']
 })
 export class ManageFragranceComponent implements OnInit {
+  selectedToppings = new FormControl(['Extra cheese','Onion']);
+  toppings: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
+  cities: City[] = [
+    {name: 'New York', code: 'NY'},
+    {name: 'Rome', code: 'RM'},
+    {name: 'London', code: 'LDN'},
+    {name: 'Istanbul', code: 'IST'},
+    {name: 'Paris', code: 'PRS'}
+  ];
+
+  selectedCityCodes: string[] = ['Paris','Rome'];
+
   fragranceRequest: FragranceRequest = {
-    brand: "",
+    brand: '',
     discontinued: false,
-    name: "",
-    recommendedSeason: "",
-    releaseDate: "",
-    shortDescription: "",
+    name: '',
+    recommendedSeason: '',
+    releaseDate: '',
+    shortDescription: '',
   };
   errorMsg: Array<string> = [];
   selectedFragranceCover: any;
@@ -42,9 +60,9 @@ export class ManageFragranceComponent implements OnInit {
             recommendedSeason: fragrance.recommendedSeason as string,
             releaseDate: fragrance.releaseDate as string,
             shortDescription: fragrance.shortDescription as string,
-            discontinued: fragrance.discontinued as boolean
+            discontinued: fragrance.discontinued as boolean,
           };
-          this.selectedPicture='data:image/jpg;base64,' + fragrance.picture;
+          this.selectedPicture = 'data:image/jpg;base64,' + fragrance.picture;
         }
       });
     }
@@ -54,7 +72,6 @@ export class ManageFragranceComponent implements OnInit {
     this.selectedFragranceCover = (event.target as HTMLInputElement).files?.[0];
     console.log(this.selectedFragranceCover);
     if (this.selectedFragranceCover) {
-
       const reader = new FileReader();
       reader.onload = () => {
         this.selectedPicture = reader.result as string;
@@ -65,11 +82,13 @@ export class ManageFragranceComponent implements OnInit {
   }
 
   saveFragrance() {
-
     if (!this.selectedFragranceCover) {
       this.isFileSelected = false;
       return;
     }
+
+    console.log("uff " + this.selectedToppings.value);
+    console.log("buff " + this.selectedCityCodes);
 
     this.fragranceService.saveFragrance({
       body: this.fragranceRequest

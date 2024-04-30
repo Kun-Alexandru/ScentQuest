@@ -9,9 +9,13 @@ import { FragranceCardComponent } from './components/fragrance-card/fragrance-ca
 import { RatingComponent } from './components/rating/rating.component';
 import { MyFragrancesComponent } from './pages/my-fragrances/my-fragrances.component';
 import { ManageFragranceComponent } from './pages/manage-fragrance/manage-fragrance.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LeaveFeedbackComponent } from './pages/leave-feedback/leave-feedback.component';
 import { MyFavoriteListComponent } from './pages/my-favorite-list/my-favorite-list.component';
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatOption} from "@angular/material/autocomplete";
+import {MatSelect} from "@angular/material/select";
+import {MultiSelectModule} from "primeng/multiselect";
 
 
 @NgModule({
@@ -29,7 +33,13 @@ import { MyFavoriteListComponent } from './pages/my-favorite-list/my-favorite-li
   imports: [
     CommonModule,
     FragranceRoutingModule,
-    FormsModule
+    FormsModule,
+    MatFormField,
+    MatOption,
+    MatSelect,
+    MatLabel,
+    MultiSelectModule,
+    ReactiveFormsModule
   ]
 })
 export class FragranceModule { }
