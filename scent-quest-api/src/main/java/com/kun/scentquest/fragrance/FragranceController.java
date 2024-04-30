@@ -127,5 +127,13 @@ public class FragranceController {
         return ResponseEntity.ok(fragranceService.findAllFavouritesByUserIdAndFragranceId(connectedUser, fragranceId));
     }
 
+    @GetMapping("/favourite/owner")
+    public ResponseEntity<PageResponse<FragranceResponse>> findAllFavoritedFragrancesByOwner(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByOwner(page, size, connectedUser));
+    }
 
 }

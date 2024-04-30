@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { deleteFavourite } from '../fn/fragrance/delete-favourite';
 import { DeleteFavourite$Params } from '../fn/fragrance/delete-favourite';
+import { findAllFavoritedFragrancesByOwner } from '../fn/fragrance/find-all-favorited-fragrances-by-owner';
+import { FindAllFavoritedFragrancesByOwner$Params } from '../fn/fragrance/find-all-favorited-fragrances-by-owner';
 import { findAllFavouritesByUserId } from '../fn/fragrance/find-all-favourites-by-user-id';
 import { FindAllFavouritesByUserId$Params } from '../fn/fragrance/find-all-favourites-by-user-id';
 import { findAllFragrances } from '../fn/fragrance/find-all-fragrances';
@@ -347,6 +349,31 @@ export class FragranceService extends BaseService {
   findFavouriteByUserIdAndFragranceId(params: FindFavouriteByUserIdAndFragranceId$Params, context?: HttpContext): Observable<number> {
     return this.findFavouriteByUserIdAndFragranceId$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllFavoritedFragrancesByOwner()` */
+  static readonly FindAllFavoritedFragrancesByOwnerPath = '/fragrances/favourite/owner';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllFavoritedFragrancesByOwner()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFavoritedFragrancesByOwner$Response(params?: FindAllFavoritedFragrancesByOwner$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFragranceResponse>> {
+    return findAllFavoritedFragrancesByOwner(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllFavoritedFragrancesByOwner$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFavoritedFragrancesByOwner(params?: FindAllFavoritedFragrancesByOwner$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
+    return this.findAllFavoritedFragrancesByOwner$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
     );
   }
 

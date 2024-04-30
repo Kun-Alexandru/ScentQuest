@@ -7,6 +7,7 @@ import {ManageFragranceComponent} from "./pages/manage-fragrance/manage-fragranc
 import {LeaveFeedbackComponent} from "./pages/leave-feedback/leave-feedback.component";
 import {authGuard} from "../../services/guard/auth.guard";
 import {AdminGuard} from "../../services/admin/admin.guard";
+import {MyFavoriteListComponent} from "./pages/my-favorite-list/my-favorite-list.component";
 
 const routes: Routes = [
   {
@@ -37,6 +38,11 @@ const routes: Routes = [
       {
         path: 'review/:id',
         component: LeaveFeedbackComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'my-favorites',
+        component: MyFavoriteListComponent,
         canActivate: [authGuard]
       }
       ]

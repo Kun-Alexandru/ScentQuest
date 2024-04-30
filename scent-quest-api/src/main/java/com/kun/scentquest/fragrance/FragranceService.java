@@ -198,4 +198,21 @@ public class FragranceService {
                 .orElseThrow(() -> new EntityNotFoundException("No favourite found with user ID:: " + user.getId()));
     }
 
+    public PageResponse<FragranceResponse> findAllFavoritedFragrancesByOwner(int page, int size, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Fragrance> fragrances = favouriteRepository.findAllFavoriteFragrancesByUserId(pageable, user.getId());
+        List<FragranceResponse> fragranceResponses = fragrances.stream()
+                .map(fragranceMapper::toFragranceResponse)
+                .toList();
+        return new PageResponse<>(
+                fragranceResponses,
+                fragrances.getNumber(),
+                fragrances.getSize(),
+                fragrances.getTotalElements(),
+                fragrances.getTotalPages(),
+                fragrances.isFirst(),
+                fragrances.isLast());
+    }
+
 }

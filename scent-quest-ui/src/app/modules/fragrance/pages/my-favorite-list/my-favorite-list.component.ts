@@ -6,11 +6,12 @@ import {FragranceResponse} from "../../../../services/models/fragrance-response"
 import {Observable} from "rxjs";
 
 @Component({
-  selector: 'app-fragrance-list',
-  templateUrl: './fragrance-list.component.html',
-  styleUrl: './fragrance-list.component.scss'
+  selector: 'app-my-favorite-list',
+  templateUrl: './my-favorite-list.component.html',
+  styleUrl: './my-favorite-list.component.scss'
 })
-export class FragranceListComponent implements OnInit {
+export class MyFavoriteListComponent implements OnInit {
+
   fragranceResponse: PageResponseFragranceResponse = {};
   page = 0;
   size = 5;
@@ -31,7 +32,7 @@ export class FragranceListComponent implements OnInit {
   }
 
   private findAllFragrances() {
-    this.fragranceService.findAllFragrances({
+    this.fragranceService.findAllFavoritedFragrancesByOwner({
       page: this.page,
       size: this.size
     })
@@ -88,8 +89,8 @@ export class FragranceListComponent implements OnInit {
   }
 
   reviewFragrance(fragrance: FragranceResponse) {
-      this.router.navigate(['fragrances', 'review', fragrance.fragranceId]);
-    }
+    this.router.navigate(['fragrances', 'review', fragrance.fragranceId]);
+  }
 
   favouriteFragrance(fragrance: FragranceResponse) {
     this.message = '';
@@ -108,7 +109,8 @@ export class FragranceListComponent implements OnInit {
       next: () => {
         this.level = 'success';
         this.message = 'Fragrance successfully favorited';
-        this.findAllFavourites(); // Update favorites list
+        this.findAllFavourites();
+        this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
@@ -126,6 +128,7 @@ export class FragranceListComponent implements OnInit {
         this.level = 'success';
         this.message = 'Fragrance removed from favourites';
         this.findAllFavourites();
+        this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
@@ -138,5 +141,5 @@ export class FragranceListComponent implements OnInit {
   closeMessage() {
     this.message = '';
   }
-}
 
+}

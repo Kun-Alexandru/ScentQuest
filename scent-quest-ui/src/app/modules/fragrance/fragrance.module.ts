@@ -11,6 +11,7 @@ import { MyFragrancesComponent } from './pages/my-fragrances/my-fragrances.compo
 import { ManageFragranceComponent } from './pages/manage-fragrance/manage-fragrance.component';
 import {FormsModule} from "@angular/forms";
 import { LeaveFeedbackComponent } from './pages/leave-feedback/leave-feedback.component';
+import { MyFavoriteListComponent } from './pages/my-favorite-list/my-favorite-list.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { LeaveFeedbackComponent } from './pages/leave-feedback/leave-feedback.co
     RatingComponent,
     MyFragrancesComponent,
     ManageFragranceComponent,
-    LeaveFeedbackComponent
+    LeaveFeedbackComponent,
+    MyFavoriteListComponent
   ],
   imports: [
     CommonModule,
