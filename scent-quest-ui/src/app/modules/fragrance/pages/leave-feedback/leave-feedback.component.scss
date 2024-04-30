@@ -1,5 +1,5 @@
 .container-fluid {
-  width: 800px !important;
+  width: 1000px !important;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -21,4 +21,17 @@
 
 .container-fluid button {
   margin-top: 10px;
+}
+
+.custom-image-size {
+  width: 400px; /* Adjust the width as needed */
+  height: 170px; /* Maintains aspect ratio */
+}
+
+.paddingLeft {
+  padding-left: 40px;
+}
+
+.paddingRight {
+  padding-right: 40px;
 }
