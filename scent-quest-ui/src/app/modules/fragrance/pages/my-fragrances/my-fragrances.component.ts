@@ -3,6 +3,7 @@ import {PageResponseFragranceResponse} from "../../../../services/models/page-re
 import {FragranceService} from "../../../../services/services/fragrance.service";
 import {Router} from "@angular/router";
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
+import {TokenService} from "../../../../services/token/token.service";
 
 @Component({
   selector: 'app-my-fragrances',
@@ -14,15 +15,18 @@ export class MyFragrancesComponent implements OnInit {
   page = 0;
   size = 5;
   pages: any = [];
+  favourites: Number[] = [];
 
   constructor(
     private fragranceService: FragranceService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) {
   }
 
   ngOnInit(): void {
     this.findAllFragrances();
+    this.findAllFavourites();
   }
 
   private findAllFragrances() {
@@ -38,6 +42,15 @@ export class MyFragrancesComponent implements OnInit {
             .map((x, i) => i);
         }
       });
+  }
+
+  private findAllFavourites() {
+    this.fragranceService.findAllFavouritesByUserId().subscribe({
+      next: (favourites) => {
+        this.favourites = favourites;
+        console.log("Favorites:", this.favourites);
+      }
+    });
   }
 
   gotToPage(page: number) {
@@ -79,5 +92,10 @@ export class MyFragrancesComponent implements OnInit {
 
   editFragrance(fragrance: FragranceResponse) {
     this.router.navigate(['fragrances', 'manage', fragrance.fragranceId]);
+  }
+
+  isAdmin() {
+    console.log(this.tokenService.isAdmin());
+    return this.tokenService.isAdmin() == true;
   }
 }

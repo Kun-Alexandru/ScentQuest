@@ -1,5 +1,7 @@
 package com.kun.scentquest.user;
 
+import com.kun.scentquest.feedback.Reaction;
+import com.kun.scentquest.fragrance.Favourite;
 import com.kun.scentquest.fragrance.Fragrance;
 import com.kun.scentquest.role.Role;
 import jakarta.persistence.*;
@@ -45,6 +47,9 @@ public class User implements UserDetails, Principal {
 
     @OneToMany(mappedBy = "adder")
     private List<Fragrance> fragrances;
+
+    @OneToMany(mappedBy = "user")
+    private List<Favourite> favourites;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)

@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("fragrances")
 @RequiredArgsConstructor
@@ -93,7 +95,37 @@ public class FragranceController {
         return ResponseEntity.accepted().build();
     }
 
+    @PostMapping("/favourite")
+    public ResponseEntity<Integer> saveFavourite(
+            @RequestParam("fragrance-id") Integer fragranceId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.save(fragranceId, connectedUser));
+    }
 
+
+    @DeleteMapping("/favourite")
+    public ResponseEntity<Integer> deleteFavourite(
+            @RequestParam("fragrance-id") Integer fragranceId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.delete(fragranceId, connectedUser));
+    }
+
+    @GetMapping("/favourite")
+    public List<Integer> findAllFavouritesByUserId(
+            Authentication connectedUser
+    ) {
+        return fragranceService.findAllFavouritesByUserId(connectedUser);
+    }
+
+    @GetMapping("/favourite/{fragrance-id}")
+    public ResponseEntity<Integer> findFavouriteByUserIdAndFragranceId(
+            @RequestParam("fragrance-id") Integer fragranceId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.findAllFavouritesByUserIdAndFragranceId(connectedUser, fragranceId));
+    }
 
 
 }

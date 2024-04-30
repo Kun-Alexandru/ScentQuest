@@ -9,6 +9,10 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { deleteFavourite } from '../fn/fragrance/delete-favourite';
+import { DeleteFavourite$Params } from '../fn/fragrance/delete-favourite';
+import { findAllFavouritesByUserId } from '../fn/fragrance/find-all-favourites-by-user-id';
+import { FindAllFavouritesByUserId$Params } from '../fn/fragrance/find-all-favourites-by-user-id';
 import { findAllFragrances } from '../fn/fragrance/find-all-fragrances';
 import { FindAllFragrances$Params } from '../fn/fragrance/find-all-fragrances';
 import { findAllFragrancesByNote } from '../fn/fragrance/find-all-fragrances-by-note';
@@ -17,10 +21,14 @@ import { findAllFragrancesByOwner } from '../fn/fragrance/find-all-fragrances-by
 import { FindAllFragrancesByOwner$Params } from '../fn/fragrance/find-all-fragrances-by-owner';
 import { findAllFragrancesByPerfumer } from '../fn/fragrance/find-all-fragrances-by-perfumer';
 import { FindAllFragrancesByPerfumer$Params } from '../fn/fragrance/find-all-fragrances-by-perfumer';
+import { findFavouriteByUserIdAndFragranceId } from '../fn/fragrance/find-favourite-by-user-id-and-fragrance-id';
+import { FindFavouriteByUserIdAndFragranceId$Params } from '../fn/fragrance/find-favourite-by-user-id-and-fragrance-id';
 import { findFragranceById } from '../fn/fragrance/find-fragrance-by-id';
 import { FindFragranceById$Params } from '../fn/fragrance/find-fragrance-by-id';
 import { FragranceResponse } from '../models/fragrance-response';
 import { PageResponseFragranceResponse } from '../models/page-response-fragrance-response';
+import { saveFavourite } from '../fn/fragrance/save-favourite';
+import { SaveFavourite$Params } from '../fn/fragrance/save-favourite';
 import { saveFragrance } from '../fn/fragrance/save-fragrance';
 import { SaveFragrance$Params } from '../fn/fragrance/save-fragrance';
 import { updateDiscontinued } from '../fn/fragrance/update-discontinued';
@@ -114,6 +122,81 @@ export class FragranceService extends BaseService {
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllFavouritesByUserId()` */
+  static readonly FindAllFavouritesByUserIdPath = '/fragrances/favourite';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllFavouritesByUserId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFavouritesByUserId$Response(params?: FindAllFavouritesByUserId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {
+    return findAllFavouritesByUserId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllFavouritesByUserId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFavouritesByUserId(params?: FindAllFavouritesByUserId$Params, context?: HttpContext): Observable<Array<number>> {
+    return this.findAllFavouritesByUserId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<number>>): Array<number> => r.body)
+    );
+  }
+
+  /** Path part for operation `saveFavourite()` */
+  static readonly SaveFavouritePath = '/fragrances/favourite';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveFavourite()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  saveFavourite$Response(params: SaveFavourite$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveFavourite(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `saveFavourite$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  saveFavourite(params: SaveFavourite$Params, context?: HttpContext): Observable<number> {
+    return this.saveFavourite$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `deleteFavourite()` */
+  static readonly DeleteFavouritePath = '/fragrances/favourite';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteFavourite()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFavourite$Response(params: DeleteFavourite$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return deleteFavourite(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteFavourite$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFavourite(params: DeleteFavourite$Params, context?: HttpContext): Observable<number> {
+    return this.deleteFavourite$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
@@ -239,6 +322,31 @@ export class FragranceService extends BaseService {
   findAllFragrancesByOwner(params?: FindAllFragrancesByOwner$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
     return this.findAllFragrancesByOwner$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `findFavouriteByUserIdAndFragranceId()` */
+  static readonly FindFavouriteByUserIdAndFragranceIdPath = '/fragrances/favourite/{fragrance-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findFavouriteByUserIdAndFragranceId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findFavouriteByUserIdAndFragranceId$Response(params: FindFavouriteByUserIdAndFragranceId$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return findFavouriteByUserIdAndFragranceId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findFavouriteByUserIdAndFragranceId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findFavouriteByUserIdAndFragranceId(params: FindFavouriteByUserIdAndFragranceId$Params, context?: HttpContext): Observable<number> {
+    return this.findFavouriteByUserIdAndFragranceId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 

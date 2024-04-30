@@ -15,7 +15,8 @@
     </div>
     <div class="d-flex gap-2" *ngIf="!manage">
       <i (click)="onShowDetails()" class="fas fa-info-circle"></i>
-      <i (click)="onFavourite()" class="fas fa-heart text-danger"></i>
+      <i *ngIf="isInList == true" (click)="onFavourite()" class="fas fa-heart text-danger"></i>
+      <i *ngIf="isInList == false" (click)="onFavourite()" class="far fa-heart text-danger"></i>
       <i (click)="onReview()" class="fas fa-comment text-primary"></i>
     </div>
     <div class="d-flex gap-2" *ngIf="manage">

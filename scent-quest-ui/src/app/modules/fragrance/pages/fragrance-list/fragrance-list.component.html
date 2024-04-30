@@ -13,6 +13,8 @@
 <div class="d-flex justify-content-start gap-2 flex-wrap">
   <app-fragrance-card
     [fragrance]="fragrance"
+    (favourite)="favouriteFragrance($event)"
+    [favourites]="favourites"
     *ngFor="let fragrance of fragranceResponse.content"
     [manage] = "false"
     (review)="reviewFragrance($event)"

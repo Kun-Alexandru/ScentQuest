@@ -11,7 +11,7 @@ export class FragranceCardComponent {
   private _manage = false;
   private _fragrancePhoto: string | undefined;
   private _fragrance: FragranceResponse = {};
-
+  private _favourites: Number[] = [];
 
   get fragrance(): FragranceResponse {
     return this._fragrance;
@@ -29,6 +29,15 @@ export class FragranceCardComponent {
   @Input()
   set manage(value: boolean) {
     this._manage = value;
+  }
+
+  @Input()
+  set favourites(value: Number[]) {
+    this._favourites = value;
+  }
+
+  get favourites(): Number[] {
+    return this._favourites;
   }
 
   get fragrancePhoto(): string | undefined {
@@ -63,4 +72,11 @@ export class FragranceCardComponent {
   onReview() {
     this.review.emit(this._fragrance);
   }
+
+  get isInList(): boolean {
+    console.log("Favourites:", this._favourites);
+    const fragranceId = this._fragrance?.fragranceId;
+    return typeof fragranceId === 'number' && this._favourites.includes(fragranceId);
+  }
+
 }

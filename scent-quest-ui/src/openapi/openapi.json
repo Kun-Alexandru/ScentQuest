@@ -196,6 +196,90 @@
         }
       }
     },
+    "/fragrances/favourite": {
+      "get": {
+        "tags": [
+          "fragrance"
+        ],
+        "operationId": "findAllFavouritesByUserId",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "fragrance"
+        ],
+        "operationId": "saveFavourite",
+        "parameters": [
+          {
+            "name": "fragrance-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "fragrance"
+        ],
+        "operationId": "deleteFavourite",
+        "parameters": [
+          {
+            "name": "fragrance-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "tags": [
@@ -506,6 +590,38 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PageResponseFragranceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fragrances/favourite/{fragrance-id}": {
+      "get": {
+        "tags": [
+          "fragrance"
+        ],
+        "operationId": "findFavouriteByUserIdAndFragranceId",
+        "parameters": [
+          {
+            "name": "fragrance-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
                 }
               }
             }

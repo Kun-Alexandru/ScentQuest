@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class FragranceService {
     private final FragranceMapper fragranceMapper;
     private final FragranceRepository fragranceRepository;
     private final FileStorageService fileStorageService;
+    private final FavouriteRepository favouriteRepository;
 
     public Integer save(FragranceRequest request, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
@@ -144,4 +146,56 @@ public class FragranceService {
         fragrance.setPicture(fragrancePicture);
         fragranceRepository.save(fragrance);
     }
+
+    public Integer save(Integer fragranceId, Authentication connectedUser) {
+        Fragrance fragrance = fragranceRepository.findById(fragranceId)
+                .orElseThrow(() -> new EntityNotFoundException("No fragrance found with ID:: " + fragranceId));
+
+        User user = ((User) connectedUser.getPrincipal());
+
+        final boolean isAlreadyFavourite = favouriteRepository.isAlreadyFavourite(fragranceId, user.getId());
+        if(isAlreadyFavourite) {
+            throw new OperationNotPermittedException("Fragrance is already in your favourites");
+        }
+
+        Favourite favourite = Favourite.builder()
+                .fragrance(fragrance)
+                .user(user)
+                .build();
+        System.out.println(favourite);
+        return favouriteRepository.save(favourite).getId();
+    }
+
+    public Integer delete(Integer fragranceId, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        final boolean isAlreadyFavourite = favouriteRepository.isAlreadyFavourite(fragranceId, user.getId());
+        if(!isAlreadyFavourite) {
+            throw new OperationNotPermittedException("Fragrance is not in your favourites");
+        }
+        Favourite favourite = favouriteRepository.findAllByFragranceIdAndUserId(fragranceId, user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No favourite found with fragrance ID:: " + fragranceId));
+        favouriteRepository.delete(favourite);
+        return 1;
+    }
+
+    public List<Integer> findAllFavouritesByUserId(Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        List<Favourite> favourites = favouriteRepository.findAllByUserId(user.getId());
+        if(favourites.isEmpty()) {
+            return Collections.emptyList();
+        }
+        else
+            return favourites.stream()
+                .map(Favourite::getFragrance)
+                .map(Fragrance::getFragranceId)
+                .collect(Collectors.toList());
+    }
+
+    public Integer findAllFavouritesByUserIdAndFragranceId(Authentication connectedUser, Integer fragranceId) {
+        User user = ((User) connectedUser.getPrincipal());
+        return favouriteRepository.findAllByFragranceIdAndUserId(fragranceId, user.getId())
+                .map(Favourite::getId)
+                .orElseThrow(() -> new EntityNotFoundException("No favourite found with user ID:: " + user.getId()));
+    }
+
 }
