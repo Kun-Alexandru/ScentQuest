@@ -162,7 +162,6 @@ public class FragranceService {
                 .fragrance(fragrance)
                 .user(user)
                 .build();
-        System.out.println(favourite);
         return favouriteRepository.save(favourite).getId();
     }
 

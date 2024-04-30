@@ -1,0 +1,24 @@
+.container-fluid {
+  width: 800px !important;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #007bff;
+  border-radius: 10px;
+}
+
+.container-fluid h2,
+.container-fluid strong,
+.container-fluid label,
+.container-fluid input,
+.container-fluid textarea,
+.container-fluid button {
+  font-size: 1.25rem;
+}
+
+.container-fluid button {
+  margin-top: 10px;
+}
