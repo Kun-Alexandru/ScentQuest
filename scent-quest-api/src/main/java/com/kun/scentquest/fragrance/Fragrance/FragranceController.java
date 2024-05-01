@@ -164,4 +164,11 @@ public class FragranceController {
         return ResponseEntity.ok(fragranceService.getPerfumersByFragranceId(fragranceId));
     }
 
+    @DeleteMapping("/{fragrance-id}")
+    public ResponseEntity<Integer> deleteFragrance(
+            @PathVariable("fragrance-id") Integer fragranceId
+    ) {
+        return ResponseEntity.ok(fragranceService.deleteFragrance(fragranceId));
+    }
+
 }

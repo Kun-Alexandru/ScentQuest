@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -254,5 +255,14 @@ public class FragranceService {
         return perfumers.stream()
                 .map(perfumerMapper::toPerfumerResponse)
                 .collect(Collectors.toList());
+    }
+
+    public Integer deleteFragrance(Integer fragranceId) {
+        if (fragranceRepository.existsById(fragranceId)) {
+            fragranceRepository.deleteById(fragranceId);
+            return fragranceId;
+        } else {
+            throw new EntityNotFoundException("Fragrance not found with the Id:: " + fragranceId);
+        }
     }
 }

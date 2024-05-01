@@ -4,6 +4,8 @@ import {FragranceService} from "../../../../services/services/fragrance.service"
 import {Router} from "@angular/router";
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
 import {TokenService} from "../../../../services/token/token.service";
+import { MatDialog } from '@angular/material/dialog';
+import {ConfirmationDialogComponent} from "../../components/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-my-fragrances',
@@ -20,7 +22,8 @@ export class MyFragrancesComponent implements OnInit {
   constructor(
     private fragranceService: FragranceService,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -87,7 +90,30 @@ export class MyFragrancesComponent implements OnInit {
   }
 
   deleteFragrance(fragrance: FragranceResponse) {
+    if(confirm("Are you sure you want to delete this fragrance?"))
+    this.fragranceService.deleteFragrance({
+      'fragrance-id': fragrance.fragranceId as number
+    }).subscribe({
+      next: () => {
+        this.findAllFragrances();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
 
+  openConfirmationDialog(fragrance: FragranceResponse): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+      data: 'Are you sure you want to delete this fragrance?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteFragrance(fragrance);
+      }
+    });
   }
 
   editFragrance(fragrance: FragranceResponse) {

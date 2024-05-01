@@ -16,6 +16,9 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {MultiSelectModule} from "primeng/multiselect";
+import { DeleteConfirmationDialogComponent } from './components/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -28,7 +31,9 @@ import {MultiSelectModule} from "primeng/multiselect";
     MyFragrancesComponent,
     ManageFragranceComponent,
     LeaveFeedbackComponent,
-    MyFavoriteListComponent
+    MyFavoriteListComponent,
+    DeleteConfirmationDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +44,10 @@ import {MultiSelectModule} from "primeng/multiselect";
     MatSelect,
     MatLabel,
     MultiSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose
   ]
 })
 export class FragranceModule { }

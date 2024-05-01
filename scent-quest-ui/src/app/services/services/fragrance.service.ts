@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { deleteFavourite } from '../fn/fragrance/delete-favourite';
 import { DeleteFavourite$Params } from '../fn/fragrance/delete-favourite';
+import { deleteFragrance } from '../fn/fragrance/delete-fragrance';
+import { DeleteFragrance$Params } from '../fn/fragrance/delete-fragrance';
 import { findAllFavoritedFragrancesByOwner } from '../fn/fragrance/find-all-favorited-fragrances-by-owner';
 import { FindAllFavoritedFragrancesByOwner$Params } from '../fn/fragrance/find-all-favorited-fragrances-by-owner';
 import { findAllFavouritesByUserId } from '../fn/fragrance/find-all-favourites-by-user-id';
@@ -255,6 +257,31 @@ export class FragranceService extends BaseService {
   findFragranceById(params: FindFragranceById$Params, context?: HttpContext): Observable<FragranceResponse> {
     return this.findFragranceById$Response(params, context).pipe(
       map((r: StrictHttpResponse<FragranceResponse>): FragranceResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `deleteFragrance()` */
+  static readonly DeleteFragrancePath = '/fragrances/{fragrance-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteFragrance()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFragrance$Response(params: DeleteFragrance$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return deleteFragrance(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteFragrance$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFragrance(params: DeleteFragrance$Params, context?: HttpContext): Observable<number> {
+    return this.deleteFragrance$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 

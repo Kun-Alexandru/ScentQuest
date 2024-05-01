@@ -19,4 +19,5 @@ public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, 
 
     @Query("SELECT DISTINCT f FROM Fragrance f JOIN f.perfumers p WHERE p.Id = :perfumerId")
     Page<Fragrance> findAllByPerfumerId(Pageable pageable, Integer perfumerId);
+
 }
