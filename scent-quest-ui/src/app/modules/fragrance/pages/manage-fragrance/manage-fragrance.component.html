@@ -48,18 +48,13 @@
             <label class="form-check-label fs-5" for="gridCheck">Discontinued</label>
           </div>
         </div>
-        <div class="col-12 mb-3">
-          <div class="d-flex justify-content-between">
-            <div class="w-50 mr-3">
-              <mat-form-field class="mr-3">
-                <mat-label>Cities</mat-label>
-                <mat-select placeholder="Select toppings" [formControl]="selectedToppings" multiple>
-                  <mat-option *ngFor="let topping of toppings" [value]="topping">{{ topping }}</mat-option>
-                </mat-select>
-              </mat-form-field>
+        <div class="col-12 mb-3 paddingRight">
+          <div class="d-flex gap-1"> <!-- Reduced gap between the elements -->
+            <div class="w-50"> <!-- Increased width to bring elements closer -->
+              <p-multiSelect [options]="allPerfumers" [(ngModel)]="perfumers" optionLabel="name" [ngModelOptions]="{standalone: true}" placeholder="Select the perfumers"></p-multiSelect>
             </div>
-            <div class="w-90">
-              <p-multiSelect class="paddingRight" [options]="cities" [(ngModel)]="selectedCityCodes" optionLabel="name" optionValue="name" [ngModelOptions]="{standalone: true}" placeholder="Select Cities"></p-multiSelect>
+            <div class="w-50"> <!-- Increased width to bring elements closer -->
+              <p-multiSelect [options]="allNotes" [(ngModel)]="notes" optionLabel="name" [ngModelOptions]="{standalone: true}" placeholder="Select the notes"></p-multiSelect>
             </div>
           </div>
         </div>

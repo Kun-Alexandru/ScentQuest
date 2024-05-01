@@ -1,14 +1,9 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Favorite;
 
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import com.kun.scentquest.user.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

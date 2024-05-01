@@ -1,8 +1,8 @@
 package com.kun.scentquest.feedback;
 
 import com.kun.scentquest.common.PageResponse;
-import com.kun.scentquest.fragrance.Fragrance;
-import com.kun.scentquest.fragrance.FragranceRepository;
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
+import com.kun.scentquest.fragrance.Fragrance.FragranceRepository;
 import com.kun.scentquest.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,8 +1,18 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Fragrance;
 
 import com.kun.scentquest.common.PageResponse;
 import com.kun.scentquest.exception.OperationNotPermittedException;
 import com.kun.scentquest.file.FileStorageService;
+import com.kun.scentquest.fragrance.Favorite.Favourite;
+import com.kun.scentquest.fragrance.Favorite.FavouriteRepository;
+import com.kun.scentquest.fragrance.Note.Note;
+import com.kun.scentquest.fragrance.Note.NoteMapper;
+import com.kun.scentquest.fragrance.Note.NoteRepository;
+import com.kun.scentquest.fragrance.Note.NoteResponse;
+import com.kun.scentquest.fragrance.Perfumer.Perfumer;
+import com.kun.scentquest.fragrance.Perfumer.PerfumerMapper;
+import com.kun.scentquest.fragrance.Perfumer.PerfumerRepository;
+import com.kun.scentquest.fragrance.Perfumer.PerfumerResponse;
 import com.kun.scentquest.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -16,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +33,13 @@ import java.util.stream.Collectors;
 public class FragranceService {
 
     private final FragranceMapper fragranceMapper;
+    private final NoteMapper noteMapper;
     private final FragranceRepository fragranceRepository;
     private final FileStorageService fileStorageService;
     private final FavouriteRepository favouriteRepository;
+    private final NoteRepository noteRepository;
+    private final PerfumerRepository perfumerRepository;
+    private final PerfumerMapper perfumerMapper;
 
     public Integer save(FragranceRequest request, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
@@ -214,4 +227,32 @@ public class FragranceService {
                 fragrances.isLast());
     }
 
+
+    public List<NoteResponse> getNotesByFragranceId(Integer fragranceId) {
+        List<Note> notes = noteRepository.findAllNotesByFragranceId(fragranceId);
+        return notes.stream()
+                .map(noteMapper::toNoteResponse)
+                .collect(Collectors.toList());
+    }
+
+    public List<NoteResponse> getAllNotes(){
+        List<Note> notes =  noteRepository.getAll();
+        return notes.stream()
+                .map(noteMapper::toNoteResponse)
+                .collect(Collectors.toList());
+    }
+
+    public List<PerfumerResponse> getAllPerfumers(){
+        List<Perfumer> perfumers = perfumerRepository.getAll();
+        return perfumers.stream()
+                .map(perfumerMapper::toPerfumerResponse)
+                .collect(Collectors.toList());
+    }
+
+    public List<PerfumerResponse> getPerfumersByFragranceId(Integer fragranceId){
+        List<Perfumer> perfumers = perfumerRepository.findPerfumersByFragranceId(fragranceId);
+        return perfumers.stream()
+                .map(perfumerMapper::toPerfumerResponse)
+                .collect(Collectors.toList());
+    }
 }

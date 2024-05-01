@@ -1,6 +1,6 @@
 package com.kun.scentquest.feedback;
 
-import com.kun.scentquest.fragrance.Fragrance;
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import com.kun.scentquest.user.User;
 import jakarta.persistence.*;
 import lombok.*;

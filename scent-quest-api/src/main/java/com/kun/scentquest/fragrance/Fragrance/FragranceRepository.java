@@ -1,12 +1,11 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Fragrance;
 
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 
 public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, JpaSpecificationExecutor<Fragrance> {
     @Query("""

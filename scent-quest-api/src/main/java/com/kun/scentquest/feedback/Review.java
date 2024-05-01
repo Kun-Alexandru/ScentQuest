@@ -1,6 +1,6 @@
 package com.kun.scentquest.feedback;
 
-import com.kun.scentquest.fragrance.Fragrance;
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;

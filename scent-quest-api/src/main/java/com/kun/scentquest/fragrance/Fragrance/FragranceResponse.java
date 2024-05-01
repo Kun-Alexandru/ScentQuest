@@ -1,4 +1,4 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Fragrance;
 
 import lombok.*;
 

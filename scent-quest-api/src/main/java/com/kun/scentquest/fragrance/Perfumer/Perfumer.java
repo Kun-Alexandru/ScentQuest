@@ -1,6 +1,7 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Perfumer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,6 +24,7 @@ public class Perfumer {
     private String name;
     private String country;
     private LocalDate dateOfBirth;
+    private String shortDescription;
 
     @ManyToMany(mappedBy = "perfumers")
     @JsonIgnore

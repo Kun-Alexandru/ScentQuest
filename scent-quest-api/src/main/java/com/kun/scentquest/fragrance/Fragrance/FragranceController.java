@@ -1,7 +1,9 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Fragrance;
 
 
 import com.kun.scentquest.common.PageResponse;
+import com.kun.scentquest.fragrance.Note.NoteResponse;
+import com.kun.scentquest.fragrance.Perfumer.PerfumerResponse;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -56,6 +58,7 @@ public class FragranceController {
         return ResponseEntity.ok(fragranceService.findAllFragrancesByOwner(page, size, connectedUser));
     }
 
+    /*
     @GetMapping("/{fragrance-note}/notes")
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrancesByNote(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
@@ -64,8 +67,9 @@ public class FragranceController {
             @PathVariable("fragrance-note") String fragranceNote
     ) {
         return ResponseEntity.ok(fragranceService.findAllFragrancesByNote(page, size, connectedUser, fragranceNote));
-    }
+    }*/
 
+    /*
     @GetMapping("/{fragrance-perfumer-id}/perfumers")
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrancesByPerfumer(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
@@ -74,7 +78,7 @@ public class FragranceController {
             @PathVariable("fragrance-perfumer-id") Integer perfumerId
     ) {
         return ResponseEntity.ok(fragranceService.findAllFragrancesByPerfumer(page, size, connectedUser, perfumerId));
-    }
+    }*/
 
     @PatchMapping("/discontinued/{fragrance-id}")
     public ResponseEntity<Integer> updateDiscontinued(
@@ -134,6 +138,30 @@ public class FragranceController {
             Authentication connectedUser
     ) {
         return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByOwner(page, size, connectedUser));
+    }
+
+    @GetMapping("/{fragrance-id}/notes")
+    public ResponseEntity<List<NoteResponse>> findAllNotesByFragranceId(
+            @PathVariable("fragrance-id") Integer fragranceId
+    ) {
+        return ResponseEntity.ok(fragranceService.getNotesByFragranceId(fragranceId));
+    }
+
+    @GetMapping("/notes")
+    public ResponseEntity<List<NoteResponse>> getAllNotes() {
+        return ResponseEntity.ok(fragranceService.getAllNotes());
+    }
+
+    @GetMapping("/perfumers")
+    public ResponseEntity<List<PerfumerResponse>> getAllPerfumers() {
+        return ResponseEntity.ok(fragranceService.getAllPerfumers());
+    }
+
+    @GetMapping("/{fragrance-id}/perfumers")
+    public ResponseEntity<List<PerfumerResponse>> findPerfumersByFragranceId(
+            @PathVariable("fragrance-id") Integer fragranceId
+    ) {
+        return ResponseEntity.ok(fragranceService.getPerfumersByFragranceId(fragranceId));
     }
 
 }

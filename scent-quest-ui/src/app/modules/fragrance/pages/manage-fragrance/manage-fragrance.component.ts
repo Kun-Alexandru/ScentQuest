@@ -3,10 +3,16 @@ import { FragranceRequest } from '../../../../services/models/fragrance-request'
 import { FragranceService } from '../../../../services/services/fragrance.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NoteResponse} from "../../../../services/models/note-response";
+import {PerfumerResponse} from "../../../../services/models/perfumer-response";
 
 interface City {
   name: string,
   code: string
+}
+
+interface Note {
+
 }
 
 @Component({
@@ -15,18 +21,11 @@ interface City {
   styleUrls: ['./manage-fragrance.component.scss']
 })
 export class ManageFragranceComponent implements OnInit {
-  selectedToppings = new FormControl(['Extra cheese','Onion']);
-  toppings: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  notes: NoteResponse[] = [];
+  allNotes: NoteResponse[] = [];
 
-  cities: City[] = [
-    {name: 'New York', code: 'NY'},
-    {name: 'Rome', code: 'RM'},
-    {name: 'London', code: 'LDN'},
-    {name: 'Istanbul', code: 'IST'},
-    {name: 'Paris', code: 'PRS'}
-  ];
-
-  selectedCityCodes: string[] = ['Paris','Rome'];
+  perfumers: PerfumerResponse[] = [];
+  allPerfumers: PerfumerResponse[] = [];
 
   fragranceRequest: FragranceRequest = {
     brand: '',
@@ -65,6 +64,40 @@ export class ManageFragranceComponent implements OnInit {
           this.selectedPicture = 'data:image/jpg;base64,' + fragrance.picture;
         }
       });
+
+      this.fragranceService.findAllNotesByFragranceId({
+        'fragrance-id': fragranceId
+      }).subscribe({
+        next: (notes) => {
+          this.notes = notes;
+          console.log(this.notes);
+        }
+
+      })
+
+      this.fragranceService.getAllNotes().subscribe({
+        next: (notes) => {
+          this.allNotes = notes;
+          console.log(this.allNotes)
+        }
+      })
+
+      this.fragranceService.getAllPerfumers().subscribe({
+        next: (perfumers) => {
+          this.allPerfumers = perfumers;
+          console.log(this.allPerfumers)
+        }
+      })
+
+      this.fragranceService.findPerfumersByFragranceId({
+        'fragrance-id': fragranceId
+      }).subscribe({
+        next: (perfumers) => {
+          this.perfumers = perfumers;
+          console.log(this.perfumers);
+        }
+
+      })
     }
   }
 
@@ -82,13 +115,14 @@ export class ManageFragranceComponent implements OnInit {
   }
 
   saveFragrance() {
+
+    console.log(this.notes);
+    console.log(this.perfumers);
+
     if (!this.selectedFragranceCover) {
       this.isFileSelected = false;
       return;
     }
-
-    console.log("uff " + this.selectedToppings.value);
-    console.log("buff " + this.selectedCityCodes);
 
     this.fragranceService.saveFragrance({
       body: this.fragranceRequest

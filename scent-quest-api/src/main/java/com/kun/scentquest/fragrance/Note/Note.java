@@ -1,7 +1,7 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Note;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kun.scentquest.user.User;
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

@@ -1,5 +1,6 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Favorite;
 
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

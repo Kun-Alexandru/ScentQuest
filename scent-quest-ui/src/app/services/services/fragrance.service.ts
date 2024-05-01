@@ -17,18 +17,24 @@ import { findAllFavouritesByUserId } from '../fn/fragrance/find-all-favourites-b
 import { FindAllFavouritesByUserId$Params } from '../fn/fragrance/find-all-favourites-by-user-id';
 import { findAllFragrances } from '../fn/fragrance/find-all-fragrances';
 import { FindAllFragrances$Params } from '../fn/fragrance/find-all-fragrances';
-import { findAllFragrancesByNote } from '../fn/fragrance/find-all-fragrances-by-note';
-import { FindAllFragrancesByNote$Params } from '../fn/fragrance/find-all-fragrances-by-note';
 import { findAllFragrancesByOwner } from '../fn/fragrance/find-all-fragrances-by-owner';
 import { FindAllFragrancesByOwner$Params } from '../fn/fragrance/find-all-fragrances-by-owner';
-import { findAllFragrancesByPerfumer } from '../fn/fragrance/find-all-fragrances-by-perfumer';
-import { FindAllFragrancesByPerfumer$Params } from '../fn/fragrance/find-all-fragrances-by-perfumer';
+import { findAllNotesByFragranceId } from '../fn/fragrance/find-all-notes-by-fragrance-id';
+import { FindAllNotesByFragranceId$Params } from '../fn/fragrance/find-all-notes-by-fragrance-id';
 import { findFavouriteByUserIdAndFragranceId } from '../fn/fragrance/find-favourite-by-user-id-and-fragrance-id';
 import { FindFavouriteByUserIdAndFragranceId$Params } from '../fn/fragrance/find-favourite-by-user-id-and-fragrance-id';
 import { findFragranceById } from '../fn/fragrance/find-fragrance-by-id';
 import { FindFragranceById$Params } from '../fn/fragrance/find-fragrance-by-id';
+import { findPerfumersByFragranceId } from '../fn/fragrance/find-perfumers-by-fragrance-id';
+import { FindPerfumersByFragranceId$Params } from '../fn/fragrance/find-perfumers-by-fragrance-id';
 import { FragranceResponse } from '../models/fragrance-response';
+import { getAllNotes } from '../fn/fragrance/get-all-notes';
+import { GetAllNotes$Params } from '../fn/fragrance/get-all-notes';
+import { getAllPerfumers } from '../fn/fragrance/get-all-perfumers';
+import { GetAllPerfumers$Params } from '../fn/fragrance/get-all-perfumers';
+import { NoteResponse } from '../models/note-response';
 import { PageResponseFragranceResponse } from '../models/page-response-fragrance-response';
+import { PerfumerResponse } from '../models/perfumer-response';
 import { saveFavourite } from '../fn/fragrance/save-favourite';
 import { SaveFavourite$Params } from '../fn/fragrance/save-favourite';
 import { saveFragrance } from '../fn/fragrance/save-fragrance';
@@ -227,56 +233,6 @@ export class FragranceService extends BaseService {
     );
   }
 
-  /** Path part for operation `findAllFragrancesByPerfumer()` */
-  static readonly FindAllFragrancesByPerfumerPath = '/fragrances/{fragrance-perfumer-id}/perfumers';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAllFragrancesByPerfumer()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findAllFragrancesByPerfumer$Response(params: FindAllFragrancesByPerfumer$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFragranceResponse>> {
-    return findAllFragrancesByPerfumer(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAllFragrancesByPerfumer$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findAllFragrancesByPerfumer(params: FindAllFragrancesByPerfumer$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
-    return this.findAllFragrancesByPerfumer$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
-    );
-  }
-
-  /** Path part for operation `findAllFragrancesByNote()` */
-  static readonly FindAllFragrancesByNotePath = '/fragrances/{fragrance-note}/notes';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAllFragrancesByNote()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findAllFragrancesByNote$Response(params: FindAllFragrancesByNote$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFragranceResponse>> {
-    return findAllFragrancesByNote(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAllFragrancesByNote$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findAllFragrancesByNote(params: FindAllFragrancesByNote$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
-    return this.findAllFragrancesByNote$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
-    );
-  }
-
   /** Path part for operation `findFragranceById()` */
   static readonly FindFragranceByIdPath = '/fragrances/{fragrance-id}';
 
@@ -302,6 +258,81 @@ export class FragranceService extends BaseService {
     );
   }
 
+  /** Path part for operation `findPerfumersByFragranceId()` */
+  static readonly FindPerfumersByFragranceIdPath = '/fragrances/{fragrance-id}/perfumers';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findPerfumersByFragranceId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findPerfumersByFragranceId$Response(params: FindPerfumersByFragranceId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PerfumerResponse>>> {
+    return findPerfumersByFragranceId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findPerfumersByFragranceId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findPerfumersByFragranceId(params: FindPerfumersByFragranceId$Params, context?: HttpContext): Observable<Array<PerfumerResponse>> {
+    return this.findPerfumersByFragranceId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<PerfumerResponse>>): Array<PerfumerResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllNotesByFragranceId()` */
+  static readonly FindAllNotesByFragranceIdPath = '/fragrances/{fragrance-id}/notes';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllNotesByFragranceId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllNotesByFragranceId$Response(params: FindAllNotesByFragranceId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<NoteResponse>>> {
+    return findAllNotesByFragranceId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllNotesByFragranceId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllNotesByFragranceId(params: FindAllNotesByFragranceId$Params, context?: HttpContext): Observable<Array<NoteResponse>> {
+    return this.findAllNotesByFragranceId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<NoteResponse>>): Array<NoteResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllPerfumers()` */
+  static readonly GetAllPerfumersPath = '/fragrances/perfumers';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllPerfumers()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPerfumers$Response(params?: GetAllPerfumers$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PerfumerResponse>>> {
+    return getAllPerfumers(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllPerfumers$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPerfumers(params?: GetAllPerfumers$Params, context?: HttpContext): Observable<Array<PerfumerResponse>> {
+    return this.getAllPerfumers$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<PerfumerResponse>>): Array<PerfumerResponse> => r.body)
+    );
+  }
+
   /** Path part for operation `findAllFragrancesByOwner()` */
   static readonly FindAllFragrancesByOwnerPath = '/fragrances/owner';
 
@@ -324,6 +355,31 @@ export class FragranceService extends BaseService {
   findAllFragrancesByOwner(params?: FindAllFragrancesByOwner$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
     return this.findAllFragrancesByOwner$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllNotes()` */
+  static readonly GetAllNotesPath = '/fragrances/notes';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllNotes()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllNotes$Response(params?: GetAllNotes$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<NoteResponse>>> {
+    return getAllNotes(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllNotes$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllNotes(params?: GetAllNotes$Params, context?: HttpContext): Observable<Array<NoteResponse>> {
+    return this.getAllNotes$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<NoteResponse>>): Array<NoteResponse> => r.body)
     );
   }
 

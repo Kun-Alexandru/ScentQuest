@@ -1,5 +1,6 @@
-package com.kun.scentquest.fragrance;
+package com.kun.scentquest.fragrance.Fragrance;
 
+import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import org.springframework.data.jpa.domain.Specification;
 
 public class FragranceSpecification {
