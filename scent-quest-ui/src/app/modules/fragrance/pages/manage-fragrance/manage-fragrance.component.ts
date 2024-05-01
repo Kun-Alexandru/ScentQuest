@@ -72,8 +72,18 @@ export class ManageFragranceComponent implements OnInit {
           this.notes = notes;
           console.log(this.notes);
         }
+      })
+
+      this.fragranceService.findPerfumersByFragranceId({
+        'fragrance-id': fragranceId
+      }).subscribe({
+        next: (perfumers) => {
+          this.perfumers = perfumers;
+          console.log(this.perfumers);
+        }
 
       })
+    }
 
       this.fragranceService.getAllNotes().subscribe({
         next: (notes) => {
@@ -88,17 +98,6 @@ export class ManageFragranceComponent implements OnInit {
           console.log(this.allPerfumers)
         }
       })
-
-      this.fragranceService.findPerfumersByFragranceId({
-        'fragrance-id': fragranceId
-      }).subscribe({
-        next: (perfumers) => {
-          this.perfumers = perfumers;
-          console.log(this.perfumers);
-        }
-
-      })
-    }
   }
 
   onFileSelected(event: Event) {
