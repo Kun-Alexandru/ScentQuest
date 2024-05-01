@@ -13,6 +13,8 @@ import {HttpTokenInterceptor} from "./services/interceptor/http-token.intercepto
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {MatSelectModule} from "@angular/material/select";
     HttpClientModule,
     FormsModule,
     CodeInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [
     provideClientHydration(),

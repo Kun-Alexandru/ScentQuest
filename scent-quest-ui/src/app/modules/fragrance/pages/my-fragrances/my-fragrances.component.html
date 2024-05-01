@@ -14,7 +14,7 @@
     [manage]="true"
     [favourites]="favourites"
     *ngFor="let fragrance of fragranceResponse.content"
-    (delete)="deleteFragrance($event)"
+    (delete)="openConfirmationDialog($event)"
     (edit)="editFragrance($event)"
   >
   </app-fragrance-card>

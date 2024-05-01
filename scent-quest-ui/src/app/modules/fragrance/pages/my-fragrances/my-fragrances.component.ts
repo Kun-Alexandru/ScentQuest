@@ -105,7 +105,7 @@ export class MyFragrancesComponent implements OnInit {
 
   openConfirmationDialog(fragrance: FragranceResponse): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '500px',
       data: 'Are you sure you want to delete this fragrance?'
     });
 
