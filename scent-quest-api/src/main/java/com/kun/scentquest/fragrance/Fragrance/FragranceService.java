@@ -147,6 +147,23 @@ public class FragranceService {
 
     }
 
+    public Integer updateFragrance(Authentication connectedUser, FragranceRequest request) {
+        User user = (User) connectedUser.getPrincipal();
+        Fragrance fragrance = fragranceRepository.findById(request.FragranceId())
+                .orElseThrow(() -> new EntityNotFoundException("Fragrance not found with the Id:: " + request.FragranceId()));
+
+        fragrance.setBrand(request.brand());
+        fragrance.setName(request.name());
+        fragrance.setRecommendedSeason(request.recommendedSeason());
+        fragrance.setShortDescription(request.shortDescription());
+        fragrance.setGender(request.gender());
+        fragrance.setConcentration(request.concentration());
+        fragrance.setDiscontinued(request.discontinued());
+        fragrance.setReleaseDate(request.releaseDate());
+        fragranceRepository.save(fragrance);
+        return fragrance.getFragranceId();
+    }
+
     public void uploadFragrancePicture(MultipartFile file, Authentication connectedUser, Integer fragranceId) {
 
         Fragrance fragrance = fragranceRepository.findById(fragranceId)
@@ -263,4 +280,5 @@ public class FragranceService {
             throw new EntityNotFoundException("Fragrance not found with the Id:: " + fragranceId);
         }
     }
+
 }

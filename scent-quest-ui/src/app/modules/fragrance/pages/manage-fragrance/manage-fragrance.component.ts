@@ -6,15 +6,6 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NoteResponse} from "../../../../services/models/note-response";
 import {PerfumerResponse} from "../../../../services/models/perfumer-response";
 
-interface City {
-  name: string,
-  code: string
-}
-
-interface Note {
-
-}
-
 @Component({
   selector: 'app-manage-fragrance',
   templateUrl: './manage-fragrance.component.html',
@@ -40,7 +31,9 @@ export class ManageFragranceComponent implements OnInit {
   errorMsg: Array<string> = [];
   selectedFragranceCover: any;
   selectedPicture: string | undefined;
+  selectedPicturePrevious: any;
   isFileSelected: boolean = false;
+  isFileSelectedTruly: boolean = false;
 
   constructor(
     private fragranceService: FragranceService,
@@ -51,11 +44,13 @@ export class ManageFragranceComponent implements OnInit {
   ngOnInit(): void {
     const fragranceId = this.activatedRoute.snapshot.params['id'];
     if (fragranceId) {
+      this.isFileSelected = true;
       this.fragranceService.findFragranceById({
         'fragrance-id': fragranceId
       }).subscribe({
         next: (fragrance) => {
           this.fragranceRequest = {
+            FragranceId: fragranceId as number,
             name: fragrance.name as string,
             brand: fragrance.brand as string,
             recommendedSeason: fragrance.recommendedSeason as string,
@@ -118,6 +113,7 @@ export class ManageFragranceComponent implements OnInit {
       };
       reader.readAsDataURL(this.selectedFragranceCover);
       this.isFileSelected = true;
+      this.isFileSelectedTruly = true;
     }
   }
 
@@ -125,31 +121,58 @@ export class ManageFragranceComponent implements OnInit {
 
     console.log(this.notes);
     console.log(this.perfumers);
+    const idfrag = this.activatedRoute.snapshot.params['id'];
 
-    if (!this.selectedFragranceCover) {
+    if (!this.selectedFragranceCover && !idfrag) {
       this.isFileSelected = false;
       return;
     }
 
-    this.fragranceService.saveFragrance({
-      body: this.fragranceRequest
-    }).subscribe({
-      next: (fragranceId) => {
-        this.fragranceService.uploadFragrancePicture({
-          'fragrance-id': fragranceId,
-          body: {
-            file: this.selectedFragranceCover
+    if (idfrag) {
+      this.fragranceService.updateFragrance({
+        body: this.fragranceRequest,
+      }).subscribe( {
+        next: (fragranceId) => {
+          if (this.isFileSelectedTruly == true) {
+            this.fragranceService.uploadFragrancePicture({
+                'fragrance-id': fragranceId,
+                body: {
+                  file: this.selectedFragranceCover
+                }
+              }
+            ).subscribe({
+              next: () => {
+                this.router.navigate(['/fragrances']);
+              }
+            });
+        } else {
+            this.router.navigate(['/fragrances']);
           }
-        }).subscribe({
-          next: () => {
-            this.router.navigate(['/fragrances/my-fragrances']);
-          }
-        });
-      },
-      error: (err) => {
-        console.log(err.error);
-        this.errorMsg = err.error.validationErrors;
-      }
-    });
+        }
+      })
+
+
+    } else {
+      this.fragranceService.saveFragrance({
+        body: this.fragranceRequest
+      }).subscribe({
+        next: (fragranceId) => {
+          this.fragranceService.uploadFragrancePicture({
+            'fragrance-id': fragranceId,
+            body: {
+              file: this.selectedFragranceCover
+            }
+          }).subscribe({
+            next: () => {
+              this.router.navigate(['/fragrances']);
+            }
+          });
+        },
+        error: (err) => {
+          console.log(err.error);
+          this.errorMsg = err.error.validationErrors;
+        }
+      });
+    }
   }
 }

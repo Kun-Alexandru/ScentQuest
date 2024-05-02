@@ -15,7 +15,7 @@ import {ConfirmationDialogComponent} from "../../components/confirmation-dialog/
 export class MyFragrancesComponent implements OnInit {
   fragranceResponse: PageResponseFragranceResponse = {};
   page = 0;
-  size = 5;
+  size = 6;
   pages: any = [];
   favourites: Number[] = [];
 

@@ -21,6 +21,7 @@ import {FragranceRoutingModule} from "./modules/fragrance/fragrance-routing.modu
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MultiSelectModule} from "primeng/multiselect";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {MultiSelectModule} from "primeng/multiselect";
     MultiSelectModule,
     MatMenu,
     MatMenuTrigger,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   providers: [
     provideClientHydration(),

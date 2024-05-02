@@ -1,30 +1,30 @@
 import {Component, OnInit} from '@angular/core';
 import {PageResponseFragranceResponse} from "../../../../services/models/page-response-fragrance-response";
-import {Router} from "@angular/router";
 import {FragranceService} from "../../../../services/services/fragrance.service";
+import {Router} from "@angular/router";
+import {TokenService} from "../../../../services/token/token.service";
+import {MatDialog} from "@angular/material/dialog";
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
-import {Observable} from "rxjs";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {ConfirmationDialogComponent} from "../../components/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
-  selector: 'app-my-favorite-list',
-  templateUrl: './my-favorite-list.component.html',
-  styleUrl: './my-favorite-list.component.scss'
+  selector: 'app-manage-fragrance-admin',
+  templateUrl: './manage-fragrance-admin.component.html',
+  styleUrl: './manage-fragrance-admin.component.scss'
 })
-export class MyFavoriteListComponent implements OnInit {
+export class ManageFragranceAdminComponent implements OnInit {
 
   fragranceResponse: PageResponseFragranceResponse = {};
   page = 0;
   size = 6;
   pages: any = [];
-  message = '';
-  level: 'success' |'error' = 'success';
   favourites: Number[] = [];
 
   constructor(
     private fragranceService: FragranceService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private tokenService: TokenService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -34,7 +34,7 @@ export class MyFavoriteListComponent implements OnInit {
   }
 
   private findAllFragrances() {
-    this.fragranceService.findAllFavoritedFragrancesByOwner({
+    this.fragranceService.findAllFragrances({
       page: this.page,
       size: this.size
     })
@@ -90,68 +90,40 @@ export class MyFavoriteListComponent implements OnInit {
     this.router.navigate(['fragrances', 'details', fragrance.fragranceId]);
   }
 
-  reviewFragrance(fragrance: FragranceResponse) {
-    this.router.navigate(['fragrances', 'review', fragrance.fragranceId]);
-  }
-
-  favouriteFragrance(fragrance: FragranceResponse) {
-    this.message = '';
-    this.level = 'success';
-    if (this.favourites.includes(fragrance.fragranceId as number)) {
-      this.removeFavourite(fragrance);
-      this.showSnackbar('Fragrance successfully removed from favorites')
-    } else {
-      this.addFavourite(fragrance);
-      this.showSnackbar('Fragrance successfully added to favorites')
-    }
-  }
-
-  private showSnackbar(message: string) {
-    this.snackBar.open(message, 'Close', {
-      duration: 2000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-    });
-  }
-
-  private addFavourite(fragrance: FragranceResponse) {
-    this.fragranceService.saveFavourite({
+  deleteFragrance(fragrance: FragranceResponse) {
+    this.fragranceService.deleteFragrance({
       'fragrance-id': fragrance.fragranceId as number
     }).subscribe({
       next: () => {
-        //this.level = 'success';
-        //this.message = 'Fragrance successfully favorited';
-        this.findAllFavourites();
         this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
-        //this.level = 'error';
-        //this.message = err.error.error;
       }
     });
   }
 
-  private removeFavourite(fragrance: FragranceResponse) {
-    this.fragranceService.deleteFavourite({
-      'fragrance-id': fragrance.fragranceId as number
-    }).subscribe({
-      next: () => {
-        //this.level = 'success';
-        //this.message = 'Fragrance removed from favourites';
-        this.findAllFavourites();
-        this.findAllFragrances();
-      },
-      error: (err) => {
-        console.log(err);
-        //this.level = 'error';
-        //this.message = err.error.error;
+  openConfirmationDialog(fragrance: FragranceResponse): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: 'Are you sure you want to delete this fragrance?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog Result:', result); // Check if result is received
+      if (result) {
+        this.deleteFragrance(fragrance);
       }
     });
   }
 
-  closeMessage() {
-    this.message = '';
+  editFragrance(fragrance: FragranceResponse) {
+    this.router.navigate(['fragrances', 'manage', fragrance.fragranceId]);
+  }
+
+  isAdmin() {
+    console.log(this.tokenService.isAdmin());
+    return this.tokenService.isAdmin() == true;
   }
 
 }

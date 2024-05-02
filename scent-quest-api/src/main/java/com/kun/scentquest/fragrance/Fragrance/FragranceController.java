@@ -169,4 +169,11 @@ public class FragranceController {
         return ResponseEntity.ok(fragranceService.deleteFragrance(fragranceId));
     }
 
+    @PutMapping
+    public ResponseEntity<Integer> updateFragrance(
+            @Valid @RequestBody FragranceRequest request,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.updateFragrance(connectedUser, request));
+    }
 }

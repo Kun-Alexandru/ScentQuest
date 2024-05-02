@@ -12,6 +12,16 @@ export class FragranceCardComponent {
   private _fragrancePhoto: string | undefined;
   private _fragrance: FragranceResponse = {};
   private _favourites: Number[] = [];
+  private _admin: boolean = false;
+
+  get admin(): boolean {
+    return this._admin;
+  }
+
+  @Input()
+  set admin(value: boolean) {
+    this._admin = value;
+  }
 
   get fragrance(): FragranceResponse {
     return this._fragrance;

@@ -21,6 +21,8 @@ import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule} fro
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatMenu, MatMenuModule, MatMenuTrigger} from "@angular/material/menu";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { ManageFragranceAdminComponent } from './pages/manage-fragrance-admin/manage-fragrance-admin.component';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import {MatMenu, MatMenuModule, MatMenuTrigger} from "@angular/material/menu";
     LeaveFeedbackComponent,
     MyFavoriteListComponent,
     DeleteConfirmationDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ManageFragranceAdminComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +63,8 @@ import {MatMenu, MatMenuModule, MatMenuTrigger} from "@angular/material/menu";
     MultiSelectModule,
     MatMenu,
     MatMenuTrigger,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ]
 })
 export class FragranceModule { }

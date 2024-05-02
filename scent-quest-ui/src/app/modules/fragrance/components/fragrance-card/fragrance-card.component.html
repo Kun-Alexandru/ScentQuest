@@ -20,7 +20,7 @@
       <i *ngIf="isInList == false" (click)="onFavourite()" class="far fa-heart text-danger"></i>
       <i (click)="onReview()" class="fas fa-comment text-primary"></i>
     </div>
-    <div class="d-flex gap-2" *ngIf="manage">
+    <div class="d-flex gap-2" *ngIf="manage || admin">
       <i (click)="onEdit()" class="fas fa-edit text-success"></i>
       <i (click)="onDelete()" class="fas fa-archive text-danger"></i>
     </div>

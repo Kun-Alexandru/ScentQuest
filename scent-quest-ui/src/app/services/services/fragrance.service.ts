@@ -43,6 +43,8 @@ import { saveFragrance } from '../fn/fragrance/save-fragrance';
 import { SaveFragrance$Params } from '../fn/fragrance/save-fragrance';
 import { updateDiscontinued } from '../fn/fragrance/update-discontinued';
 import { UpdateDiscontinued$Params } from '../fn/fragrance/update-discontinued';
+import { updateFragrance } from '../fn/fragrance/update-fragrance';
+import { UpdateFragrance$Params } from '../fn/fragrance/update-fragrance';
 import { uploadFragrancePicture } from '../fn/fragrance/upload-fragrance-picture';
 import { UploadFragrancePicture$Params } from '../fn/fragrance/upload-fragrance-picture';
 
@@ -78,6 +80,31 @@ export class FragranceService extends BaseService {
   findAllFragrances(params?: FindAllFragrances$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
     return this.findAllFragrances$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `updateFragrance()` */
+  static readonly UpdateFragrancePath = '/fragrances';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateFragrance()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateFragrance$Response(params: UpdateFragrance$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return updateFragrance(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateFragrance$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateFragrance(params: UpdateFragrance$Params, context?: HttpContext): Observable<number> {
+    return this.updateFragrance$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
