@@ -26,7 +26,8 @@ export class ManageFragranceComponent implements OnInit {
     releaseDate: '',
     shortDescription: '',
     gender: '',
-    concentration: ''
+    concentration: '',
+    number_of_likes: 0
   };
   errorMsg: Array<string> = [];
   selectedFragranceCover: any;

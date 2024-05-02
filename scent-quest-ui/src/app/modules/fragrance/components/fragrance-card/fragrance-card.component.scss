@@ -22,3 +22,44 @@
 .card-text {
   font-size: 1.25rem; /* Adjust as needed */
 }
+
+.card-footer .fa-heart,
+.card-footer .fa-info-circle,
+.card-footer .fa-comment,
+.card-footer .fa-edit,
+.card-footer .fa-archive {
+  cursor: pointer;
+}
+
+.card-footer .fa-heart:hover,
+.card-footer .fa-info-circle:hover,
+.card-footer .fa-comment:hover,
+.card-footer .fa-edit:hover,
+.card-footer .fa-archive:hover {
+  opacity: 0.8;
+}
+
+.fs-5 {
+  font-size: 1rem;
+}
+
+.fs-6 {
+  font-size: 0.9rem;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+  padding: 0.7rem;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
