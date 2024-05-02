@@ -21,7 +21,9 @@ public record FragranceRequest(
         String shortDescription,
         boolean discontinued,
         LocalDate releaseDate,
-        Integer number_of_likes
+        Integer number_of_likes,
+        String concentration,
+        String gender
 
 ) {
 }

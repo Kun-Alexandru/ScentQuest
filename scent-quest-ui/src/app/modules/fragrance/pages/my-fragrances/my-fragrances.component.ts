@@ -90,7 +90,6 @@ export class MyFragrancesComponent implements OnInit {
   }
 
   deleteFragrance(fragrance: FragranceResponse) {
-    if(confirm("Are you sure you want to delete this fragrance?"))
     this.fragranceService.deleteFragrance({
       'fragrance-id': fragrance.fragranceId as number
     }).subscribe({
@@ -110,6 +109,7 @@ export class MyFragrancesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog Result:', result); // Check if result is received
       if (result) {
         this.deleteFragrance(fragrance);
       }

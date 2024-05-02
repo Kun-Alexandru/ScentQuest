@@ -797,6 +797,12 @@
           "number_of_likes": {
             "type": "integer",
             "format": "int32"
+          },
+          "concentration": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
           }
         }
       },
@@ -938,6 +944,12 @@
           "number_of_likes": {
             "type": "integer",
             "format": "int32"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "concentration": {
+            "type": "string"
           },
           "fragranceId": {
             "type": "integer",

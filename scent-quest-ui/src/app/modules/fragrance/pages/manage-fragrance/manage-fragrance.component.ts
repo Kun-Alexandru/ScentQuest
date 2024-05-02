@@ -34,6 +34,8 @@ export class ManageFragranceComponent implements OnInit {
     recommendedSeason: '',
     releaseDate: '',
     shortDescription: '',
+    gender: '',
+    concentration: ''
   };
   errorMsg: Array<string> = [];
   selectedFragranceCover: any;
@@ -60,7 +62,13 @@ export class ManageFragranceComponent implements OnInit {
             releaseDate: fragrance.releaseDate as string,
             shortDescription: fragrance.shortDescription as string,
             discontinued: fragrance.discontinued as boolean,
+            concentration: fragrance.concentration as string,
+            gender: fragrance.gender as string,
+            number_of_likes: 0 as number
           };
+          if(fragrance.picture != null) {
+            this.isFileSelected = true;
+          }
           this.selectedPicture = 'data:image/jpg;base64,' + fragrance.picture;
         }
       });

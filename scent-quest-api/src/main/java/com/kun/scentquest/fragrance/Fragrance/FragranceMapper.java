@@ -15,6 +15,8 @@ public class FragranceMapper {
                 .discontinued(request.discontinued())
                 .releaseDate(request.releaseDate())
                 .number_of_likes(request.number_of_likes())
+                .gender(request.gender())
+                .concentration(request.concentration())
                 .build();
     }
 
@@ -31,6 +33,8 @@ public class FragranceMapper {
                 .averageRating(fragrance.getRate())
                 .picture(FileUtils.readFileFromLocation(fragrance.getPicture()))
                 .number_of_likes(fragrance.getNumber_of_likes())
+                .concentration(fragrance.getConcentration())
+                .gender(fragrance.getGender())
                 .build();
     }
 }

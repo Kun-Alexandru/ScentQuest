@@ -33,6 +33,8 @@ public class Fragrance {
     private boolean discontinued;
     private LocalDate releaseDate;
     private Integer number_of_likes;
+    private String gender;
+    private String concentration;
 
     @ManyToOne
     @JoinColumn(name = "adder_id")

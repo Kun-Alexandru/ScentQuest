@@ -23,5 +23,7 @@ public class FragranceResponse {
     private double averageRating;
     private boolean discontinued;
     private Integer number_of_likes;
+    private String gender;
+    private String concentration;
 
 }

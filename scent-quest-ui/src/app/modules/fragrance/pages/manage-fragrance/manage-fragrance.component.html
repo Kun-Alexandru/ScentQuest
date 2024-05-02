@@ -28,11 +28,48 @@
         </div>
         <div class="col-6 mb-3">
           <label for="brand" class="form-label fs-5">Brand</label>
-          <input [(ngModel)]="fragranceRequest.brand" name="brand" type="text" class="form-control fs-5" id="brand" placeholder="Brand">
+          <select [(ngModel)]="fragranceRequest.brand" name="brand" class="form-select fs-5" id="brand" required>
+            <option value="" disabled selected>Select Brand</option>
+            <option value="Chanel">Chanel</option>
+            <option value="Viktor & Rolf">Viktor & Rolf</option>
+            <option value="Tom Ford">Tom Ford</option>
+            <option value="Giorgio Armani">Giorgio Armani</option>
+            <option value="Dolce & Gabbana">Dolce & Gabbana</option>
+            <option value="Lancôme">Lancôme</option>
+            <option value="Hermès">Hermès</option>
+            <option value="Carolina Herrera">Carolina Herrera</option>
+            <option value="Dior">Dior</option>
+            <option value="Yves Saint Laurent">Yves Saint Laurent</option>
+          </select>
         </div>
+
         <div class="col-6 mb-3 paddingRight">
           <label for="recommendedSeason" class="form-label fs-5">Season</label>
-          <input [(ngModel)]="fragranceRequest.recommendedSeason" name="recommendedSeason" type="text" class="form-control fs-5" id="recommendedSeason" placeholder="Season">
+          <select [(ngModel)]="fragranceRequest.recommendedSeason" name="recommendedSeason" class="form-select fs-5" id="recommendedSeason">
+            <option value="" disabled selected>Choose the Recommended Season</option>
+            <option value="Spring-Summer">Spring-Summer</option>
+            <option value="Autumn-Winter">Autumn-Winter</option>
+            <option value="All Seasons">All Seasons</option>
+          </select>
+        </div>
+        <div class="col-6 mb-3 paddingRight">
+          <label for="gender" class="form-label fs-5">Gender</label>
+          <select [(ngModel)]="fragranceRequest.gender" name="gender" class="form-select fs-5" id="gender" required>
+            <option value="" disabled selected>Choose Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Unisex">Unisex</option>
+          </select>
+        </div>
+        <div class="col-6 mb-3 paddingRight">
+          <label for="concentration" class="form-label fs-5">Concentration</label>
+          <select [(ngModel)]="fragranceRequest.concentration" name="concentration" class="form-select fs-5" id="concentration" required>
+            <option value="" disabled selected>Choose Concentration</option>
+            <option value="Eau de Toilette">Eau de Toilette</option>
+            <option value="Eau de Parfum">Eau de Parfum</option>
+            <option value="Perfume">Perfume</option>
+            <option value="Cologne">Cologne</option>
+          </select>
         </div>
         <div class="col-12 mb-3 paddingRight">
           <label for="description" class="form-label fs-5">Description</label>
