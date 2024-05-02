@@ -45,6 +45,58 @@
     }
   ],
   "paths": {
+    "/reviews": {
+      "put": {
+        "tags": [
+          "review"
+        ],
+        "operationId": "updateReview",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "operationId": "saveReview",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fragrances": {
       "get": {
         "tags": [
@@ -278,37 +330,6 @@
               "application/json": {
                 "schema": {
                   "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/reviews": {
-      "post": {
-        "tags": [
-          "review"
-        ],
-        "operationId": "saveReview",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReviewRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
                 }
               }
             }
@@ -585,6 +606,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PageResponseReviewResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reviews/fragrance/{fragranceId}/owner": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "operationId": "getReviewById",
+        "parameters": [
+          {
+            "name": "fragranceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewResponse"
                 }
               }
             }
@@ -905,10 +957,56 @@
           }
         }
       }
+    },
+    "/reviews/{reviewId}": {
+      "delete": {
+        "tags": [
+          "review"
+        ],
+        "operationId": "deleteReview",
+        "parameters": [
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "ReviewRequest": {
+        "required": [
+          "fragranceId",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "rating": {
+            "maximum": 5,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "text": {
+            "type": "string"
+          },
+          "fragranceId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "FragranceRequest": {
         "required": [
           "brand",
@@ -950,28 +1048,6 @@
           },
           "gender": {
             "type": "string"
-          }
-        }
-      },
-      "ReviewRequest": {
-        "required": [
-          "fragranceId",
-          "text"
-        ],
-        "type": "object",
-        "properties": {
-          "rating": {
-            "maximum": 5,
-            "minimum": 0,
-            "type": "integer",
-            "format": "int32"
-          },
-          "text": {
-            "type": "string"
-          },
-          "fragranceId": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },

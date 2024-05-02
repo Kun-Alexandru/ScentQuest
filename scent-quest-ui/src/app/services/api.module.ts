@@ -4,8 +4,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { FragranceService } from './services/fragrance.service';
 import { ReviewService } from './services/review.service';
+import { FragranceService } from './services/fragrance.service';
 import { AuthenticationService } from './services/authentication.service';
 
 /**
@@ -16,8 +16,8 @@ import { AuthenticationService } from './services/authentication.service';
   exports: [],
   declarations: [],
   providers: [
-    FragranceService,
     ReviewService,
+    FragranceService,
     AuthenticationService,
     ApiConfiguration
   ],

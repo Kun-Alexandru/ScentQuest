@@ -152,8 +152,6 @@ export class FragranceListComponent implements OnInit {
       'fragrance-id': fragrance.fragranceId as number
     }).subscribe({
       next: () => {
-        //this.level = 'success';
-        //this.message = 'Fragrance removed from favourites';
         this.findAllFavourites();
       },
       error: (err) => {
@@ -174,6 +172,7 @@ export class FragranceListComponent implements OnInit {
       'fragrance-id': fragrance.fragranceId as number
     }).subscribe({
       next: () => {
+        this.showSnackbar('Fragrance successfully deleted')
         this.findAllFragrances();
       },
       error: (err) => {

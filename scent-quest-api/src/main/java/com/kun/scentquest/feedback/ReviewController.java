@@ -34,4 +34,30 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getAllByFragrance(fragranceId, page, size, connectedUser));
     }
 
+    @GetMapping("fragrance/{fragranceId}/owner")
+    public ResponseEntity<ReviewResponse> getReviewById(
+            @PathVariable("fragranceId") Integer reviewId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(reviewService.getReviewByFragranceId(reviewId, connectedUser));
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<Void> deleteReview(
+            @PathVariable("reviewId") Integer reviewId,
+            Authentication connectedUser
+    ) {
+        reviewService.deleteReview(reviewId, connectedUser);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Void> updateReview(
+            @Valid @RequestBody ReviewRequest request,
+            Authentication connectedUser
+    ) {
+        reviewService.updateReview(request, connectedUser);
+        return ResponseEntity.noContent().build();
+    }
+
 }

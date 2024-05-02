@@ -49,4 +49,30 @@ public class ReviewService {
                 reviews.isLast()
         );
     }
+
+    public ReviewResponse getReviewByFragranceId(Integer fragranceId, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+        Review review = reviewRepository.findByFragranceIdAndReviewId(fragranceId, user.getId())
+                .orElseThrow(() -> new RuntimeException("Review not found with ID::" + fragranceId));
+        return reviewMapper.toReviewResponse(review, user.getId());
+    }
+
+    public void deleteReview(Integer reviewId, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found with ID::" + reviewId));
+        if (!review.getCreatedBy().equals(user.getId())) {
+            throw new RuntimeException("You are not allowed to delete this review");
+        }
+        reviewRepository.delete(review);
+    }
+
+    public void updateReview(ReviewRequest request, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+        Review review = reviewRepository.findByFragranceIdAndReviewId(request.fragranceId(), user.getId())
+                        .orElseThrow(() -> new RuntimeException("Review not found with ID::" + request.fragranceId()));
+        review.setText(request.text());
+        review.setRating(request.rating());
+        reviewRepository.save(review);
+    }
 }

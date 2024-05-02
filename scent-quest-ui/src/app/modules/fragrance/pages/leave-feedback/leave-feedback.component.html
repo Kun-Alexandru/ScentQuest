@@ -43,14 +43,14 @@
       </div>
     </div>
     <hr>
-    <form class="row g-3">
+    <form class="row g-3" (ngSubmit)="saveFeedback()">
       <div class="d-flex gap-3 justify-content-center">
-        <input [(ngModel)]="reviewRequest.rating" type="range" id="rate" name="rate" class="form-range w-50" min="0" max="5" step="1">
-        <app-rating [rating]="reviewRequest.rating || 0 " style="font-size: 1.4rem;"></app-rating>
-        <span style="font-size: 1.4rem;">{{ reviewRequest.rating }}</span>
+        <input [(ngModel)]="selectedReview.rating" type="range" id="rate" name="rate" class="form-range w-50" min="1" max="5" step="1">
+        <app-rating [rating]="selectedReview.rating || 0 " style="font-size: 1.4rem;"></app-rating>
+        <span style="font-size: 1.4rem;">{{ selectedReview.rating }}</span>
       </div>
       <div class="col-12 paddingLeft paddingRight">
-        <textarea [(ngModel)]="reviewRequest.text" rows="4" class="form-control fs-5" id="description" name="description" placeholder="Review"></textarea>
+        <textarea [(ngModel)]="selectedReview.text" rows="4" class="form-control fs-5" id="description" name="description" placeholder="Review"></textarea>
       </div>
       <div class="d-flex justify-content-start col-6 paddingLeft">
         <button type="submit" class="btn btn-outline-primary fs-5 " >
