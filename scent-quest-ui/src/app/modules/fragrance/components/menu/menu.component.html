@@ -27,12 +27,26 @@
           </a>
         </li>
       </ul>
-      <form class="d-flex gap-2 align-items-center" role="search">
-        <input class="form-control" type="search" placeholder="Find a fragrance" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-        <span>Welcome, <span class="text-capitalize fw-bold">{{ fullName }}</span></span>
-        <button class="btn btn-link" type="submit" (click)="logout()"><i class="fas fa-door-open"></i></button>
+      <form class="d-flex align-items-center" role="search" style="flex-grow: 1;">
+        <input class="form-control form-control-lg me-2" type="search" placeholder="Find a fragrance" aria-label="Search">
+        <button class="btn btn-outline-success btn-lg" type="submit"><i class="fas fa-search"></i></button>
       </form>
+      <button *ngIf="isLogged()" mat-button [matMenuTriggerFor]="menu" class="text-capitalize fw-bold profile-button">{{ fullName }}</button>
+      <mat-menu #menu="matMenu" class="profile-menu">
+        <div class="my-menu-containerProfile">
+          <button mat-menu-item>Profile</button>
+          <button mat-menu-item>Settings</button>
+          <button mat-menu-item *ngIf="isAdmin()">Admin Dashboard</button>
+        </div>
+      </mat-menu>
+      <button *ngIf="!isLogged()" mat-button [matMenuTriggerFor]="menuLogin" class="text-capitalize fw-bold profile-button">Authenticate</button>
+      <mat-menu #menuLogin="matMenu" class="profile-menu">
+        <div class="my-menu-containerAuthenticate">
+          <button mat-menu-item routerLink="/login">Login</button>
+          <button mat-menu-item routerLink="/register">Register</button>
+        </div>
+      </mat-menu>
+      <button *ngIf="isLogged()" class="btn btn-link" type="submit" (click)="logout()"><i class="fas fa-door-open"></i></button>
     </div>
   </div>
 </nav>

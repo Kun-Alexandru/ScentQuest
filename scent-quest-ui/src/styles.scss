@@ -11,3 +11,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cdk-overlay-pane {
+  div.mat-mdc-menu-panel {
+    max-width: none;
+  }
+}

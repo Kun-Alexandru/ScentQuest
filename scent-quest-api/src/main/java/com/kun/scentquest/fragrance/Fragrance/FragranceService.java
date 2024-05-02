@@ -57,9 +57,7 @@ public class FragranceService {
     }
 
 
-    public PageResponse<FragranceResponse> findAllFragrances(int page, int size, Authentication connectedUser) {
-        User user = (User) connectedUser.getPrincipal();
-
+    public PageResponse<FragranceResponse> findAllFragrances(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
         Page<Fragrance> fragrances = fragranceRepository.findAllFragrancesPageable(pageable);
         List<FragranceResponse> fragranceResponses = fragrances.stream()

@@ -43,6 +43,19 @@ export class TokenService {
     }
   }
 
+  isUser() {
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken.authorities.includes('ROLE_USER');
+    }
+  }
+
+  isLogged() {
+    return !!this.token;
+  }
+
   isTokenValid() {
     const token = this.token;
     if (!token) {

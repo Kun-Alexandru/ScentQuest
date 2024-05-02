@@ -1,4 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {FragranceService} from "../../../../services/services/fragrance.service";
+import {Router} from "@angular/router";
+import {TokenService} from "../../../../services/token/token.service";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-menu',
@@ -7,6 +13,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit {
   fullName: string | null = localStorage.getItem('fullName');
+
+  constructor(
+    private tokenService: TokenService
+  ) {
+  }
 
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link');
@@ -26,5 +37,13 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem('fullName');
     localStorage.removeItem('userId');
     window.location.reload();
+  }
+
+  isAdmin() {
+    return this.tokenService.isAdmin() == true;
+  }
+
+  isLogged() {
+    return this.tokenService.isLogged();
   }
 }

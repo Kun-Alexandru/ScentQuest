@@ -20,6 +20,7 @@ import { DeleteConfirmationDialogComponent } from './components/delete-confirmat
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule} from "@angular/material/dialog";
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatMenu, MatMenuModule, MatMenuTrigger} from "@angular/material/menu";
 
 
 @NgModule({
@@ -56,7 +57,10 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
     ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
-    MultiSelectModule
+    MultiSelectModule,
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuModule
   ]
 })
 export class FragranceModule { }

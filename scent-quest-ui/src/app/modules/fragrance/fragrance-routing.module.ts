@@ -13,12 +13,12 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [authGuard],
+    canActivate: [],
     children: [
       {
         path: '',
         component: FragranceListComponent,
-        canActivate: [authGuard]
+        canActivate: []
       },
       {
         path: 'my-fragrances',

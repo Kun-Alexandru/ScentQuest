@@ -5,7 +5,48 @@ li > a {
     text-decoration: underline;
   }
   &.active {
-    color: #24a7e9;
+    color: #007bff;
     border-radius: 5px;
   }
+}
+
+.profile-button {
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+}
+
+.profile-menu {
+  font-size: 1.2rem;
+  width: 200px;
+}
+
+.nav-item {
+  margin-right: 10px;
+}
+
+.form-control-lg {
+  height: calc(1.5em + 1rem + 2px);
+}
+
+.custom-menu-item {
+  padding: 0.5rem 2rem;
+  font-size: 1.3rem;
+}
+
+.profile-menu {
+  font-size: 1.4rem;
+  width: 200px;
+}
+
+.mat-menu-item {
+  font-size: 1.4rem;
+  padding: 0.75rem 1rem;
+}
+
+.my-menu-containerProfile {
+  width: 200px;
+}
+
+my-menu-containerAuthenticate {
+  width: 150px;
 }

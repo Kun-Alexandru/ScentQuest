@@ -27,7 +27,6 @@ const routes: Routes = [
   {
     path: 'fragrances',
     loadChildren: () => import('./modules/fragrance/fragrance.module').then(m => m.FragranceModule),
-    canActivate: [authGuard]
   },
   {
     path: 'access-denied',

@@ -42,14 +42,12 @@ public class FragranceController {
     @GetMapping
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrances(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-            Authentication connectedUser
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
     ) {
-        return ResponseEntity.ok(fragranceService.findAllFragrances(page, size, connectedUser));
+        return ResponseEntity.ok(fragranceService.findAllFragrances(page, size));
     }
 
     @GetMapping("/owner")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrancesByOwner(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
