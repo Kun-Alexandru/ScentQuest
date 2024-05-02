@@ -130,8 +130,12 @@ export class ManageFragranceComponent implements OnInit {
     }
 
     if (idfrag) {
+      const noteIds: number[] = this.notes.length > 0 ? this.notes.map(note => note.id as number) : [0];
+      const perfumerIds: number[] = this.perfumers.length > 0 ? this.perfumers.map(perfumer => perfumer.id as number) : [0];
       this.fragranceService.updateFragrance({
         body: this.fragranceRequest,
+        noteIds: noteIds,
+        perfumerIds: perfumerIds
       }).subscribe( {
         next: (fragranceId) => {
           if (this.isFileSelectedTruly == true) {
@@ -154,8 +158,12 @@ export class ManageFragranceComponent implements OnInit {
 
 
     } else {
+      const noteIds: number[] = this.notes.length > 0 ? this.notes.map(note => note.id as number) : [0];
+      const perfumerIds: number[] = this.perfumers.length > 0 ? this.perfumers.map(perfumer => perfumer.id as number) : [0];
       this.fragranceService.saveFragrance({
-        body: this.fragranceRequest
+        body: this.fragranceRequest,
+        noteIds: noteIds,
+        perfumerIds: perfumerIds
       }).subscribe({
         next: (fragranceId) => {
           this.fragranceService.uploadFragrancePicture({

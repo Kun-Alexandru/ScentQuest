@@ -42,10 +42,14 @@ public class FragranceService {
     private final PerfumerRepository perfumerRepository;
     private final PerfumerMapper perfumerMapper;
 
-    public Integer save(FragranceRequest request, Authentication connectedUser) {
+    public Integer save(FragranceRequest request, Authentication connectedUser, List<Integer> noteIds, List<Integer> perfumerIds) {
         User user = (User) connectedUser.getPrincipal();
         Fragrance fragrance = fragranceMapper.toFragrance(request);
         fragrance.setAdder(user);
+        List<Note> notes = noteRepository.findAllById(noteIds);
+        fragrance.setNotes(notes);
+        List<Perfumer> perfumers = perfumerRepository.findAllById(perfumerIds);
+        fragrance.setPerfumers(perfumers);
         return fragranceRepository.save(fragrance).getFragranceId();
     }
 
@@ -147,10 +151,13 @@ public class FragranceService {
 
     }
 
-    public Integer updateFragrance(Authentication connectedUser, FragranceRequest request) {
+    public Integer updateFragrance(Authentication connectedUser, FragranceRequest request, List<Integer> noteIds, List<Integer> perfumerIds) {
         User user = (User) connectedUser.getPrincipal();
         Fragrance fragrance = fragranceRepository.findById(request.FragranceId())
                 .orElseThrow(() -> new EntityNotFoundException("Fragrance not found with the Id:: " + request.FragranceId()));
+
+        List<Note> notes = noteRepository.findAllById(noteIds);
+        List<Perfumer> perfumers = perfumerRepository.findAllById(perfumerIds);
 
         fragrance.setBrand(request.brand());
         fragrance.setName(request.name());
@@ -160,6 +167,8 @@ public class FragranceService {
         fragrance.setConcentration(request.concentration());
         fragrance.setDiscontinued(request.discontinued());
         fragrance.setReleaseDate(request.releaseDate());
+        fragrance.setPerfumers(perfumers);
+        fragrance.setNotes(notes);
         fragranceRepository.save(fragrance);
         return fragrance.getFragranceId();
     }
@@ -278,6 +287,35 @@ public class FragranceService {
             return fragranceId;
         } else {
             throw new EntityNotFoundException("Fragrance not found with the Id:: " + fragranceId);
+        }
+    }
+
+    public void addNotesToFragrance(Integer fragranceId, List<Integer> noteIds) {
+        Optional<Fragrance> optionalFragrance = fragranceRepository.findById(fragranceId);
+        if (optionalFragrance.isPresent()) {
+            Fragrance fragrance = optionalFragrance.get();
+
+            List<Note> notes = noteRepository.findAllById(noteIds);
+            fragrance.setNotes(notes);
+
+            fragranceRepository.save(fragrance);
+        } else {
+            throw new IllegalArgumentException("Fragrance not found with ID: " + fragranceId);
+        }
+    }
+
+
+    public void updateNotesInFragrance(Integer fragranceId, List<Integer> noteIds) {
+        Optional<Fragrance> optionalFragrance = fragranceRepository.findById(fragranceId);
+        if (optionalFragrance.isPresent()) {
+            Fragrance fragrance = optionalFragrance.get();
+
+            List<Note> newNotes = noteRepository.findAllById(noteIds);
+            fragrance.setNotes(newNotes);
+
+            fragranceRepository.save(fragrance);
+        } else {
+            throw new IllegalArgumentException("Fragrance not found with ID: " + fragranceId);
         }
     }
 

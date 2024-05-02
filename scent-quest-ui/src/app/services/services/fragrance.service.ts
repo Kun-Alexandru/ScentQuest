@@ -9,6 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { addNotesToFragrance } from '../fn/fragrance/add-notes-to-fragrance';
+import { AddNotesToFragrance$Params } from '../fn/fragrance/add-notes-to-fragrance';
 import { deleteFavourite } from '../fn/fragrance/delete-favourite';
 import { DeleteFavourite$Params } from '../fn/fragrance/delete-favourite';
 import { deleteFragrance } from '../fn/fragrance/delete-fragrance';
@@ -45,6 +47,8 @@ import { updateDiscontinued } from '../fn/fragrance/update-discontinued';
 import { UpdateDiscontinued$Params } from '../fn/fragrance/update-discontinued';
 import { updateFragrance } from '../fn/fragrance/update-fragrance';
 import { UpdateFragrance$Params } from '../fn/fragrance/update-fragrance';
+import { updateNotesInFragrance } from '../fn/fragrance/update-notes-in-fragrance';
+import { UpdateNotesInFragrance$Params } from '../fn/fragrance/update-notes-in-fragrance';
 import { uploadFragrancePicture } from '../fn/fragrance/upload-fragrance-picture';
 import { UploadFragrancePicture$Params } from '../fn/fragrance/upload-fragrance-picture';
 
@@ -130,6 +134,56 @@ export class FragranceService extends BaseService {
   saveFragrance(params: SaveFragrance$Params, context?: HttpContext): Observable<number> {
     return this.saveFragrance$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `updateNotesInFragrance()` */
+  static readonly UpdateNotesInFragrancePath = '/fragrances/{fragranceId}/notess';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateNotesInFragrance()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateNotesInFragrance$Response(params: UpdateNotesInFragrance$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return updateNotesInFragrance(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateNotesInFragrance$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateNotesInFragrance(params: UpdateNotesInFragrance$Params, context?: HttpContext): Observable<string> {
+    return this.updateNotesInFragrance$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
+    );
+  }
+
+  /** Path part for operation `addNotesToFragrance()` */
+  static readonly AddNotesToFragrancePath = '/fragrances/{fragranceId}/notess';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addNotesToFragrance()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addNotesToFragrance$Response(params: AddNotesToFragrance$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return addNotesToFragrance(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addNotesToFragrance$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addNotesToFragrance(params: AddNotesToFragrance$Params, context?: HttpContext): Observable<string> {
+    return this.addNotesToFragrance$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

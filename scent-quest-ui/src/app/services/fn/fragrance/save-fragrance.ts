@@ -9,12 +9,16 @@ import { RequestBuilder } from '../../request-builder';
 import { FragranceRequest } from '../../models/fragrance-request';
 
 export interface SaveFragrance$Params {
+  noteIds: Array<number>;
+  perfumerIds: Array<number>;
       body: FragranceRequest
 }
 
 export function saveFragrance(http: HttpClient, rootUrl: string, params: SaveFragrance$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
   const rb = new RequestBuilder(rootUrl, saveFragrance.PATH, 'post');
   if (params) {
+    rb.query('noteIds', params.noteIds, {});
+    rb.query('perfumerIds', params.perfumerIds, {});
     rb.body(params.body, 'application/json');
   }
 

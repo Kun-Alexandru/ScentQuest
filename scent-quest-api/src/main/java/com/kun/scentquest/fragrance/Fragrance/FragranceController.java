@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -27,9 +28,11 @@ public class FragranceController {
     @PostMapping
     public ResponseEntity<Integer> saveFragrance(
             @Valid @RequestBody FragranceRequest request,
-            Authentication connectedUser
+            Authentication connectedUser,
+            @RequestParam List<Integer> noteIds,
+            @RequestParam List<Integer> perfumerIds
             ) {
-        return ResponseEntity.ok(fragranceService.save(request, connectedUser));
+        return ResponseEntity.ok(fragranceService.save(request, connectedUser, noteIds, perfumerIds));
     }
 
     @GetMapping("{fragrance-id}")
@@ -172,8 +175,30 @@ public class FragranceController {
     @PutMapping
     public ResponseEntity<Integer> updateFragrance(
             @Valid @RequestBody FragranceRequest request,
-            Authentication connectedUser
+            Authentication connectedUser,
+            @RequestParam List<Integer> noteIds,
+            @RequestParam List<Integer> perfumerIds
     ) {
-        return ResponseEntity.ok(fragranceService.updateFragrance(connectedUser, request));
+        return ResponseEntity.ok(fragranceService.updateFragrance(connectedUser, request, noteIds, perfumerIds));
+    }
+
+    @PostMapping("/{fragranceId}/notess")
+    public ResponseEntity<String> addNotesToFragrance(@PathVariable Integer fragranceId, @RequestBody List<Integer> noteIds) {
+        try {
+            fragranceService.addNotesToFragrance(fragranceId, noteIds);
+            return ResponseEntity.ok("Notes added successfully to fragrance with ID: " + fragranceId);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{fragranceId}/notess")
+    public ResponseEntity<String> updateNotesInFragrance(@PathVariable Integer fragranceId, @RequestBody List<Integer> noteIds) {
+        try {
+            fragranceService.updateNotesInFragrance(fragranceId, noteIds);
+            return ResponseEntity.ok("Notes updated successfully for fragrance with ID: " + fragranceId);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }
