@@ -1,6 +1,6 @@
 <!-- app-fragrance-list.component.html -->
 
-<div class="container">
+<div class="container d-flex flex-column align-items-center">
   <!--
   <h2 class="display-4">Fragrance list</h2>
   <div *ngIf="message" class="alert position-relative d-flex align-items-center" [class.alert-danger]="level==='error'" [class.alert-success]="level==='success'" role="alert">
@@ -10,6 +10,24 @@
   <hr class="my-4">
   -->
 
+    <h2 class="display-4 title paddingTopTitle">Perfumes</h2>
+
+    <div class="menu-container d-flex justify-content-center mb-3">
+      <div class="me-auto" style="width: 25%;">
+        <label for="filterDropdown" class="form-label fs-5 me-2"></label>
+        <select id="filterDropdown" class="form-select form-select-sm fs-5">
+          <option value="" disabled selected>Filter by season</option>
+          <option value="Spring-Summer">Spring-Summer</option>
+          <option value="Autumn-Winter">Autumn-Winter</option>
+          <option value="All Seasons">All Seasons</option>
+        </select>
+      </div>
+
+      <div class="ms-auto" style="width: 25%;">
+        <label for="searchInput" class="form-label fs-5 me-2"></label>
+        <input type="text" id="searchInput" class="form-control form-control-sm fs-5 rounded-pill" placeholder="Search perfumes...">
+      </div>
+    </div>
 
   <div class="d-flex justify-content-end mb-3 paddingTop" *ngIf="isAdmin()">
     <a routerLink="/fragrances/manage" class="btn btn-outline-primary fs-5">

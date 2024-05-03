@@ -2,6 +2,7 @@ package com.kun.scentquest.fragrance.Fragrance;
 
 import com.kun.scentquest.common.PageResponse;
 import com.kun.scentquest.exception.OperationNotPermittedException;
+import com.kun.scentquest.feedback.ReviewRepository;
 import com.kun.scentquest.file.FileStorageService;
 import com.kun.scentquest.fragrance.Favorite.Favourite;
 import com.kun.scentquest.fragrance.Favorite.FavouriteRepository;
@@ -24,6 +25,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +43,7 @@ public class FragranceService {
     private final NoteRepository noteRepository;
     private final PerfumerRepository perfumerRepository;
     private final PerfumerMapper perfumerMapper;
+    private final ReviewRepository reviewRepository;
 
     public Integer save(FragranceRequest request, Authentication connectedUser, List<Integer> noteIds, List<Integer> perfumerIds) {
         User user = (User) connectedUser.getPrincipal();
@@ -283,6 +286,15 @@ public class FragranceService {
 
     public Integer deleteFragrance(Integer fragranceId) {
         if (fragranceRepository.existsById(fragranceId)) {
+            Optional<Fragrance> f = fragranceRepository.findById(fragranceId);
+            if(f.isPresent()) {
+                Fragrance fragrance = f.get();
+                int id = fragrance.getFragranceId();
+                fragrance.setReviews(new ArrayList<>());
+                fragrance.setNotes(new ArrayList<>());
+                fragrance.setPerfumers(new ArrayList<>());
+                fragranceRepository.save(fragrance);
+            }
             fragranceRepository.deleteById(fragranceId);
             return fragranceId;
         } else {

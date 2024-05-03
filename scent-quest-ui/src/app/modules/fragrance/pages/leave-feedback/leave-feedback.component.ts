@@ -15,7 +15,9 @@ export class LeaveFeedbackComponent implements OnInit {
   selectedFragrance: FragranceResponse = {};
   selectedPicture: string | undefined;
   fragranceId: string = '';
-  selectedReview: ReviewResponse = {};
+  selectedReview: ReviewResponse = {
+    rating: 0
+  };
   exists: boolean = false;
   reviewRequest: ReviewRequest = {
     fragranceId: 0,
@@ -39,6 +41,11 @@ export class LeaveFeedbackComponent implements OnInit {
         this.findFeedback(parseInt(this.fragranceId, 10));
       }
     });
+  }
+
+  isRatingSelected(): boolean {
+    // @ts-ignore
+    return this.selectedReview && this.selectedReview.rating > 0;
   }
 
   private showSnackbar(message: string) {
@@ -65,33 +72,38 @@ export class LeaveFeedbackComponent implements OnInit {
 
   saveFeedback(): void {
 
-    this.reviewRequest.fragranceId = parseInt(this.fragranceId, 10);
-    this.reviewRequest.text = this.selectedReview.text as string;
-    this.reviewRequest.rating = this.selectedReview.rating as number;
+    if(this.isRatingSelected()) {
+      this.reviewRequest.fragranceId = parseInt(this.fragranceId, 10);
+      this.reviewRequest.text = this.selectedReview.text as string;
+      this.reviewRequest.rating = this.selectedReview.rating as number;
 
-    if(this.fragranceId) {
-      if(!this.exists){
-      this.reviewService.saveReview({
-        body: this.reviewRequest
-      }).subscribe({
-        next: (id) => {
-          this.router.navigate(['/fragrances']);
-            this.showSnackbar('Review added successfully')
-          }
-        });
-      }
-      else {
-        this.reviewService.updateReview({
-          body: this.reviewRequest
-        }).subscribe({
-          next: (id) => {
-            this.router.navigate(['/fragrances']);
-            this.showSnackbar('Review updated successfully')
+      if (this.fragranceId) {
+        if (!this.exists) {
+          this.reviewService.saveReview({
+            body: this.reviewRequest
+          }).subscribe({
+            next: (id) => {
+              this.router.navigate(['/fragrances']);
+              this.showSnackbar('Review added successfully')
+            }
+          });
+        } else {
+          this.reviewService.updateReview({
+            body: this.reviewRequest
+          }).subscribe({
+            next: (id) => {
+              this.router.navigate(['/fragrances']);
+              this.showSnackbar('Review updated successfully')
             }
           });
 
+        }
       }
     }
+    else {
+      alert('Please select a rating before submitting.');
+    }
+
   }
 
   findFragranceById(id: number): void {

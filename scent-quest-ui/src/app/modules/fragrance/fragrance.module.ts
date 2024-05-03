@@ -23,6 +23,7 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatMenu, MatMenuModule, MatMenuTrigger} from "@angular/material/menu";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ManageFragranceAdminComponent } from './pages/manage-fragrance-admin/manage-fragrance-admin.component';
+import { ReviewFormComponent } from './components/review-form/review-form.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ManageFragranceAdminComponent } from './pages/manage-fragrance-admin/ma
     MyFavoriteListComponent,
     DeleteConfirmationDialogComponent,
     ConfirmationDialogComponent,
-    ManageFragranceAdminComponent
+    ManageFragranceAdminComponent,
+    ReviewFormComponent
   ],
   imports: [
     CommonModule,

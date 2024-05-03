@@ -8,6 +8,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {TokenService} from "../../../../services/token/token.service";
 import {ConfirmationDialogComponent} from "../../components/confirmation-dialog/confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ReviewFormComponent} from "../../components/review-form/review-form.component";
+import {ReviewRequest} from "../../../../services/models/review-request";
 
 @Component({
   selector: 'app-fragrance-list',
@@ -56,6 +58,10 @@ export class FragranceListComponent implements OnInit {
       });
   }
 
+  filterBy(category: string) {
+
+  }
+
   private findAllFavourites() {
     this.fragranceService.findAllFavouritesByUserId().subscribe({
       next: (favourites) => {
@@ -99,9 +105,28 @@ export class FragranceListComponent implements OnInit {
   }
 
   reviewFragrance(fragrance: FragranceResponse) {
-    if(this.tokenService.isLogged())
-      this.router.navigate(['fragrances', 'review', fragrance.fragranceId]);
-    else
+    if(this.tokenService.isLogged()) {
+      const dialogRef = this.dialog.open(ReviewFormComponent, {
+        width: '900px',
+        data: fragrance
+      });
+      dialogRef.componentInstance.reviewSubmitted.subscribe((review: ReviewRequest) => {
+        dialogRef.close();
+        this.findAllFragrances();
+        this.findAllFavourites();
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.findAllFragrances();
+        this.findAllFavourites();
+      });
+
+      dialogRef.afterOpened().subscribe(() => {
+        this.findAllFragrances();
+        this.findAllFavourites();
+      });
+
+    } else
       this.showSnackbar('You must be logged in to review a fragrance');
   }
 
