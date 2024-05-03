@@ -64,9 +64,11 @@ public class FragranceService {
     }
 
 
-    public PageResponse<FragranceResponse> findAllFragrances(int page, int size) {
+    public PageResponse<FragranceResponse> findAllFragrances(int page, int size, String season, String searchword) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-        Page<Fragrance> fragrances = fragranceRepository.findAllFragrancesPageable(pageable);
+
+
+        Page<Fragrance> fragrances = fragranceRepository.findAllFragrancesBySearchWord(searchword, season, pageable);
         List<FragranceResponse> fragranceResponses = fragrances.stream()
                 .map(fragranceMapper::toFragranceResponse)
                 .toList();

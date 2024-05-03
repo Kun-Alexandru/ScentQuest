@@ -45,9 +45,11 @@ public class FragranceController {
     @GetMapping
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrances(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam(name = "searchWord", defaultValue = "", required = false) String searchWord,
+            @RequestParam(name = "season", defaultValue = "", required = false) String season
     ) {
-        return ResponseEntity.ok(fragranceService.findAllFragrances(page, size));
+        return ResponseEntity.ok(fragranceService.findAllFragrances(page, size, season, searchWord));
     }
 
     @GetMapping("/owner")

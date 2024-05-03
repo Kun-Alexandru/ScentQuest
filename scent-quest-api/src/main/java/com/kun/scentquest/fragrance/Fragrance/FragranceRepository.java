@@ -20,4 +20,15 @@ public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, 
     @Query("SELECT DISTINCT f FROM Fragrance f JOIN f.perfumers p WHERE p.Id = :perfumerId")
     Page<Fragrance> findAllByPerfumerId(Pageable pageable, Integer perfumerId);
 
+    @Query("""
+        SELECT f FROM Fragrance f
+        WHERE ((LOWER(f.name) LIKE CONCAT('%', LOWER(:searchWord), '%'))
+        OR (LOWER(f.brand) LIKE CONCAT('%', LOWER(:searchWord), '%')))
+        AND f.recommendedSeason LIKE CONCAT('%', :season, '%')
+        
+       """)
+    Page<Fragrance> findAllFragrancesBySearchWord(String searchWord, String season, Pageable pageable);
+
+
+
 }

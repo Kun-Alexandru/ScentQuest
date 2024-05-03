@@ -15,17 +15,18 @@
     <div class="menu-container d-flex justify-content-center mb-3">
       <div class="me-auto" style="width: 25%;">
         <label for="filterDropdown" class="form-label fs-5 me-2"></label>
-        <select id="filterDropdown" class="form-select form-select-sm fs-5">
+        <select id="filterDropdown" class="form-select form-select-sm fs-5" (change)="onSeasonChange($event)">
           <option value="" disabled selected>Filter by season</option>
           <option value="Spring-Summer">Spring-Summer</option>
           <option value="Autumn-Winter">Autumn-Winter</option>
           <option value="All Seasons">All Seasons</option>
+          <option value="">All options</option>
         </select>
       </div>
 
       <div class="ms-auto" style="width: 25%;">
         <label for="searchInput" class="form-label fs-5 me-2"></label>
-        <input type="text" id="searchInput" class="form-control form-control-sm fs-5 rounded-pill" placeholder="Search perfumes...">
+        <input type="text" id="searchInput" class="form-control form-control-sm fs-5 rounded-pill" placeholder="Search perfumes..." (input)="onInputChange($event)">
       </div>
     </div>
 

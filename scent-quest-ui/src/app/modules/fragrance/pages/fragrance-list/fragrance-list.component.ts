@@ -24,6 +24,8 @@ export class FragranceListComponent implements OnInit {
   message = '';
   level: 'success' |'error' = 'success';
   favourites: Number[] = [];
+  season: string = '';
+  searchWord = '';
 
   constructor(
     private fragranceService: FragranceService,
@@ -46,7 +48,9 @@ export class FragranceListComponent implements OnInit {
   private findAllFragrances() {
     this.fragranceService.findAllFragrances({
       page: this.page,
-      size: this.size
+      size: this.size,
+      searchWord: this.searchWord,
+      season: this.season
     })
       .subscribe({
         next: (fragrances) => {
@@ -222,6 +226,18 @@ export class FragranceListComponent implements OnInit {
 
   editFragrance(fragrance: FragranceResponse) {
     this.router.navigate(['fragrances', 'manage', fragrance.fragranceId]);
+  }
+
+  onSeasonChange(event: any) {
+    this.season = event.target.value;
+    this.findAllFragrances();
+    this.findAllFavourites();
+  }
+
+  onInputChange(event: any) {
+    this.searchWord = event.target.value;
+    this.findAllFragrances();
+    this.findAllFavourites();
   }
 }
 
