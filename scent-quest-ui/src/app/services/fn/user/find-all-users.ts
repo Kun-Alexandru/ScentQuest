@@ -11,6 +11,8 @@ import { PageResponseUserResponse } from '../../models/page-response-user-respon
 export interface FindAllUsers$Params {
   page?: number;
   size?: number;
+  filter?: string;
+  searchWord?: string;
 }
 
 export function findAllUsers(http: HttpClient, rootUrl: string, params?: FindAllUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseUserResponse>> {
@@ -18,6 +20,8 @@ export function findAllUsers(http: HttpClient, rootUrl: string, params?: FindAll
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
+    rb.query('filter', params.filter, {});
+    rb.query('searchWord', params.searchWord, {});
   }
 
   return http.request(

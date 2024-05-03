@@ -19,6 +19,8 @@ export class AdminDashboardComponent implements OnInit {
   pages: any = [];
   message = '';
   level: 'success' |'error' = 'success';
+  filterValue = '';
+  searchword = '';
 
 
   constructor(
@@ -43,7 +45,9 @@ export class AdminDashboardComponent implements OnInit {
   fetchUsers() {
     this.userService.findAllUsers({
       page: this.page,
-      size: this.size
+      size: this.size,
+      filter: this.filterValue,
+      searchWord: this.searchword
     })
       .subscribe({
         next: (users) => {
@@ -98,5 +102,20 @@ export class AdminDashboardComponent implements OnInit {
 
   get isLastPage() {
     return this.page === this.userResponse.totalPages as number - 1;
+  }
+
+  onAccountStatusChange(event: any) {
+    this.filterValue = event.target.value;
+    this.fetchUsers();
+  }
+
+  textSearch(word: string) {
+    this.searchword = word;
+    this.fetchUsers();
+  }
+
+  onInputChange(event: any) {
+    this.searchword = event.target.value;
+    this.fetchUsers();
   }
 }

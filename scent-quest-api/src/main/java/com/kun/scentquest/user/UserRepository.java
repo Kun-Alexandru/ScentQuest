@@ -17,4 +17,21 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             """)
     Page<User> findAllUsersPageable(Pageable pageable);
 
+    @Query("""
+    SELECT u FROM User u
+    WHERE LOWER(u.firstname) LIKE CONCAT('%', LOWER(:searchWord), '%') OR
+    LOWER(u.lastname) LIKE CONCAT('%', LOWER(:searchWord), '%') OR
+    LOWER(u.email) LIKE CONCAT('%', LOWER(:searchWord), '%')
+""")
+    Page<User> findAllUsersBySearchWord(String searchWord, Pageable pageable);
+
+    @Query("""
+    SELECT u FROM User u
+    WHERE u.accountLocked = :accountLocked AND 
+    (LOWER(u.firstname) LIKE CONCAT('%', LOWER(:searchWord), '%') OR 
+    LOWER(u.lastname) LIKE CONCAT('%', LOWER(:searchWord), '%') OR 
+    LOWER(u.email) LIKE CONCAT('%', LOWER(:searchWord), '%'))
+""")
+    Page<User> findAllUsersBySearchWordAndAccountLock(String searchWord, boolean accountLocked, Pageable pageable);
+
 }

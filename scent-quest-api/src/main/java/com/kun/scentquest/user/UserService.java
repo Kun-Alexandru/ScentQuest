@@ -24,9 +24,16 @@ public class UserService {
         return UserMapper.toUserResponse(u);
     }
 
-    public PageResponse<UserResponse> findAll(int page, int size) {
+    public PageResponse<UserResponse> findAll(int page, int size,String filter, String searchword) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("firstname").ascending());
-        Page<User> users = userRepository.findAllUsersPageable(pageable);
+        Page<User> users;
+
+        if(filter.equals("true")) {
+            users = userRepository.findAllUsersBySearchWordAndAccountLock(searchword,true, pageable);
+        } else if(filter.equals("false")) {
+            users = userRepository.findAllUsersBySearchWordAndAccountLock(searchword,false, pageable);
+        } else
+            users = userRepository.findAllUsersBySearchWord(searchword, pageable);
         List<UserResponse> usersResponse = users.stream()
                 .map(UserMapper::toUserResponse)
                 .toList();

@@ -17,9 +17,11 @@ public class UserController {
     @GetMapping
     public ResponseEntity<PageResponse<UserResponse>> findAllUsers(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam(name = "filter", defaultValue = "", required = false) String filter,
+            @RequestParam(name = "searchWord", defaultValue = "", required = false) String searchWord
     ) {
-        return ResponseEntity.ok(userService.findAll(page, size));
+        return ResponseEntity.ok(userService.findAll(page, size, filter, searchWord));
     }
 
     @GetMapping("{user-id}")

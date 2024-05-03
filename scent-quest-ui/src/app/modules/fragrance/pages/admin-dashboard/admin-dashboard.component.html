@@ -1,6 +1,27 @@
 <div class="container-fluid">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center align-items-center mt-3">
     <div class="col-lg-12">
+
+      <div class="d-flex justify-content-between mb-3">
+
+        <div class="form-group paddingLerft">
+          <select class="form-control" (change)="onAccountStatusChange($event)">
+            <option value="" disabled selected>Filter by account locked</option>
+            <option value="true">Locked</option>
+            <option value="false">Unlocked</option>
+            <option value="">All</option>
+          </select>
+        </div>
+
+        <div class="input-group" style="max-width: 300px;">
+          <input type="text" #searchInput class="form-control" placeholder="Search" aria-label="Search" (input)="onInputChange($event)">
+          <div class="input-group-append" style="margin-left: 10px;">
+            <button class="btn btn-outline-primary btn-lg paddingLerft" (click)="textSearch(searchInput.value)"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+
+      </div>
+
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-fixed-cols">
           <thead class="table-dark">
