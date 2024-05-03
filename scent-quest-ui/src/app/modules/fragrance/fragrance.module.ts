@@ -24,6 +24,7 @@ import {MatMenu, MatMenuModule, MatMenuTrigger} from "@angular/material/menu";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ManageFragranceAdminComponent } from './pages/manage-fragrance-admin/manage-fragrance-admin.component';
 import { ReviewFormComponent } from './components/review-form/review-form.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ReviewFormComponent } from './components/review-form/review-form.compon
     DeleteConfirmationDialogComponent,
     ConfirmationDialogComponent,
     ManageFragranceAdminComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    AdminDashboardComponent
   ],
   imports: [
     CommonModule,

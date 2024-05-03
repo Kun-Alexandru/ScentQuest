@@ -1,0 +1,43 @@
+.table-fixed-cols {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.col-fixed {
+  width: 10%;
+  text-align: center;
+  font-size: 18px;
+}
+
+.btn-group > .btn {
+  margin-right: 20px;
+}
+
+.marginleft {
+  margin-left: 30px;
+}
+
+.fontsize {
+  font-size: 20px;
+}
+
+/* Adjust the width percentages as needed */
+.col-fixed-firstname {
+  width: 15%;
+}
+
+.col-fixed-lastname {
+  width: 15%;
+}
+
+.col-fixed-email {
+  width: 20%;
+}
+
+.col-fixed-account {
+  width: 10%;
+}
+
+.col-fixed-actions {
+  width: 15%;
+}

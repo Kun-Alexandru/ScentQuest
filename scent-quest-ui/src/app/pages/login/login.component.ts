@@ -21,7 +21,7 @@ export class LoginComponent {
   ) {}
 
   login() {
-    this.errorMsg = []; // Clear existing error messages
+    this.errorMsg = [];
     this.authService.authenticate({
       body: this.authRequest
     }).subscribe({
@@ -34,7 +34,12 @@ export class LoginComponent {
         if (err.error.validationErrors) {
           this.errorMsg = err.error.validationErrors;
         } else {
-          this.errorMsg.push(err.error.error);
+          let errorMessage = err.error;
+          let errorMessageParts = errorMessage.split(":");
+          if (errorMessageParts.length > 1) {
+            errorMessage = errorMessageParts.slice(1).join(":").trim();
+          }
+          this.errorMsg.push(errorMessage);
         }
       }
     });
