@@ -34,4 +34,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 """)
     Page<User> findAllUsersBySearchWordAndAccountLock(String searchWord, boolean accountLocked, Pageable pageable);
 
+    @Query("""
+    SELECT u FROM User u
+    WHERE u.email LIKE :email
+""")
+    User findByEmailAddress(String email);
+
 }

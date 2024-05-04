@@ -4,6 +4,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -49,6 +50,44 @@ public class EmailService {
         properties.put("username", username);
         properties.put("confirmationUrl", confirmationUrl);
         properties.put("activation_code", activationCode);
+
+        Context context = new Context();
+        context.setVariables(properties);
+
+        helper.setFrom("contact@alexandrukun.com");
+        helper.setTo(to);
+        helper.setSubject(subject);
+
+        String template = templateEngine.process(templateName, context);
+
+        helper.setText(template, true);
+
+        mailSender.send(mimeMessage);
+    }
+
+    @Async
+    public void sendEmailReset(
+            String to,
+            String username,
+            EmailTemplateName emailTemplate,
+            String password,
+            String subject
+    ) throws MessagingException {
+        String templateName;
+        if (emailTemplate == null) {
+            templateName = "reset-password";
+        } else {
+            templateName = emailTemplate.getName();
+        }
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(
+                mimeMessage,
+                MULTIPART_MODE_MIXED,
+                UTF_8.name()
+        );
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("username", username);
+        properties.put("password", password);
 
         Context context = new Context();
         context.setVariables(properties);

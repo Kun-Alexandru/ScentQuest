@@ -21,14 +21,26 @@
         <input [(ngModel)]="registerRequest.email" type="email" class="form-control" id="login" name="login" placeholder="name@example.com" required>
       </div>
       <div class="mb-3">
+        <label for="login" class="form-label">What's the name of your favourite thing in the world? Remember this answer, it's very important.</label>
+        <input [(ngModel)]="registerRequest.secretKey" type="text" class="form-control" id="secret" name="secret" placeholder="Your pet's name/mother name" required>
+      </div>
+      <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input [(ngModel)]="registerRequest.password" type="password" class="form-control" id="password" name="password" placeholder="Password" required>
       </div>
-      <button type="submit" class="btn btn-primary btn-block">Create an account</button>
+      <button type="submit" class="btn btn-primary btn-block center-btn">Create an account</button>
     </form>
     <div class="mt-3 text-center">
-      <span>Already have an account?</span>
-      <button (click)="login()" type="button" class="btn btn-link">Login</button>
+      <div class="row">
+        <div class="col text-center">
+          <span>Forgot your password?</span>
+          <button (click)="resetPassword()" type="button" class="btn btn-link">Reset Password</button>
+        </div>
+        <div class="col text-start">
+          <span>Already have an account?</span>
+          <button (click)="login()" type="button" class="btn btn-link">Login</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

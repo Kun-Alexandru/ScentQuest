@@ -10,6 +10,8 @@ export { PageResponseReviewResponse } from './models/page-response-review-respon
 export { PageResponseUserResponse } from './models/page-response-user-response';
 export { PerfumerResponse } from './models/perfumer-response';
 export { RegistrationRequest } from './models/registration-request';
+export { ResetPasswordDefaultRequest } from './models/reset-password-default-request';
+export { ResetPasswordRequest } from './models/reset-password-request';
 export { ReviewRequest } from './models/review-request';
 export { ReviewResponse } from './models/review-response';
 export { UserRequest } from './models/user-request';

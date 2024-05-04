@@ -9,7 +9,7 @@ import { RegistrationRequest } from '../../services/models/registration-request'
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  registerRequest: RegistrationRequest = { email: '', firstname: '', lastname: '', password: '' };
+  registerRequest: RegistrationRequest = { email: '', firstname: '', lastname: '', password: '', secretKey: '' };
   errorMsg: Array<string> = [];
   successMessage: string = '';
 
@@ -18,14 +18,17 @@ export class RegisterComponent {
   login() {
     this.router.navigate(['login']);
   }
+  resetPassword() {
+    this.router.navigate(['reset-password']);
+  }
 
   register() {
     this.errorMsg = [];
-    this.successMessage = ''; // Clear previous success message
+    this.successMessage = '';
     this.authService.register({ body: this.registerRequest }).subscribe({
       next: () => {
         this.successMessage = 'Registration successful. Please check your email to activate your account.';
-        this.registerRequest = { email: '', firstname: '', lastname: '', password: '' }; // Clear input fields
+        this.registerRequest = { email: '', firstname: '', lastname: '', password: '', secretKey: '' }; // Clear input fields
       },
       error: (err) => {
         this.errorMsg = err.error.validationErrors;

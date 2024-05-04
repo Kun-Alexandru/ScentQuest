@@ -47,6 +47,7 @@ public class AuthenticationService {
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
+                .secretField(request.getSecretKey())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
@@ -54,6 +55,23 @@ public class AuthenticationService {
                 .build();
         userRepository.save(user);
         sendValidationEmail(user);
+    }
+
+    public void resetPasswordDefault (ResetPasswordDefaultRequest request) throws MessagingException {
+        System.out.println("Reset password default");
+        System.out.println(request.email);
+        var user = userRepository.findByEmail(request.email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!user.getSecretField().equals(request.secretKey)) {
+            throw new UsernameNotFoundException("Secret key doesn't match the account");
+        }
+
+        String newPass = this.generatePassowrd(8);
+
+        user.setPassword(passwordEncoder.encode(newPass));
+        userRepository.save(user);
+        sendResetPasswordEmail(user.getEmail(), newPass, user.getFullName());
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -82,7 +100,7 @@ public class AuthenticationService {
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
             sendValidationEmail(savedToken.getUser());
-            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
+            throw new RuntimeException("Activation token has expired. A new token has been sent to the same email address");
         }
 
         var user = userRepository.findById(savedToken.getUser().getId())
@@ -95,7 +113,6 @@ public class AuthenticationService {
     }
 
     private String generateAndSaveActivationToken(User user) {
-        // Generate a token
         String generatedToken = generateActivationCode(6);
         var token = Token.builder()
                 .token(generatedToken)
@@ -120,6 +137,16 @@ public class AuthenticationService {
                 "Account activation"
         );
     }
+    private void sendResetPasswordEmail(String email, String password, String name) throws MessagingException {
+
+        emailService.sendEmailReset(
+                email,
+                name,
+                EmailTemplateName.RESET_PASSWORD,
+                password,
+                "Reset password"
+        );
+    }
 
     private String generateActivationCode(int length) {
         String characters = "0123456789";
@@ -133,5 +160,31 @@ public class AuthenticationService {
         }
 
         return codeBuilder.toString();
+    }
+
+    private String generatePassowrd(int length) {
+        String characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder codeBuilder = new StringBuilder();
+
+        SecureRandom secureRandom = new SecureRandom();
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = secureRandom.nextInt(characters.length());
+            codeBuilder.append(characters.charAt(randomIndex));
+        }
+
+        return codeBuilder.toString();
+    }
+
+    public void resetPassword(ResetPasswordRequest request) throws MessagingException {
+        var user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
     }
 }

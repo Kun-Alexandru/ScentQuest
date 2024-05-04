@@ -608,6 +608,66 @@
         }
       }
     },
+    "/auth/reset-password": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "resetPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password-default": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "resetPassword_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDefaultRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "tags": [
@@ -1305,12 +1365,54 @@
           }
         }
       },
+      "ResetPasswordRequest": {
+        "required": [
+          "email",
+          "newPassword",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 2147483647,
+            "minLength": 8,
+            "type": "string"
+          },
+          "newPassword": {
+            "maxLength": 2147483647,
+            "minLength": 8,
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ResetPasswordDefaultRequest": {
+        "required": [
+          "email",
+          "secretKey"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "secretKey": {
+            "type": "string"
+          }
+        }
+      },
       "RegistrationRequest": {
         "required": [
           "email",
           "firstname",
           "lastname",
-          "password"
+          "password",
+          "secretKey"
         ],
         "type": "object",
         "properties": {
@@ -1326,6 +1428,9 @@
           "password": {
             "maxLength": 2147483647,
             "minLength": 8,
+            "type": "string"
+          },
+          "secretKey": {
             "type": "string"
           }
         }

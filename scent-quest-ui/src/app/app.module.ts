@@ -22,6 +22,7 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MultiSelectModule} from "primeng/multiselect";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { ResetPasswordComponentComponent } from './pages/reset-password-component/reset-password-component.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     LoginComponent,
     RegisterComponent,
     ActivateAccountComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    ResetPasswordComponentComponent
   ],
   imports: [
     BrowserModule,

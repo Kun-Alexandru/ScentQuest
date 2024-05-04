@@ -27,6 +27,16 @@ public class AuthenticationController {
 
     }
 
+    @PostMapping("/reset-password-default")
+    public ResponseEntity<?> resetPassword(
+            @RequestBody @Valid ResetPasswordDefaultRequest request
+    ) throws MessagingException {
+
+        service.resetPasswordDefault(request);
+        return ResponseEntity.accepted().build();
+
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
         @RequestBody @Valid AuthenticationRequest request
@@ -36,13 +46,21 @@ public class AuthenticationController {
 
     }
 
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(
+        @RequestBody @Valid ResetPasswordRequest request
+    ) throws MessagingException {
+
+        service.resetPassword(request);
+        return ResponseEntity.accepted().build();
+    }
+
     @GetMapping("/activate-account")
     public void confirm(
         @RequestParam("token") String token
     ) throws MessagingException {
 
         service.activateAccount(token);
-
     }
 
 }
