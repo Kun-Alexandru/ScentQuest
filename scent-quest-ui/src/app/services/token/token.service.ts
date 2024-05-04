@@ -52,6 +52,25 @@ export class TokenService {
     }
   }
 
+  get fullNameJwt() {
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken.fullName;
+    }
+  }
+
+  get email() {
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken.sub;
+    }
+  }
+
+
   isLogged() {
     return !!this.token;
   }
@@ -61,9 +80,7 @@ export class TokenService {
     if (!token) {
       return false;
     }
-    // decode the token
     const jwtHelper = new JwtHelperService();
-    // check expiry date
     const isTokenExpired = jwtHelper.isTokenExpired(token);
     if (isTokenExpired) {
       localStorage.clear();

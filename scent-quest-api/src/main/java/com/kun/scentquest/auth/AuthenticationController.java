@@ -37,6 +37,16 @@ public class AuthenticationController {
 
     }
 
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(
+            @RequestBody @Valid ResetPasswordRequest request
+    ) throws MessagingException {
+
+        service.resetPassword(request);
+        return ResponseEntity.accepted().build();
+    }
+
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
         @RequestBody @Valid AuthenticationRequest request
@@ -44,15 +54,6 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(service.authenticate(request));
 
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(
-        @RequestBody @Valid ResetPasswordRequest request
-    ) throws MessagingException {
-
-        service.resetPassword(request);
-        return ResponseEntity.accepted().build();
     }
 
     @GetMapping("/activate-account")

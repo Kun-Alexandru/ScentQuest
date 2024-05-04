@@ -25,6 +25,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ManageFragranceAdminComponent } from './pages/manage-fragrance-admin/manage-fragrance-admin.component';
 import { ReviewFormComponent } from './components/review-form/review-form.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
     ConfirmationDialogComponent,
     ManageFragranceAdminComponent,
     ReviewFormComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    ResetPasswordFormComponent
   ],
   imports: [
     CommonModule,
