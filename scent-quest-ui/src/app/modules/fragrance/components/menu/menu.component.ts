@@ -65,7 +65,7 @@ export class MenuComponent implements OnInit {
   reviewFragrance() {
     if(this.tokenService.isLogged()) {
       const dialogRef = this.dialog.open(ResetPasswordFormComponent, {
-        width: '500px'
+        width: '400px'
       });
       dialogRef.componentInstance.passwordSubmitted.subscribe((success: boolean) => {
         dialogRef.close();

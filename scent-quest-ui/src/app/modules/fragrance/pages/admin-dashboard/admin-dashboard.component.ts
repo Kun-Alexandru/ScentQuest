@@ -5,6 +5,10 @@ import {UserResponse} from "../../../../services/models/user-response";
 import {UserService} from "../../../../services/services/user.service";
 import {PageResponseUserResponse} from "../../../../services/models/page-response-user-response";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ReviewFormComponent} from "../../components/review-form/review-form.component";
+import {ReviewRequest} from "../../../../services/models/review-request";
+import {UpdateUserInfoFormComponent} from "../../components/update-user-info-form/update-user-info-form.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -28,6 +32,7 @@ export class AdminDashboardComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -71,8 +76,27 @@ export class AdminDashboardComponent implements OnInit {
       });
   }
 
-  editAccount(userId: number | undefined) {
-    this.router.navigate(['/admin/edit-user', userId]);
+  editAccount(user: UserResponse) {
+
+    console.log(user);
+
+    const dialogRef = this.dialog.open(UpdateUserInfoFormComponent, {
+      width: '500px',
+      data: user
+    });
+    dialogRef.componentInstance.userSubmitted.subscribe((succes: boolean) => {
+      dialogRef.close();
+      this.fetchUsers();
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchUsers();
+    });
+
+    dialogRef.afterOpened().subscribe(() => {
+      this.fetchUsers();
+    });
+
   }
 
   gotToPage(page: number) {

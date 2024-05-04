@@ -47,7 +47,7 @@
               <div class="btn-group" role="group">
                 <button class="btn btn-danger " *ngIf="!user.accountLocked" (click)="lockAccount(user.userId)">Lock account</button>
                 <button class="btn btn-success " *ngIf="user.accountLocked" (click)="lockAccount(user.userId)">Unlock account</button>
-                <button class="btn btn-primary " (click)="editAccount(user.userId)">Edit Account</button>
+                <button class="btn btn-primary " (click)="editAccount(user)">Edit Account</button>
               </div>
             </td>
           </tr>

@@ -1,0 +1,48 @@
+<div class="container-fluid vh-50 d-flex align-items-center">
+  <div class="col-md-12 ">
+    <h2 class="fs-4 text-center margin-top">Update user information!</h2>
+
+    <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+      <p *ngFor="let msg of errorMsg">{{msg}}</p>
+    </div>
+
+    <form class="row g-3" (ngSubmit)="submitUser()">
+
+      <div class="col-12 paddingLeft paddingRight">
+        <label for="firstname" class="form-label">First Name</label>
+        <input [(ngModel)]="selectedUser.firstname" rows="4" class="form-control fs-5" id="firstname" name="firstname" placeholder="John">
+      </div>
+
+      <div class="col-12 paddingLeft paddingRight">
+        <label for="lastname" class="form-label">Last Name</label>
+        <input [(ngModel)]="selectedUser.lastname" rows="4" class="form-control fs-5" id="lastname" name="lastname" placeholder="Doe">
+      </div>
+
+      <!--
+  <div class="col-12 paddingLeft paddingRight">
+    <label for="email" class="form-label">Email</label>
+    <input [(ngModel)]="selectedUser.email" rows="4" class="form-control fs-5" id="email" name="email" placeholder="johndoe@domain.com" (input)="onEmailChange()">
+  </div>
+
+  <div class="col-12 paddingLeft paddingRight">
+    <label for="enabled" class="form-label">Enabled</label>
+    <select [(ngModel)]="selectedUser.enabled" [disabled]="selectedUser.email !== emailStart" class="form-control fs-5" id="enabled" name="enabled">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+  </div>
+-->
+<div class="d-flex justify-content-start col-6 paddingButton margin-bottom">
+  <button type="submit" class="btn btn-outline-primary fs-5">
+    <i class="fas fa-save"></i>&nbsp;Save the user data!
+  </button>
+</div>
+
+<div class="d-flex justify-content-end col-6 paddingButton margin-bottom">
+  <a (click)="cancelSubmit()" type="submit" class="btn btn-link btn text-danger fs-5">
+    <i class="fas fa-times"></i>&nbsp;Cancel
+  </a>
+</div>
+</form>
+</div>
+</div>
