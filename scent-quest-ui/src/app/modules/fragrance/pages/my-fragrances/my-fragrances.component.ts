@@ -51,7 +51,6 @@ export class MyFragrancesComponent implements OnInit {
     this.fragranceService.findAllFavouritesByUserId().subscribe({
       next: (favourites) => {
         this.favourites = favourites;
-        console.log("Favorites:", this.favourites);
       }
     });
   }

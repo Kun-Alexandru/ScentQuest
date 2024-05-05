@@ -33,6 +33,7 @@ public class Fragrance {
     private boolean discontinued;
     private LocalDate releaseDate;
     private Integer number_of_likes;
+    private Integer number_of_dislikes;
     private String gender;
     private String concentration;
 

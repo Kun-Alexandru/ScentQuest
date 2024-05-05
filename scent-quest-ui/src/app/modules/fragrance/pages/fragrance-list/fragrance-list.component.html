@@ -42,12 +42,15 @@
         [fragrance]="fragrance"
         (favourite)="favouriteFragrance($event)"
         [favourites]="favourites"
+        [reactions]="reactions"
         *ngFor="let fragrance of fragranceResponse.content"
         (delete)="openConfirmationDialog($event)"
         (edit)="editFragrance($event)"
         [manage]="false"
         [admin] = "isAdmin()"
         (review)="reviewFragrance($event)"
+        (reactionLike)="likeFragrance($event)"
+        (reactionDislike)="dislikeFragrance($event)"
         class="card-with-gap"
       >
       </app-fragrance-card>

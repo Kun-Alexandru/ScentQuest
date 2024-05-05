@@ -7,6 +7,7 @@ export interface FragranceRequest {
   discontinued?: boolean;
   gender?: string;
   name: string;
+  number_of_dislikes?: number;
   number_of_likes?: number;
   recommendedSeason: string;
   releaseDate?: string;

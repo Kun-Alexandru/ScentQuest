@@ -10,6 +10,8 @@ import {ConfirmationDialogComponent} from "../../components/confirmation-dialog/
 import {MatDialog} from "@angular/material/dialog";
 import {ReviewFormComponent} from "../../components/review-form/review-form.component";
 import {ReviewRequest} from "../../../../services/models/review-request";
+import {ReactionResponse} from "../../../../services/models/reaction-response";
+import {ReactionService} from "../../../../services/services/reaction.service";
 
 @Component({
   selector: 'app-fragrance-list',
@@ -26,19 +28,22 @@ export class FragranceListComponent implements OnInit {
   favourites: Number[] = [];
   season: string = '';
   searchWord = '';
+  reactions: ReactionResponse[] = [];
 
   constructor(
     private fragranceService: FragranceService,
     private router: Router,
     private snackBar: MatSnackBar,
     private tokenService: TokenService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private reactionService: ReactionService
   ) {
   }
 
   ngOnInit(): void {
     this.findAllFragrances();
     this.findAllFavourites();
+    this.findAllReactions();
   }
 
   isAdmin() {
@@ -62,15 +67,21 @@ export class FragranceListComponent implements OnInit {
       });
   }
 
-  filterBy(category: string) {
-
-  }
-
   private findAllFavourites() {
     this.fragranceService.findAllFavouritesByUserId().subscribe({
       next: (favourites) => {
         this.favourites = favourites;
-        console.log("Favorites:", this.favourites);
+      }
+    });
+  }
+
+  private findAllReactions() {
+    this.reactionService.getReactionsByUserId({
+      'userId': this.tokenService.userId as number
+    }).subscribe({
+      next: (reactions) => {
+        this.reactions = reactions;
+        console.log("Reactions:", this.reactions);
       }
     });
   }
@@ -118,20 +129,54 @@ export class FragranceListComponent implements OnInit {
         dialogRef.close();
         this.findAllFragrances();
         this.findAllFavourites();
+        this.findAllReactions();
       });
 
       dialogRef.afterClosed().subscribe(() => {
         this.findAllFragrances();
         this.findAllFavourites();
+        this.findAllReactions();
       });
 
       dialogRef.afterOpened().subscribe(() => {
         this.findAllFragrances();
         this.findAllFavourites();
+        this.findAllReactions();
       });
 
     } else
       this.showSnackbar('You must be logged in to review a fragrance');
+  }
+
+
+  likeFragrance(fragrance: FragranceResponse) {
+    this.message = '';
+    this.level = 'success';
+    if (this.tokenService.isLogged()) {
+      this.likeFragranceAPI(fragrance);
+    }
+    else {
+      this.showSnackbar('You must be logged in to like a fragrance')
+    }
+  }
+
+  dislikeFragrance(fragrance: FragranceResponse) {
+    this.message = '';
+    this.level = 'success';
+    if (this.tokenService.isLogged()) {
+      this.dislikeFragranceAPI(fragrance);
+    }
+    else {
+      this.showSnackbar('You must be logged in to dislike a fragrance')
+    }
+  }
+
+  private showSnackbar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
   favouriteFragrance(fragrance: FragranceResponse) {
@@ -151,14 +196,6 @@ export class FragranceListComponent implements OnInit {
     }
   }
 
-  private showSnackbar(message: string) {
-    this.snackBar.open(message, 'Close', {
-      duration: 2000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-    });
-  }
-
   private addFavourite(fragrance: FragranceResponse) {
     this.fragranceService.saveFavourite({
       'fragrance-id': fragrance.fragranceId as number
@@ -172,6 +209,38 @@ export class FragranceListComponent implements OnInit {
         console.log(err);
         //this.level = 'error';
         //this.message = err.error.error;
+      }
+    });
+  }
+
+
+  private likeFragranceAPI(fragrance: FragranceResponse) {
+    this.reactionService.saveReaction( {
+      body: {type: 'like', fragranceId: fragrance.fragranceId as number, userId: this.tokenService.userId as number}
+    })
+      .subscribe({
+        next: () => {
+          this.findAllFragrances()
+          this.findAllReactions();
+          this.findAllFavourites();
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+  }
+
+  private dislikeFragranceAPI(fragrance: FragranceResponse) {
+    this.reactionService.saveReaction( {
+      body: {type: 'dislike', fragranceId: fragrance.fragranceId as number, userId: this.tokenService.userId as number}
+    })       .subscribe({
+      next: () => {
+        this.findAllFragrances()
+        this.findAllReactions();
+        this.findAllFavourites();
+      },
+      error: (err) => {
+        console.log(err);
       }
     });
   }
@@ -217,7 +286,7 @@ export class FragranceListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog Result:', result); // Check if result is received
+      console.log('Dialog Result:', result);
       if (result) {
         this.deleteFragrance(fragrance);
       }
@@ -230,14 +299,18 @@ export class FragranceListComponent implements OnInit {
 
   onSeasonChange(event: any) {
     this.season = event.target.value;
+    this.page = 0;
     this.findAllFragrances();
     this.findAllFavourites();
+    this.findAllReactions();
   }
 
   onInputChange(event: any) {
     this.searchWord = event.target.value;
+    this.page = 0;
     this.findAllFragrances();
     this.findAllFavourites();
+    this.findAllReactions();
   }
 }
 

@@ -23,7 +23,8 @@ public record FragranceRequest(
         LocalDate releaseDate,
         Integer number_of_likes,
         String concentration,
-        String gender
+        String gender,
+        Integer number_of_dislikes
 
 ) {
 }

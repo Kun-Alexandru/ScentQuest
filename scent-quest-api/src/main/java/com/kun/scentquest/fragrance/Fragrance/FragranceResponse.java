@@ -25,5 +25,6 @@ public class FragranceResponse {
     private Integer number_of_likes;
     private String gender;
     private String concentration;
+    private Integer number_of_dislikes;
 
 }

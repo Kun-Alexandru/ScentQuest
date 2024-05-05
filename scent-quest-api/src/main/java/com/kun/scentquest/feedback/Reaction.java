@@ -27,10 +27,5 @@ public class Reaction {
     private User user;
 
     @Column
-    private ReactionType type;
-
-    public enum ReactionType {
-        LIKE,
-        DISLIKE
-    }
+    private String type;
 }

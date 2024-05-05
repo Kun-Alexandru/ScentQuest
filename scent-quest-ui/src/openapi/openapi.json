@@ -40,6 +40,10 @@
       "description": "The fragrance API"
     },
     {
+      "name": "reaction",
+      "description": "The reaction API"
+    },
+    {
       "name": "review",
       "description": "The review API"
     },
@@ -475,6 +479,37 @@
         }
       }
     },
+    "/reactions": {
+      "post": {
+        "tags": [
+          "reaction"
+        ],
+        "operationId": "saveReaction",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReactionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fragrances/picture/{fragrance-id}": {
       "post": {
         "tags": [
@@ -895,6 +930,40 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ReviewResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactions/{userId}": {
+      "get": {
+        "tags": [
+          "reaction"
+        ],
+        "operationId": "getReactionsByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReactionResponse"
+                  }
                 }
               }
             }
@@ -1362,6 +1431,31 @@
           },
           "gender": {
             "type": "string"
+          },
+          "number_of_dislikes": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ReactionRequest": {
+        "required": [
+          "fragranceId",
+          "type",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fragranceId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -1542,6 +1636,22 @@
           }
         }
       },
+      "ReactionResponse": {
+        "required": [
+          "fragranceId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "fragranceId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "FragranceResponse": {
         "type": "object",
         "properties": {
@@ -1587,6 +1697,10 @@
           },
           "concentration": {
             "type": "string"
+          },
+          "number_of_dislikes": {
+            "type": "integer",
+            "format": "int32"
           },
           "fragranceId": {
             "type": "integer",

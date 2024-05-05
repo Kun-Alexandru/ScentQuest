@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
 import {FragranceRequest} from "../../../../services/models/fragrance-request";
+import {ReactionResponse} from "../../../../services/models/reaction-response";
 
 @Component({
   selector: 'app-fragrance-card',
@@ -12,7 +13,9 @@ export class FragranceCardComponent {
   private _fragrancePhoto: string | undefined;
   private _fragrance: FragranceResponse = {};
   private _favourites: Number[] = [];
+  private _reactions: ReactionResponse[] = [];
   private _admin: boolean = false;
+  public likestatus: string = 'none';
 
   get admin(): boolean {
     return this._admin;
@@ -50,6 +53,16 @@ export class FragranceCardComponent {
     return this._favourites;
   }
 
+  @Input()
+  set reactions(value: ReactionResponse[]) {
+    this._reactions = value;
+  }
+
+  get reactions(): ReactionResponse[] {
+    return this._reactions;
+  }
+
+
   get fragrancePhoto(): string | undefined {
     if (this._fragrance.picture) {
       return 'data:image/jpg;base64,' + this._fragrance.picture
@@ -62,6 +75,16 @@ export class FragranceCardComponent {
   @Output() private delete: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private favourite: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private review: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+  @Output() private reactionLike: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+  @Output() private reactionDislike: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+
+  onLike() {
+    this.reactionLike.emit(this._fragrance)
+  }
+
+  onDislike() {
+    this.reactionDislike.emit(this._fragrance)
+  }
 
   onShowDetails() {
     this.details.emit(this._fragrance);
@@ -84,9 +107,30 @@ export class FragranceCardComponent {
   }
 
   get isInList(): boolean {
-    console.log("Favourites:", this._favourites);
     const fragranceId = this._fragrance?.fragranceId;
     return typeof fragranceId === 'number' && this._favourites.includes(fragranceId);
+  }
+
+  get isLikeDislikeNone(): string {
+
+
+    const fragranceId = this._fragrance?.fragranceId;
+
+    if (!fragranceId || !this.reactions) {
+      console.log('none')
+      return 'none';
+    }
+
+    for (const reaction of this.reactions) {
+      console.log(fragranceId)
+      if (reaction.fragranceId === fragranceId) {
+        console.log(reaction.type)
+        return reaction.type;
+      }
+    }
+
+    console.log('none')
+    return 'none';
   }
 
 }

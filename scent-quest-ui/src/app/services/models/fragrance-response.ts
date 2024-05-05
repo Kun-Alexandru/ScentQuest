@@ -9,6 +9,7 @@ export interface FragranceResponse {
   fragranceId?: number;
   gender?: string;
   name?: string;
+  number_of_dislikes?: number;
   number_of_likes?: number;
   picture?: Array<string>;
   recommendedSeason?: string;

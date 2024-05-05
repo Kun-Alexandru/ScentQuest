@@ -135,11 +135,13 @@ export class AdminDashboardComponent implements OnInit {
 
   textSearch(word: string) {
     this.searchword = word;
+    this.page = 0;
     this.fetchUsers();
   }
 
   onInputChange(event: any) {
     this.searchword = event.target.value;
+    this.page = 0;
     this.fetchUsers();
   }
 }

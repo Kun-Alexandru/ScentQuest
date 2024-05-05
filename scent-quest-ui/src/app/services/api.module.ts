@@ -7,6 +7,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { UserService } from './services/user.service';
 import { ReviewService } from './services/review.service';
 import { FragranceService } from './services/fragrance.service';
+import { ReactionService } from './services/reaction.service';
 import { AuthenticationService } from './services/authentication.service';
 
 /**
@@ -20,6 +21,7 @@ import { AuthenticationService } from './services/authentication.service';
     UserService,
     ReviewService,
     FragranceService,
+    ReactionService,
     AuthenticationService,
     ApiConfiguration
   ],

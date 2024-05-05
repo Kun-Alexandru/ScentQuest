@@ -7,9 +7,13 @@
   max-height: 200px;
 }
 
+.star-rating .star {
+  font-size: 24px;
+}
+
 
 .card {
-  height: 500px;
+  height: 550px;
 }
 
 
@@ -26,6 +30,15 @@
 .card-text {
   font-size: 1.25rem;
 }
+
+.liked {
+  color: green;
+}
+
+.disliked {
+  color: red;
+}
+
 
 .card-footer .fa-heart,
 .card-footer .fa-info-circle,

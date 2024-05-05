@@ -70,6 +70,15 @@ export class TokenService {
     }
   }
 
+  get userId() {
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken.userId;
+    }
+  }
+
 
   isLogged() {
     return !!this.token;
