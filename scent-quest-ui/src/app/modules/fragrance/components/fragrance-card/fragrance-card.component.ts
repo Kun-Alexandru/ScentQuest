@@ -16,6 +16,16 @@ export class FragranceCardComponent {
   private _reactions: ReactionResponse[] = [];
   private _admin: boolean = false;
   public likestatus: string = 'none';
+  private _fav = false;
+
+  get fav(): boolean {
+    return this._fav;
+  }
+  
+  @Input()
+  set fav(value: boolean) {
+    this._fav = value;
+  }
 
   get admin(): boolean {
     return this._admin;

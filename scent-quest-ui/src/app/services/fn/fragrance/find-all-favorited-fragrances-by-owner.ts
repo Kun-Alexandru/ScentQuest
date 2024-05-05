@@ -11,6 +11,8 @@ import { PageResponseFragranceResponse } from '../../models/page-response-fragra
 export interface FindAllFavoritedFragrancesByOwner$Params {
   page?: number;
   size?: number;
+  searchWord?: string;
+  season?: string;
 }
 
 export function findAllFavoritedFragrancesByOwner(http: HttpClient, rootUrl: string, params?: FindAllFavoritedFragrancesByOwner$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFragranceResponse>> {
@@ -18,6 +20,8 @@ export function findAllFavoritedFragrancesByOwner(http: HttpClient, rootUrl: str
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
+    rb.query('searchWord', params.searchWord, {});
+    rb.query('season', params.season, {});
   }
 
   return http.request(

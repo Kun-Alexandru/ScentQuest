@@ -138,9 +138,11 @@ public class FragranceController {
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFavoritedFragrancesByOwner(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-            Authentication connectedUser
+            Authentication connectedUser,
+            @RequestParam(name = "searchWord", defaultValue = "", required = false) String searchWord,
+            @RequestParam(name = "season", defaultValue = "", required = false) String season
     ) {
-        return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByOwner(page, size, connectedUser));
+        return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByOwner(page, size, connectedUser, season, searchWord));
     }
 
     @GetMapping("/{fragrance-id}/notes")

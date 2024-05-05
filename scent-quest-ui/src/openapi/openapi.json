@@ -1246,6 +1246,24 @@
               "format": "int32",
               "default": 10
             }
+          },
+          {
+            "name": "searchWord",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "season",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
           }
         ],
         "responses": {

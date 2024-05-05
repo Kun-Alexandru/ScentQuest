@@ -30,5 +30,11 @@ public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, 
     Page<Fragrance> findAllFragrancesBySearchWord(String searchWord, String season, Pageable pageable);
 
 
+    @Query("""
+        SELECT f FROM Fragrance f
+        WHERE f.adder.id = :userId
+        """)
+    Page<Fragrance> findAllFragrancesByOwner(Integer userId, Pageable pageable);
+
 
 }

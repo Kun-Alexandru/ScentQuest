@@ -42,9 +42,9 @@
       <i (click)="onShowDetails()" class="fas fa-info-circle"></i>
       <i *ngIf="isInList == true && !manage" (click)="onFavourite()" class="fas fa-heart text-danger"></i>
       <i *ngIf="isInList == false && !manage" (click)="onFavourite()" class="far fa-heart text-danger"></i>
-      <i  *ngIf="!manage" (click)="onReview()" class="fas fa-comment text-primary"></i>
-      <i *ngIf="manage || admin" (click)="onEdit()" class="fas fa-edit text-success"></i>
-      <i *ngIf="manage || admin" (click)="onDelete()" class="fas fa-archive text-danger"></i>
+      <i *ngIf="!manage  && !fav" (click)="onReview()" class="fas fa-comment text-primary"></i>
+      <i *ngIf="manage || admin  && !fav" (click)="onEdit()" class="fas fa-edit text-success"></i>
+      <i *ngIf="manage || admin  && !fav" (click)="onDelete()" class="fas fa-archive text-danger"></i>
     </div>
 
   </div>

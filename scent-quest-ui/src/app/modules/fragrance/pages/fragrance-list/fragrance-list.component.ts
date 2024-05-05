@@ -154,6 +154,7 @@ export class FragranceListComponent implements OnInit {
     this.level = 'success';
     if (this.tokenService.isLogged()) {
       this.likeFragranceAPI(fragrance);
+      this.showSnackbar('Fragrance liked')
     }
     else {
       this.showSnackbar('You must be logged in to like a fragrance')
@@ -165,6 +166,7 @@ export class FragranceListComponent implements OnInit {
     this.level = 'success';
     if (this.tokenService.isLogged()) {
       this.dislikeFragranceAPI(fragrance);
+      this.showSnackbar('Fragrance disliked')
     }
     else {
       this.showSnackbar('You must be logged in to dislike a fragrance')
