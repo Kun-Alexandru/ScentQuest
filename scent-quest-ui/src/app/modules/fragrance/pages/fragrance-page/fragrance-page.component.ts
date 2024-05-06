@@ -257,4 +257,8 @@ export class FragrancePageComponent implements OnInit{
     return this.page === this.reviewResponse.totalPages as number - 1;
   }
 
+  userIdLogged(): number {
+    return this.tokenService.userId as number;
+  }
+
 }
