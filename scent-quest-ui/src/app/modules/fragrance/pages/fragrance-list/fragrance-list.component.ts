@@ -299,6 +299,11 @@ export class FragranceListComponent implements OnInit {
     this.router.navigate(['fragrances', 'manage', fragrance.fragranceId]);
   }
 
+  redirectToPage(fragrance: FragranceResponse) {
+    this.router.navigate(['fragrances','page', fragrance.fragranceId]);
+  }
+
+
   onSeasonChange(event: any) {
     this.season = event.target.value;
     this.page = 0;

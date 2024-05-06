@@ -21,7 +21,7 @@ export class FragranceCardComponent {
   get fav(): boolean {
     return this._fav;
   }
-  
+
   @Input()
   set fav(value: boolean) {
     this._fav = value;
@@ -87,6 +87,11 @@ export class FragranceCardComponent {
   @Output() private review: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private reactionLike: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private reactionDislike: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+  @Output() private redirectToPage:  EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+
+  onRedirectToPage() {
+    this.redirectToPage.emit(this._fragrance)
+}
 
   onLike() {
     this.reactionLike.emit(this._fragrance)

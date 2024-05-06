@@ -60,4 +60,13 @@ public class ReviewController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/fragrance/{fragranceId}/revi")
+    public ResponseEntity<PageResponse<ReviewFragranceResponse>> findAllReviewsByFragId(
+            @PathVariable("fragranceId") Integer fragranceId,
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ) {
+        return ResponseEntity.ok(reviewService.getAllReviewsByFragranceId(fragranceId, page, size));
+    }
+
 }

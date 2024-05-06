@@ -135,6 +135,10 @@ export class MyFavoriteListComponent implements OnInit {
       this.showSnackbar('You must be logged in to review a fragrance');
   }
 
+  redirectToPage(fragrance: FragranceResponse) {
+    this.router.navigate(['fragrances','page', fragrance.fragranceId]);
+  }
+
   favouriteFragrance(fragrance: FragranceResponse) {
     this.message = '';
     this.level = 'success';

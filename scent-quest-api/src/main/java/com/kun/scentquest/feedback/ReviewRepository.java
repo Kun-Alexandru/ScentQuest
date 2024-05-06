@@ -20,4 +20,10 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
             AND r.createdBy = :ownerId
             """)
     Optional<Review> findByFragranceIdAndReviewId(Integer fragranceId, Integer ownerId);
+
+    @Query("""
+            SELECT r FROM Review r 
+            WHERE r.fragrance.FragranceId = :fragranceId
+            """)
+    Page<Review> findAllReviewByFragranceId(Integer fragranceId, Pageable pageable);
 }

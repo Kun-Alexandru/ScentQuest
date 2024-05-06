@@ -1,0 +1,176 @@
+<div class="p-3">
+  <h1 class="display-4 text-center">{{fragrance.name}}</h1>
+  <hr class="my-4">
+  <div class="d-flex gap-3">
+    <div class="col-4">
+      <img class="rounded-3 marginbottom" width="100%"  [style.max-height.px]="350" height="auto" [src]="fragrancePhoto" alt="photo">
+
+      <div class="d-flex gap-3 align-items-center">
+        <button (click)="likeFragrance(fragrance)" *ngIf="isLikeDislikeNone != 'like'" class="btn btn-outline-success btn-lg">
+          <i class="fas fa-thumbs-up"></i>
+        </button>
+
+        <button (click)="likeFragrance(fragrance)" *ngIf="isLikeDislikeNone === 'like'" class="btn btn-success btn-lg">
+          <i class="fas fa-thumbs-up"></i>
+        </button>
+
+        <span class="fw-bold fs-3">{{ fragrance.number_of_likes }}</span>
+
+        <button (click)="dislikeFragrance(fragrance)" *ngIf="isLikeDislikeNone != 'dislike'" class="btn btn-outline-danger btn-lg">
+          <i class="fas fa-thumbs-down"></i>
+        </button>
+
+        <button (click)="dislikeFragrance(fragrance)" *ngIf="isLikeDislikeNone === 'dislike'" class="btn btn-danger btn-lg">
+          <i class="fas fa-thumbs-down"></i>
+        </button>
+
+        <span class="fw-bold fs-3">{{ fragrance.number_of_dislikes }}</span>
+      </div>
+
+    </div>
+    <div class="col-8">
+      <div class="row g-3">
+        <div class="col-6 mb-3 paddingRight">
+          <p class="form-label fs-5">Brand: {{fragrance.brand}}</p>
+        </div>
+        <div class="col-6 mb-3 paddingRight">
+          <p class="form-label fs-5">Season: {{fragrance.recommendedSeason}}</p>
+        </div>
+        <div class="col-6 mb-3 paddingRight">
+          <p class="form-label fs-5">Gender: {{fragrance.gender}}</p>
+        </div>
+        <div class="col-6 mb-3 paddingRight">
+          <p class="form-label fs-5">Concentration: {{fragrance.concentration}}</p>
+        </div>
+        <div class="col-6 mb-3 paddingRight">
+          <p class="form-label fs-5">Description: {{fragrance.shortDescription}}</p>
+        </div>
+        <div class="col-6 mb-3 paddingRight">
+          <p class="form-label fs-5">Release Date: {{fragrance.releaseDate}}</p>
+        </div>
+        <div class="d-flex gap-2 col-6">
+          <app-rating [rating]="fragrance.averageRating || 0"></app-rating>
+          <span class="fw-bold fs-5" *ngIf="fragrance.averageRating || 0 > 0">{{fragrance.averageRating}}</span>
+        </div>
+        <div class="col-6 mb-3">
+          <p class="fs-5" [ngClass]="{'text-success': !fragrance.discontinued, 'text-danger': fragrance.discontinued}">
+            {{ fragrance.discontinued ? 'Discontinued' : 'Available' }}
+          </p>
+        </div>
+
+        <div class="col-6 mb-3">
+          <p class="form-label fs-5">Notes:</p>
+          <ul>
+            <li *ngFor="let note of noteString" class="fs-5">{{ note }}</li>
+          </ul>
+        </div>
+        <div class="col-6 mb-3">
+          <p class="form-label fs-5">Perfumers:</p>
+          <ul>
+            <li *ngFor="let perfumer of perfumerString" class="fs-5">{{ perfumer }}</li>
+          </ul>
+        </div>
+        <div class="col-12 mb-3">
+        </div>
+
+        <div class="d-flex justify-content-end gap-3 col-12 paddingRight">
+          <a routerLink="/fragrances" class="btn btn-outline-primary fs-5"><i class="fas fa-arrow-left"></i>&nbsp;Back</a>
+        </div>
+
+        <div class="d-flex justify-content-end gap-3 col-12 paddingRight">
+          <button class="btn btn-primary fs-5" (click)="reviewFragrance(fragrance)">Add/Edit Review</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="comment-section margintop justify-content-center mb-6 d-flex align-items-center">
+    <div class="col-lg-6">
+      <div *ngFor="let response of reviewResponse.content" class="comment card mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h5 class="card-title user fs-4">{{ response.creator?.firstname }} {{ response.creator?.lastname }}</h5>
+              <div class="d-flex gap-2">
+                <app-rating [rating]="response.rating || 0"></app-rating>
+                <span class="fw-bold fs-5" *ngIf="response.rating || 0 > 0">{{response.rating}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="timestamp fs-6">Created at: {{ response.createdDate | date: 'medium' }}</div>
+              <div class="edited-timestamp fs-6" *ngIf="response.modifiedAt">Edited at: {{ response.modifiedAt | date: 'medium' }}</div>
+            </div>
+          </div>
+          <p class="card-text text fs-5">{{ response.text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="d-flex justify-content-center mb-3">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a
+            (click)="goToFirstPage()"
+            class="page-link fs-5"
+            href="javascript:void(0)"
+            aria-label="Previous"
+            [class.disabled]="page === 0"
+          >
+            <i class="fas fa-angle-double-left"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            (click)="goToPreviousPage()"
+            class="page-link fs-5"
+            href="javascript:void(0)"
+            aria-label="Previous"
+            [class.disabled]="page === 0"
+          >
+            <i class="fas fa-solid fa-angle-left"></i>
+          </a>
+        </li>
+        <li class="page-item" *ngFor="let pageIndex of pages">
+          <a
+            (click)="gotToPage(pageIndex)"
+            class="page-link fs-5"
+            [class.active]="page === pageIndex"
+            href="javascript:void(0)"
+          >
+            {{ pageIndex + 1 }}
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            (click)="goToNextPage()"
+            class="page-link fs-5"
+            href="javascript:void(0)"
+            aria-label="Next"
+            [class.disabled]="isLastPage"
+          >
+            <i class="fas fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            (click)="goToLastPage()"
+            class="page-link fs-5"
+            href="javascript:void(0)"
+            aria-label="Next"
+            [class.disabled]="isLastPage"
+          >
+            <i class="fas fa-angle-double-right"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</div>

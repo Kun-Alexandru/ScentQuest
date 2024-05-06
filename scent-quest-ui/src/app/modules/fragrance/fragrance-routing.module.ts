@@ -10,6 +10,7 @@ import {AdminGuard} from "../../services/admin/admin.guard";
 import {MyFavoriteListComponent} from "./pages/my-favorite-list/my-favorite-list.component";
 import {ManageFragranceAdminComponent} from "./pages/manage-fragrance-admin/manage-fragrance-admin.component";
 import {AdminDashboardComponent} from "./pages/admin-dashboard/admin-dashboard.component";
+import {FragrancePageComponent} from "./pages/fragrance-page/fragrance-page.component";
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
         path: 'manage/:id',
         component: ManageFragranceComponent,
         canActivate: [authGuard]
+      },
+      {
+        path: 'page/:id',
+        component: FragrancePageComponent
       },
       {
         path: 'review/:id',

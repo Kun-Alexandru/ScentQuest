@@ -27,6 +27,7 @@ import { ReviewFormComponent } from './components/review-form/review-form.compon
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
 import { UpdateUserInfoFormComponent } from './components/update-user-info-form/update-user-info-form.component';
+import { FragrancePageComponent } from './pages/fragrance-page/fragrance-page.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { UpdateUserInfoFormComponent } from './components/update-user-info-form/
     ReviewFormComponent,
     AdminDashboardComponent,
     ResetPasswordFormComponent,
-    UpdateUserInfoFormComponent
+    UpdateUserInfoFormComponent,
+    FragrancePageComponent
   ],
   imports: [
     CommonModule,
