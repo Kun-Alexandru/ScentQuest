@@ -9,6 +9,7 @@ import {FragranceResponse} from "../../../../services/models/fragrance-response"
 import {ReviewFormComponent} from "../review-form/review-form.component";
 import {ReviewRequest} from "../../../../services/models/review-request";
 import {ResetPasswordFormComponent} from "../reset-password-form/reset-password-form.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-menu',
@@ -20,8 +21,31 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router,
   ) {
+  }
+
+  private showSnackbar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+  }
+
+  public loggedIn() {
+    this.showSnackbar('Please log in to access this feature.');
+  }
+
+  goFavorites() {
+    if (this.tokenService.isLogged()) {
+      this.router.navigate(['/my-favorites']);
+    } else {
+      this.showSnackbar('Please log in to access this feature.');
+    }
+
   }
 
   ngOnInit(): void {
