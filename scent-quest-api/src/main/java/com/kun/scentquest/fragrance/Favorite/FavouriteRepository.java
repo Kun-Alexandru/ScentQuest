@@ -36,8 +36,8 @@ public interface FavouriteRepository extends JpaRepository<Favourite, Integer> {
             SELECT f.fragrance FROM Favourite f
             WHERE f.user.id = :userId AND
             f.fragrance.recommendedSeason LIKE CONCAT('%', :season, '%') AND
-            (f.fragrance.name LIKE CONCAT('%', :searchWord, '%') OR
-            f.fragrance.brand LIKE CONCAT('%', :searchWord, '%'))
+            (LOWER(f.fragrance.name) LIKE CONCAT('%', LOWER(:searchWord), '%') OR
+            LOWER(f.fragrance.brand) LIKE CONCAT('%', LOWER(:searchWord), '%'))
             """)
     Page<Fragrance> findAllFavoriteFragrancesByUserId(Pageable pageable, @Param("userId") Integer userId, @Param("season") String season, @Param("searchWord") String searchWord);
 }

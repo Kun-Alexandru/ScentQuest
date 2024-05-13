@@ -14,12 +14,11 @@ import {ReviewFormComponent} from "../../components/review-form/review-form.comp
 import {ReviewRequest} from "../../../../services/models/review-request";
 
 @Component({
-  selector: 'app-my-favorite-list',
-  templateUrl: './my-favorite-list.component.html',
-  styleUrl: './my-favorite-list.component.scss'
+  selector: 'app-my-owned-list',
+  templateUrl: './my-owned-list.component.html',
+  styleUrl: './my-owned-list.component.scss'
 })
-export class MyFavoriteListComponent implements OnInit {
-
+export class MyOwnedListComponent {
   fragranceResponse: PageResponseFragranceResponse = {};
   page = 0;
   size = 6;
@@ -54,7 +53,7 @@ export class MyFavoriteListComponent implements OnInit {
   }
 
   private findAllFragrances() {
-    this.fragranceService.findAllFavoritedFragrancesByOwner({
+    this.fragranceService.findAllOwnedFragrancesByOwner({
       page: this.page,
       size: this.size,
       searchWord: this.searchWord,
@@ -237,7 +236,6 @@ export class MyFavoriteListComponent implements OnInit {
         //this.level = 'success';
         //this.message = 'Fragrance successfully favorited';
         this.findAllFavourites(); // Update favorites list
-        this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
@@ -255,6 +253,7 @@ export class MyFavoriteListComponent implements OnInit {
         //this.level = 'success';
         //this.message = 'Fragrance successfully favorited';
         this.findAllOwned(); // Update favorites list
+        this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
@@ -304,7 +303,6 @@ export class MyFavoriteListComponent implements OnInit {
     }).subscribe({
       next: () => {
         this.findAllFavourites();
-        this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);
@@ -320,6 +318,7 @@ export class MyFavoriteListComponent implements OnInit {
     }).subscribe({
       next: () => {
         this.findAllOwned();
+        this.findAllFragrances();
       },
       error: (err) => {
         console.log(err);

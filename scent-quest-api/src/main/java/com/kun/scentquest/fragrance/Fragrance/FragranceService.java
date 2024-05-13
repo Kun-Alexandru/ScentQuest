@@ -10,6 +10,8 @@ import com.kun.scentquest.fragrance.Note.Note;
 import com.kun.scentquest.fragrance.Note.NoteMapper;
 import com.kun.scentquest.fragrance.Note.NoteRepository;
 import com.kun.scentquest.fragrance.Note.NoteResponse;
+import com.kun.scentquest.fragrance.Owned.Owned;
+import com.kun.scentquest.fragrance.Owned.OwnedRepository;
 import com.kun.scentquest.fragrance.Perfumer.Perfumer;
 import com.kun.scentquest.fragrance.Perfumer.PerfumerMapper;
 import com.kun.scentquest.fragrance.Perfumer.PerfumerRepository;
@@ -44,6 +46,7 @@ public class FragranceService {
     private final PerfumerRepository perfumerRepository;
     private final PerfumerMapper perfumerMapper;
     private final ReviewRepository reviewRepository;
+    private final OwnedRepository ownedRepository;
 
     public Integer save(FragranceRequest request, Authentication connectedUser, List<Integer> noteIds, List<Integer> perfumerIds) {
         User user = (User) connectedUser.getPrincipal();
@@ -55,7 +58,6 @@ public class FragranceService {
         fragrance.setPerfumers(perfumers);
         return fragranceRepository.save(fragrance).getFragranceId();
     }
-
 
     public FragranceResponse findById(Integer fragranceId) {
         return fragranceRepository.findById(fragranceId)
@@ -208,6 +210,26 @@ public class FragranceService {
         return favouriteRepository.save(favourite).getId();
     }
 
+    public Integer saveOwned(Integer fragranceId, Authentication connectedUser) {
+        Fragrance fragrance = fragranceRepository.findById(fragranceId)
+                .orElseThrow(() -> new EntityNotFoundException("No fragrance found with ID:: " + fragranceId));
+
+        User user = ((User) connectedUser.getPrincipal());
+
+        final boolean isAlreadyOwned = ownedRepository.isAlreadyOwned(fragranceId, user.getId());
+        if(isAlreadyOwned) {
+            throw new OperationNotPermittedException("Fragrance is already in your owned list");
+        }
+
+
+        Owned owned = Owned.builder()
+                .fragrance(fragrance)
+                .user(user)
+                .build();
+
+        return ownedRepository.save(owned).getId();
+    }
+
     public Integer delete(Integer fragranceId, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         final boolean isAlreadyFavourite = favouriteRepository.isAlreadyFavourite(fragranceId, user.getId());
@@ -217,6 +239,19 @@ public class FragranceService {
         Favourite favourite = favouriteRepository.findAllByFragranceIdAndUserId(fragranceId, user.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No favourite found with fragrance ID:: " + fragranceId));
         favouriteRepository.delete(favourite);
+        return 1;
+    }
+
+    public Integer deleteOwned(Integer fragranceId, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        final boolean isAlreadyOwned = ownedRepository.isAlreadyOwned(fragranceId, user.getId());
+        if(!isAlreadyOwned) {
+            throw new OperationNotPermittedException("Fragrance is not in your owned list");
+        }
+
+        Owned owned = ownedRepository.findAllByFragranceIdAndUserId(fragranceId, user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No owned found with fragrance ID:: " + fragranceId));
+        ownedRepository.delete(owned);
         return 1;
     }
 
@@ -233,6 +268,19 @@ public class FragranceService {
                 .collect(Collectors.toList());
     }
 
+    public List<Integer> findAllOwnedByUserId(Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        List<Owned> ownedFragrances = ownedRepository.findAllByUserId(user.getId());
+        if(ownedFragrances.isEmpty()) {
+            return Collections.emptyList();
+        }
+        else
+            return ownedFragrances.stream()
+                    .map(Owned::getFragrance)
+                    .map(Fragrance::getFragranceId)
+                    .collect(Collectors.toList());
+    }
+
     public Integer findAllFavouritesByUserIdAndFragranceId(Authentication connectedUser, Integer fragranceId) {
         User user = ((User) connectedUser.getPrincipal());
         return favouriteRepository.findAllByFragranceIdAndUserId(fragranceId, user.getId())
@@ -240,10 +288,34 @@ public class FragranceService {
                 .orElseThrow(() -> new EntityNotFoundException("No favourite found with user ID:: " + user.getId()));
     }
 
+    public Integer findAllOwnedByUserIdAndFragranceId(Authentication connectedUser, Integer fragranceId) {
+        User user = ((User) connectedUser.getPrincipal());
+        return ownedRepository.findAllByFragranceIdAndUserId(fragranceId, user.getId())
+                .map(Owned::getId)
+                .orElseThrow(() -> new EntityNotFoundException("No owned found with user ID:: " + user.getId()));
+    }
+
     public PageResponse<FragranceResponse> findAllFavoritedFragrancesByOwner(int page, int size, Authentication connectedUser, String season, String searchWord) {
         User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size,Sort.by("fragrance.name").ascending());
         Page<Fragrance> fragrances = favouriteRepository.findAllFavoriteFragrancesByUserId(pageable, user.getId(), season, searchWord);
+        List<FragranceResponse> fragranceResponses = fragrances.stream()
+                .map(fragranceMapper::toFragranceResponse)
+                .toList();
+        return new PageResponse<>(
+                fragranceResponses,
+                fragrances.getNumber(),
+                fragrances.getSize(),
+                fragrances.getTotalElements(),
+                fragrances.getTotalPages(),
+                fragrances.isFirst(),
+                fragrances.isLast());
+    }
+
+    public PageResponse<FragranceResponse> findAllOwnedFragrancesByOwner(int page, int size, Authentication connectedUser, String season, String searchWord) {
+        User user = (User) connectedUser.getPrincipal();
+        Pageable pageable = PageRequest.of(page, size,Sort.by("fragrance.name").ascending());
+        Page<Fragrance> fragrances = ownedRepository.findAllOwnedFragrancesByUserId(pageable, user.getId(), season, searchWord);
         List<FragranceResponse> fragranceResponses = fragrances.stream()
                 .map(fragranceMapper::toFragranceResponse)
                 .toList();

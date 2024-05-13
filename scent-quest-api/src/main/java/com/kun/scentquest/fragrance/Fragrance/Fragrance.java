@@ -3,6 +3,7 @@ package com.kun.scentquest.fragrance.Fragrance;
 import com.kun.scentquest.feedback.Reaction;
 import com.kun.scentquest.feedback.Review;
 import com.kun.scentquest.fragrance.Note.Note;
+import com.kun.scentquest.fragrance.Owned.Owned;
 import com.kun.scentquest.fragrance.Perfumer.Perfumer;
 import com.kun.scentquest.user.User;
 import jakarta.persistence.*;
@@ -52,6 +53,9 @@ public class Fragrance {
 
     @OneToMany(mappedBy = "fragrance")
     private List<Reaction> reactions;
+
+    @OneToMany(mappedBy = "fragrance")
+    private List<Owned> ownedFragrances;
 
 
     @Transient

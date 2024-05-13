@@ -110,6 +110,14 @@ public class FragranceController {
         return ResponseEntity.ok(fragranceService.save(fragranceId, connectedUser));
     }
 
+    @PostMapping("/owned")
+    public ResponseEntity<Integer> saveOwned(
+            @RequestParam("fragrance-id") Integer fragranceId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.saveOwned(fragranceId, connectedUser));
+    }
+
 
     @DeleteMapping("/favourite")
     public ResponseEntity<Integer> deleteFavourite(
@@ -119,6 +127,14 @@ public class FragranceController {
         return ResponseEntity.ok(fragranceService.delete(fragranceId, connectedUser));
     }
 
+    @DeleteMapping("/owned")
+    public ResponseEntity<Integer> deleteOwned(
+            @RequestParam("fragrance-id") Integer fragranceId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.deleteOwned(fragranceId, connectedUser));
+    }
+
     @GetMapping("/favourite")
     public List<Integer> findAllFavouritesByUserId(
             Authentication connectedUser
@@ -126,12 +142,28 @@ public class FragranceController {
         return fragranceService.findAllFavouritesByUserId(connectedUser);
     }
 
+    @GetMapping("/owned")
+    public List<Integer> findAllOwnedByUserId(
+            Authentication connectedUser
+    ) {
+        return fragranceService.findAllOwnedByUserId(connectedUser);
+    }
+
+
     @GetMapping("/favourite/{fragrance-id}")
     public ResponseEntity<Integer> findFavouriteByUserIdAndFragranceId(
             @RequestParam("fragrance-id") Integer fragranceId,
             Authentication connectedUser
     ) {
         return ResponseEntity.ok(fragranceService.findAllFavouritesByUserIdAndFragranceId(connectedUser, fragranceId));
+    }
+
+    @GetMapping("/owned/{fragrance-id}")
+    public ResponseEntity<Integer> findOwnedByUserIdAndFragranceId(
+            @RequestParam("fragrance-id") Integer fragranceId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(fragranceService.findAllOwnedByUserIdAndFragranceId(connectedUser, fragranceId));
     }
 
     @GetMapping("/favourite/owner")
@@ -143,6 +175,17 @@ public class FragranceController {
             @RequestParam(name = "season", defaultValue = "", required = false) String season
     ) {
         return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByOwner(page, size, connectedUser, season, searchWord));
+    }
+
+    @GetMapping("/owned/owner")
+    public ResponseEntity<PageResponse<FragranceResponse>> findAllOwnedFragrancesByOwner(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            Authentication connectedUser,
+            @RequestParam(name = "searchWord", defaultValue = "", required = false) String searchWord,
+            @RequestParam(name = "season", defaultValue = "", required = false) String season
+    ) {
+        return ResponseEntity.ok(fragranceService.findAllOwnedFragrancesByOwner(page, size, connectedUser, season, searchWord));
     }
 
     @GetMapping("/{fragrance-id}/notes")

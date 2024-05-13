@@ -43,7 +43,8 @@ public class SecurityConfig {
                                         "/webjars/**",
                                         "/swagger-ui.html",
                                         "/fragrances",
-                                        "/fragrances/**"
+                                        "/fragrances/**",
+                                        "/reviews/**"
                                 )
                                 .permitAll()
                                 .anyRequest()

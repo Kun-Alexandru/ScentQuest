@@ -41,6 +41,8 @@
       <app-fragrance-card
         [fragrance]="fragrance"
         (favourite)="favouriteFragrance($event)"
+        (own)="ownFragrance($event)"
+        [owned]="owned"
         [favourites]="favourites"
         [reactions]="reactions"
         *ngFor="let fragrance of fragranceResponse.content"

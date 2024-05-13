@@ -1,4 +1,4 @@
-package com.kun.scentquest.fragrance.Favorite;
+package com.kun.scentquest.fragrance.Owned;
 
 import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import com.kun.scentquest.user.User;
@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Favourite {
+public class Owned {
 
     @Id
     @GeneratedValue

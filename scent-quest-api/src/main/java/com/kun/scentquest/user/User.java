@@ -2,6 +2,7 @@ package com.kun.scentquest.user;
 
 import com.kun.scentquest.fragrance.Favorite.Favourite;
 import com.kun.scentquest.fragrance.Fragrance.Fragrance;
+import com.kun.scentquest.fragrance.Owned.Owned;
 import com.kun.scentquest.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -50,6 +51,9 @@ public class User implements UserDetails, Principal {
 
     @OneToMany(mappedBy = "user")
     private List<Favourite> favourites;
+
+    @OneToMany(mappedBy = "user")
+    private List<Owned> ownedFragrances;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)

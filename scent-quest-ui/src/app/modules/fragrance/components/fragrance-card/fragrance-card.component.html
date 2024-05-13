@@ -39,7 +39,8 @@
       <span class="fw-bold fs-5">{{ fragrance.number_of_dislikes }}</span>
     </div>
     <div class="d-flex gap-2">
-      <i (click)="onShowDetails()" class="fas fa-info-circle"></i>
+      <i *ngIf="isOwned == true && !manage" (click)="onOwn()" class="fas fa-check text-success"></i>
+      <i *ngIf="isOwned == false && !manage" (click)="onOwn()" class="fas fa-check text-danger"></i>
       <i *ngIf="isInList == true && !manage" (click)="onFavourite()" class="fas fa-heart text-danger"></i>
       <i *ngIf="isInList == false && !manage" (click)="onFavourite()" class="far fa-heart text-danger"></i>
       <i *ngIf="!manage  && !fav" (click)="onReview()" class="fas fa-comment text-primary"></i>
@@ -48,5 +49,4 @@
     </div>
 
   </div>
-
 </div>

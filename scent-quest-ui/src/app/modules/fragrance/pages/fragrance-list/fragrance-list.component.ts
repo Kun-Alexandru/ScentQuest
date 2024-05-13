@@ -26,6 +26,7 @@ export class FragranceListComponent implements OnInit {
   message = '';
   level: 'success' |'error' = 'success';
   favourites: Number[] = [];
+  owned: Number[] = [];
   season: string = '';
   searchWord = '';
   reactions: ReactionResponse[] = [];
@@ -43,6 +44,7 @@ export class FragranceListComponent implements OnInit {
   ngOnInit(): void {
     this.findAllFragrances();
     this.findAllFavourites();
+    this.findAllOwned();
     this.findAllReactions();
   }
 
@@ -71,6 +73,14 @@ export class FragranceListComponent implements OnInit {
     this.fragranceService.findAllFavouritesByUserId().subscribe({
       next: (favourites) => {
         this.favourites = favourites;
+      }
+    });
+  }
+
+  private findAllOwned() {
+    this.fragranceService.findAllOwnedByUserId().subscribe({
+      next: (owned) => {
+        this.owned = owned;
       }
     });
   }
@@ -129,18 +139,21 @@ export class FragranceListComponent implements OnInit {
         dialogRef.close();
         this.findAllFragrances();
         this.findAllFavourites();
+        this.findAllOwned();
         this.findAllReactions();
       });
 
       dialogRef.afterClosed().subscribe(() => {
         this.findAllFragrances();
         this.findAllFavourites();
+        this.findAllOwned();
         this.findAllReactions();
       });
 
       dialogRef.afterOpened().subscribe(() => {
         this.findAllFragrances();
         this.findAllFavourites();
+        this.findAllOwned();
         this.findAllReactions();
       });
 
@@ -198,6 +211,23 @@ export class FragranceListComponent implements OnInit {
     }
   }
 
+  ownFragrance(fragrance: FragranceResponse) {
+    this.message = '';
+    this.level = 'success';
+    if (this.tokenService.isLogged()) {
+      if (this.owned.includes(fragrance.fragranceId as number)) {
+        this.removeOwned(fragrance);
+        this.showSnackbar('Fragrance successfully removed from owned list')
+      } else {
+        this.addOwned(fragrance);
+        this.showSnackbar('Fragrance successfully added to owned list')
+      }
+    }
+    else {
+      this.showSnackbar('You must be logged in to own a fragrance')
+    }
+  }
+
   private addFavourite(fragrance: FragranceResponse) {
     this.fragranceService.saveFavourite({
       'fragrance-id': fragrance.fragranceId as number
@@ -206,6 +236,23 @@ export class FragranceListComponent implements OnInit {
         //this.level = 'success';
         //this.message = 'Fragrance successfully favorited';
         this.findAllFavourites(); // Update favorites list
+      },
+      error: (err) => {
+        console.log(err);
+        //this.level = 'error';
+        //this.message = err.error.error;
+      }
+    });
+  }
+
+  private addOwned(fragrance: FragranceResponse) {
+    this.fragranceService.saveOwned({
+      'fragrance-id': fragrance.fragranceId as number
+    }).subscribe({
+      next: () => {
+        //this.level = 'success';
+        //this.message = 'Fragrance successfully favorited';
+        this.findAllOwned(); // Update favorites list
       },
       error: (err) => {
         console.log(err);
@@ -224,6 +271,7 @@ export class FragranceListComponent implements OnInit {
         next: () => {
           this.findAllFragrances()
           this.findAllReactions();
+          this.findAllOwned();
           this.findAllFavourites();
         },
         error: (err) => {
@@ -239,6 +287,7 @@ export class FragranceListComponent implements OnInit {
       next: () => {
         this.findAllFragrances()
         this.findAllReactions();
+        this.findAllOwned();
         this.findAllFavourites();
       },
       error: (err) => {
@@ -253,6 +302,21 @@ export class FragranceListComponent implements OnInit {
     }).subscribe({
       next: () => {
         this.findAllFavourites();
+      },
+      error: (err) => {
+        console.log(err);
+        //this.level = 'error';
+        //this.message = err.error.error;
+      }
+    });
+  }
+
+  private removeOwned(fragrance: FragranceResponse) {
+    this.fragranceService.deleteOwned({
+      'fragrance-id': fragrance.fragranceId as number
+    }).subscribe({
+      next: () => {
+        this.findAllOwned();
       },
       error: (err) => {
         console.log(err);
@@ -309,6 +373,7 @@ export class FragranceListComponent implements OnInit {
     this.page = 0;
     this.findAllFragrances();
     this.findAllFavourites();
+    this.findAllOwned();
     this.findAllReactions();
   }
 
@@ -317,6 +382,7 @@ export class FragranceListComponent implements OnInit {
     this.page = 0;
     this.findAllFragrances();
     this.findAllFavourites();
+    this.findAllOwned();
     this.findAllReactions();
   }
 }

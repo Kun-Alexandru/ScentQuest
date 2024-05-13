@@ -11,6 +11,7 @@ import {MyFavoriteListComponent} from "./pages/my-favorite-list/my-favorite-list
 import {ManageFragranceAdminComponent} from "./pages/manage-fragrance-admin/manage-fragrance-admin.component";
 import {AdminDashboardComponent} from "./pages/admin-dashboard/admin-dashboard.component";
 import {FragrancePageComponent} from "./pages/fragrance-page/fragrance-page.component";
+import {MyOwnedListComponent} from "./pages/my-owned-list/my-owned-list.component";
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
       {
         path: 'my-favorites',
         component: MyFavoriteListComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'owned-fragrances',
+        component: MyOwnedListComponent,
         canActivate: [authGuard]
       },
       {

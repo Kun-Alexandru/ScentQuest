@@ -17,6 +17,7 @@ export class FragranceCardComponent {
   private _admin: boolean = false;
   public likestatus: string = 'none';
   private _fav = false;
+  private _owned: Number[] = [];
 
   get fav(): boolean {
     return this._fav;
@@ -59,8 +60,17 @@ export class FragranceCardComponent {
     this._favourites = value;
   }
 
+  @Input()
+  set owned(value: Number[]) {
+    this._owned = value;
+  }
+
   get favourites(): Number[] {
     return this._favourites;
+  }
+
+  get owned(): Number[] {
+    return this._owned;
   }
 
   @Input()
@@ -88,6 +98,11 @@ export class FragranceCardComponent {
   @Output() private reactionLike: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private reactionDislike: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
   @Output() private redirectToPage:  EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+  @Output() private own: EventEmitter<FragranceResponse> = new EventEmitter<FragranceResponse>();
+
+  onOwn() {
+    this.own.emit(this._fragrance)
+  }
 
   onRedirectToPage() {
     this.redirectToPage.emit(this._fragrance)
@@ -124,6 +139,11 @@ export class FragranceCardComponent {
   get isInList(): boolean {
     const fragranceId = this._fragrance?.fragranceId;
     return typeof fragranceId === 'number' && this._favourites.includes(fragranceId);
+  }
+
+  get isOwned(): boolean {
+    const fragranceId = this._fragrance?.fragranceId;
+    return typeof fragranceId === 'number' && this._owned.includes(fragranceId);
   }
 
   get isLikeDislikeNone(): string {

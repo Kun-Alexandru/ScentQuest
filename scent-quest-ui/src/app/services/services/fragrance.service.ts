@@ -15,6 +15,8 @@ import { deleteFavourite } from '../fn/fragrance/delete-favourite';
 import { DeleteFavourite$Params } from '../fn/fragrance/delete-favourite';
 import { deleteFragrance } from '../fn/fragrance/delete-fragrance';
 import { DeleteFragrance$Params } from '../fn/fragrance/delete-fragrance';
+import { deleteOwned } from '../fn/fragrance/delete-owned';
+import { DeleteOwned$Params } from '../fn/fragrance/delete-owned';
 import { findAllFavoritedFragrancesByOwner } from '../fn/fragrance/find-all-favorited-fragrances-by-owner';
 import { FindAllFavoritedFragrancesByOwner$Params } from '../fn/fragrance/find-all-favorited-fragrances-by-owner';
 import { findAllFavouritesByUserId } from '../fn/fragrance/find-all-favourites-by-user-id';
@@ -25,10 +27,16 @@ import { findAllFragrancesByOwner } from '../fn/fragrance/find-all-fragrances-by
 import { FindAllFragrancesByOwner$Params } from '../fn/fragrance/find-all-fragrances-by-owner';
 import { findAllNotesByFragranceId } from '../fn/fragrance/find-all-notes-by-fragrance-id';
 import { FindAllNotesByFragranceId$Params } from '../fn/fragrance/find-all-notes-by-fragrance-id';
+import { findAllOwnedByUserId } from '../fn/fragrance/find-all-owned-by-user-id';
+import { FindAllOwnedByUserId$Params } from '../fn/fragrance/find-all-owned-by-user-id';
+import { findAllOwnedFragrancesByOwner } from '../fn/fragrance/find-all-owned-fragrances-by-owner';
+import { FindAllOwnedFragrancesByOwner$Params } from '../fn/fragrance/find-all-owned-fragrances-by-owner';
 import { findFavouriteByUserIdAndFragranceId } from '../fn/fragrance/find-favourite-by-user-id-and-fragrance-id';
 import { FindFavouriteByUserIdAndFragranceId$Params } from '../fn/fragrance/find-favourite-by-user-id-and-fragrance-id';
 import { findFragranceById } from '../fn/fragrance/find-fragrance-by-id';
 import { FindFragranceById$Params } from '../fn/fragrance/find-fragrance-by-id';
+import { findOwnedByUserIdAndFragranceId } from '../fn/fragrance/find-owned-by-user-id-and-fragrance-id';
+import { FindOwnedByUserIdAndFragranceId$Params } from '../fn/fragrance/find-owned-by-user-id-and-fragrance-id';
 import { findPerfumersByFragranceId } from '../fn/fragrance/find-perfumers-by-fragrance-id';
 import { FindPerfumersByFragranceId$Params } from '../fn/fragrance/find-perfumers-by-fragrance-id';
 import { FragranceResponse } from '../models/fragrance-response';
@@ -43,6 +51,8 @@ import { saveFavourite } from '../fn/fragrance/save-favourite';
 import { SaveFavourite$Params } from '../fn/fragrance/save-favourite';
 import { saveFragrance } from '../fn/fragrance/save-fragrance';
 import { SaveFragrance$Params } from '../fn/fragrance/save-fragrance';
+import { saveOwned } from '../fn/fragrance/save-owned';
+import { SaveOwned$Params } from '../fn/fragrance/save-owned';
 import { updateDiscontinued } from '../fn/fragrance/update-discontinued';
 import { UpdateDiscontinued$Params } from '../fn/fragrance/update-discontinued';
 import { updateFragrance } from '../fn/fragrance/update-fragrance';
@@ -213,6 +223,81 @@ export class FragranceService extends BaseService {
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllOwnedByUserId()` */
+  static readonly FindAllOwnedByUserIdPath = '/fragrances/owned';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllOwnedByUserId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllOwnedByUserId$Response(params?: FindAllOwnedByUserId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {
+    return findAllOwnedByUserId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllOwnedByUserId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllOwnedByUserId(params?: FindAllOwnedByUserId$Params, context?: HttpContext): Observable<Array<number>> {
+    return this.findAllOwnedByUserId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<number>>): Array<number> => r.body)
+    );
+  }
+
+  /** Path part for operation `saveOwned()` */
+  static readonly SaveOwnedPath = '/fragrances/owned';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveOwned()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  saveOwned$Response(params: SaveOwned$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveOwned(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `saveOwned$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  saveOwned(params: SaveOwned$Params, context?: HttpContext): Observable<number> {
+    return this.saveOwned$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `deleteOwned()` */
+  static readonly DeleteOwnedPath = '/fragrances/owned';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteOwned()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteOwned$Response(params: DeleteOwned$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return deleteOwned(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteOwned$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteOwned(params: DeleteOwned$Params, context?: HttpContext): Observable<number> {
+    return this.deleteOwned$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
@@ -462,6 +547,56 @@ export class FragranceService extends BaseService {
    */
   findAllFragrancesByOwner(params?: FindAllFragrancesByOwner$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
     return this.findAllFragrancesByOwner$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `findOwnedByUserIdAndFragranceId()` */
+  static readonly FindOwnedByUserIdAndFragranceIdPath = '/fragrances/owned/{fragrance-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findOwnedByUserIdAndFragranceId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findOwnedByUserIdAndFragranceId$Response(params: FindOwnedByUserIdAndFragranceId$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return findOwnedByUserIdAndFragranceId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findOwnedByUserIdAndFragranceId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findOwnedByUserIdAndFragranceId(params: FindOwnedByUserIdAndFragranceId$Params, context?: HttpContext): Observable<number> {
+    return this.findOwnedByUserIdAndFragranceId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllOwnedFragrancesByOwner()` */
+  static readonly FindAllOwnedFragrancesByOwnerPath = '/fragrances/owned/owner';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllOwnedFragrancesByOwner()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllOwnedFragrancesByOwner$Response(params?: FindAllOwnedFragrancesByOwner$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFragranceResponse>> {
+    return findAllOwnedFragrancesByOwner(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllOwnedFragrancesByOwner$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllOwnedFragrancesByOwner(params?: FindAllOwnedFragrancesByOwner$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
+    return this.findAllOwnedFragrancesByOwner$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
     );
   }
