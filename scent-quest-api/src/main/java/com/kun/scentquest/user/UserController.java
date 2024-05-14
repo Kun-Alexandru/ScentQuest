@@ -1,10 +1,13 @@
 package com.kun.scentquest.user;
 
 import com.kun.scentquest.common.PageResponse;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("users")
@@ -54,5 +57,55 @@ public class UserController {
         userService.updateUserLock(userId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("{user-id}/private")
+    public ResponseEntity<Void> updatePrivacy(
+            @RequestParam(name = "user-id") Integer userId
+    ) {
+        userService.updateUserProfileLock(userId);
+        return ResponseEntity.noContent().build();
+    }
+
+   @PostMapping(value = "/profile/", consumes = "multipart/form-data")
+   public ResponseEntity<?> uploadProfilePicture(
+           @Parameter()
+           @RequestPart("file") MultipartFile file,
+           Authentication connectedUser
+   ) {
+       userService.uploadProfilePicture(file, connectedUser, 1);
+       return ResponseEntity.accepted().build();
+   }
+
+    @PostMapping(value = "/profile/admin/{user-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadProfilePictureAdmin(
+            @Parameter()
+            @RequestPart("file") MultipartFile file,
+            @RequestParam(name = "user-id") Integer userId
+    ) {
+        userService.uploadProfilePictureAdmin(file, userId);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping(value = "/background/", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadBackgroundPicture(
+            @Parameter()
+            @RequestPart("file") MultipartFile file,
+            Authentication connectedUser
+    ) {
+        userService.uploadBackgroundPicture(file, connectedUser, 1);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping(value = "/background/admin/{user-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadBackgroundPictureAdmin(
+            @Parameter()
+            @RequestPart("file") MultipartFile file,
+            @RequestParam(name = "user-id") Integer userId
+    ) {
+        userService.uploadBackgroundPictureAdmin(file, userId);
+        return ResponseEntity.accepted().build();
+    }
+
+
 
 }

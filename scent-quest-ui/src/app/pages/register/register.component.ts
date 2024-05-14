@@ -28,7 +28,8 @@ export class RegisterComponent {
     this.authService.register({ body: this.registerRequest }).subscribe({
       next: () => {
         this.successMessage = 'Registration successful. Please check your email to activate your account.';
-        this.registerRequest = { email: '', firstname: '', lastname: '', password: '', secretKey: '' }; // Clear input fields
+        this.registerRequest = { email: '', firstname: '', lastname: '', password: '', secretKey: '' };
+        this.router.navigate(['activate-account']);
       },
       error: (err) => {
         this.errorMsg = err.error.validationErrors;

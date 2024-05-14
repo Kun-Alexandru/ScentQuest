@@ -455,6 +455,30 @@
         }
       }
     },
+    "/users/{user-id}/private": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "updatePrivacy",
+        "parameters": [
+          {
+            "name": "user-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/users/{user-id}/lock": {
       "post": {
         "tags": [
@@ -475,6 +499,180 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/profile/admin/{user-id}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "uploadProfilePictureAdmin",
+        "parameters": [
+          {
+            "name": "user-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/profile/": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "uploadProfilePicture",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/background/admin/{user-id}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "uploadBackgroundPictureAdmin",
+        "parameters": [
+          {
+            "name": "user-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/background/": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "uploadBackgroundPicture",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       }
@@ -1606,6 +1804,15 @@
           },
           "enabled": {
             "type": "boolean"
+          },
+          "privateProfile": {
+            "type": "string"
+          },
+          "profilePicture": {
+            "type": "string"
+          },
+          "backgroundPicture": {
+            "type": "string"
           },
           "userId": {
             "type": "integer",

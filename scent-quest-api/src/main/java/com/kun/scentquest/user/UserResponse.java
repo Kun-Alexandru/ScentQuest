@@ -23,6 +23,9 @@ public class UserResponse {
     private String email;
     private boolean accountLocked;
     private boolean enabled;
+    private String privateProfile;
+    private String profilePicture;
+    private String backgroundPicture;
 
 
 }

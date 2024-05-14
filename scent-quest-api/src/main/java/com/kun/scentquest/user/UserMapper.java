@@ -26,6 +26,9 @@ public class UserMapper {
                 .email(user.getEmail())
                 .accountLocked(user.isAccountLocked())
                 .enabled(user.isEnabled())
+                .privateProfile(user.getPrivateProfile())
+                .profilePicture(user.getProfilePicture())
+                .backgroundPicture(user.getBackgroundPicture())
                 .build();
     }
 

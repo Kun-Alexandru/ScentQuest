@@ -24,4 +24,5 @@ public class UserRequest {
     private String email;
     private boolean accountLocked;
     private boolean enabled;
+
 }

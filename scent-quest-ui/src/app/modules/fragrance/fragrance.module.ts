@@ -29,6 +29,7 @@ import { ResetPasswordFormComponent } from './components/reset-password-form/res
 import { UpdateUserInfoFormComponent } from './components/update-user-info-form/update-user-info-form.component';
 import { FragrancePageComponent } from './pages/fragrance-page/fragrance-page.component';
 import { MyOwnedListComponent } from './pages/my-owned-list/my-owned-list.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MyOwnedListComponent } from './pages/my-owned-list/my-owned-list.compon
     ResetPasswordFormComponent,
     UpdateUserInfoFormComponent,
     FragrancePageComponent,
-    MyOwnedListComponent
+    MyOwnedListComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,

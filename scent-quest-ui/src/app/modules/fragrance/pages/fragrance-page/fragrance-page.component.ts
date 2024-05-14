@@ -253,6 +253,10 @@ export class FragrancePageComponent implements OnInit{
     this.findAllTheReviews();
   }
 
+  goProfile(id: number|undefined) {
+    this.router.navigate(['fragrances', 'member', id]);
+  }
+
   get isLastPage() {
     return this.page === this.reviewResponse.totalPages as number - 1;
   }

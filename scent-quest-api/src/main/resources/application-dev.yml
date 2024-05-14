@@ -32,7 +32,7 @@ application:
   security:
     jwt:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 86400000 # a day
+      expiration: 604800000 # 7 days
       refresh-token:
         expiration: 604800000 # 7 days
   mailing:
@@ -43,5 +43,8 @@ application:
   file:
     uploads:
       photos-output-path: ./uploads
+      profile-output-path: ./profiles
+      background-output-path: ./backgrounds
+
 server:
   port: 8088

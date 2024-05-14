@@ -39,6 +39,10 @@ export class MenuComponent implements OnInit {
     this.showSnackbar('Please log in to access this feature.');
   }
 
+  goProfile() {
+    this.router.navigate(['fragrances', 'member', this.tokenService.userId]);
+  }
+
   goFavorites() {
     if (this.tokenService.isLogged()) {
       this.router.navigate(['/my-favorites']);

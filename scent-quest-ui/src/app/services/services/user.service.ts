@@ -18,8 +18,18 @@ import { FindUserById$Params } from '../fn/user/find-user-by-id';
 import { lockUser } from '../fn/user/lock-user';
 import { LockUser$Params } from '../fn/user/lock-user';
 import { PageResponseUserResponse } from '../models/page-response-user-response';
+import { updatePrivacy } from '../fn/user/update-privacy';
+import { UpdatePrivacy$Params } from '../fn/user/update-privacy';
 import { updateUser } from '../fn/user/update-user';
 import { UpdateUser$Params } from '../fn/user/update-user';
+import { uploadBackgroundPicture } from '../fn/user/upload-background-picture';
+import { UploadBackgroundPicture$Params } from '../fn/user/upload-background-picture';
+import { uploadBackgroundPictureAdmin } from '../fn/user/upload-background-picture-admin';
+import { UploadBackgroundPictureAdmin$Params } from '../fn/user/upload-background-picture-admin';
+import { uploadProfilePicture } from '../fn/user/upload-profile-picture';
+import { UploadProfilePicture$Params } from '../fn/user/upload-profile-picture';
+import { uploadProfilePictureAdmin } from '../fn/user/upload-profile-picture-admin';
+import { UploadProfilePictureAdmin$Params } from '../fn/user/upload-profile-picture-admin';
 import { UserResponse } from '../models/user-response';
 
 
@@ -107,6 +117,31 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `updatePrivacy()` */
+  static readonly UpdatePrivacyPath = '/users/{user-id}/private';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updatePrivacy()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updatePrivacy$Response(params: UpdatePrivacy$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return updatePrivacy(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updatePrivacy$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updatePrivacy(params: UpdatePrivacy$Params, context?: HttpContext): Observable<void> {
+    return this.updatePrivacy$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
   /** Path part for operation `lockUser()` */
   static readonly LockUserPath = '/users/{user-id}/lock';
 
@@ -129,6 +164,122 @@ export class UserService extends BaseService {
   lockUser(params: LockUser$Params, context?: HttpContext): Observable<void> {
     return this.lockUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `uploadProfilePictureAdmin()` */
+  static readonly UploadProfilePictureAdminPath = '/users/profile/admin/{user-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `uploadProfilePictureAdmin()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadProfilePictureAdmin$Response(params: UploadProfilePictureAdmin$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return uploadProfilePictureAdmin(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `uploadProfilePictureAdmin$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadProfilePictureAdmin(params: UploadProfilePictureAdmin$Params, context?: HttpContext): Observable<{
+}> {
+    return this.uploadProfilePictureAdmin$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `uploadProfilePicture()` */
+  static readonly UploadProfilePicturePath = '/users/profile/';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `uploadProfilePicture()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadProfilePicture$Response(params?: UploadProfilePicture$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return uploadProfilePicture(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `uploadProfilePicture$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadProfilePicture(params?: UploadProfilePicture$Params, context?: HttpContext): Observable<{
+}> {
+    return this.uploadProfilePicture$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `uploadBackgroundPictureAdmin()` */
+  static readonly UploadBackgroundPictureAdminPath = '/users/background/admin/{user-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `uploadBackgroundPictureAdmin()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadBackgroundPictureAdmin$Response(params: UploadBackgroundPictureAdmin$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return uploadBackgroundPictureAdmin(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `uploadBackgroundPictureAdmin$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadBackgroundPictureAdmin(params: UploadBackgroundPictureAdmin$Params, context?: HttpContext): Observable<{
+}> {
+    return this.uploadBackgroundPictureAdmin$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `uploadBackgroundPicture()` */
+  static readonly UploadBackgroundPicturePath = '/users/background/';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `uploadBackgroundPicture()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadBackgroundPicture$Response(params?: UploadBackgroundPicture$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return uploadBackgroundPicture(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `uploadBackgroundPicture$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadBackgroundPicture(params?: UploadBackgroundPicture$Params, context?: HttpContext): Observable<{
+}> {
+    return this.uploadBackgroundPicture$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
     );
   }
 
