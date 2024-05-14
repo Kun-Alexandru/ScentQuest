@@ -44,7 +44,8 @@ public class SecurityConfig {
                                         "/swagger-ui.html",
                                         "/fragrances",
                                         "/fragrances/**",
-                                        "/reviews/**"
+                                        "/reviews/**",
+                                            "/users/**"
                                 )
                                 .permitAll()
                                 .anyRequest()

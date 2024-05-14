@@ -49,6 +49,14 @@ export class LoginComponent {
     this.router.navigate(['register']);
   }
 
+  togglePasswordVisibility(event: any) {
+    const passwordInput = document.getElementById('password');
+    if (passwordInput) {
+      const passwordField = passwordInput as HTMLInputElement;
+      passwordField.type = event.target.checked ? 'text' : 'password';
+    }
+  }
+
   resetPassword() {
     this.router.navigate(['reset-password']);
   }

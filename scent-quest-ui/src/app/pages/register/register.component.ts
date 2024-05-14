@@ -36,4 +36,12 @@ export class RegisterComponent {
       },
     });
   }
+
+  togglePasswordVisibility(event: any) {
+    const passwordInput = document.getElementById('password');
+    if (passwordInput) {
+      const passwordField = passwordInput as HTMLInputElement;
+      passwordField.type = event.target.checked ? 'text' : 'password';
+    }
+  }
 }

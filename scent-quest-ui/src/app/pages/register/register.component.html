@@ -26,7 +26,12 @@
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input [(ngModel)]="registerRequest.password" type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        <div class="input-group">
+          <input [(ngModel)]="registerRequest.password" type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+          <span class="input-group-text">
+      <input type="checkbox" (change)="togglePasswordVisibility($event)">
+    </span>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary btn-block center-btn">Create an account</button>
     </form>
