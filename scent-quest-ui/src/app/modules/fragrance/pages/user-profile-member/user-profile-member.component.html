@@ -1,0 +1,16 @@
+<div class="profile-container">
+  <label for="backgroundPictureInput" class="background-image" [style.backgroundImage]="'url(' + backgroundPicture + ')'">
+    <input [disabled]="!isOwner()" type="file" accept="image/*" id="backgroundPictureInput" style="display: none;" (change)="onBackgroundPictureChange($event)">
+    <div class="profile-image">
+      <label for="profilePictureInput" class="profile-picture-label">
+        <input [disabled]="!isOwner()"  type="file" accept="image/*" id="profilePictureInput" style="display: none;" (change)="onProfilePictureChange($event)">
+        <img class="rounded-3" width="100%" height="auto" [src]="profilePicture" alt="">
+      </label>
+    </div>
+  </label>
+  <div class="user-info">
+    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <p *ngIf="user.dateOfBirth"><strong>Date of Birth:</strong> {{ user.dateOfBirth | date }}</p>
+    <p><strong>User ID:</strong> {{ user.userId }}</p>
+  </div>
+</div>

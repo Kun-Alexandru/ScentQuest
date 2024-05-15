@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserProfileComponent } from './user-profile.component';
+import { ModalForSelectComponent } from './modal-for-select.component';
 
-describe('UserProfileComponent', () => {
-  let component: UserProfileComponent;
-  let fixture: ComponentFixture<UserProfileComponent>;
+describe('ModalForSelectComponent', () => {
+  let component: ModalForSelectComponent;
+  let fixture: ComponentFixture<ModalForSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserProfileComponent]
+      declarations: [ModalForSelectComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UserProfileComponent);
+    fixture = TestBed.createComponent(ModalForSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

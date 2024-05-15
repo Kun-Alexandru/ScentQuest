@@ -91,7 +91,6 @@ export class MyOwnedListComponent {
     }).subscribe({
       next: (reactions) => {
         this.reactions = reactions;
-        console.log("Reactions:", this.reactions);
       }
     });
   }
@@ -354,7 +353,6 @@ export class MyOwnedListComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog Result:', result);
       if (result) {
         this.deleteFragrance(fragrance);
       }

@@ -81,12 +81,10 @@ export class MenuComponent implements OnInit {
   }
 
   getFullName(): string {
-    console.log(this.tokenService.fullNameJwt);
     return this.tokenService.fullNameJwt;
   }
 
   getEmail(): string {
-    console.log(this.tokenService.email);
     return this.tokenService.email;
   }
 

@@ -1,5 +1,6 @@
 package com.kun.scentquest.user;
 
+import com.kun.scentquest.file.FileUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,8 +28,8 @@ public class UserMapper {
                 .accountLocked(user.isAccountLocked())
                 .enabled(user.isEnabled())
                 .privateProfile(user.getPrivateProfile())
-                .profilePicture(user.getProfilePicture())
-                .backgroundPicture(user.getBackgroundPicture())
+                .profilePicture(FileUtils.readFileFromLocation(user.getProfilePicture()))
+                .backgroundPicture(FileUtils.readFileFromLocation(user.getBackgroundPicture()))
                 .build();
     }
 

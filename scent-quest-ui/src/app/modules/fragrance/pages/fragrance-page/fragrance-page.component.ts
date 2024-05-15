@@ -134,13 +134,11 @@ export class FragrancePageComponent implements OnInit{
   get isLikeDislikeNone(): string {
 
     if (!this.fragId || !this.reactions) {
-      console.log('none')
       return 'none';
     }
 
     for (const reaction of this.reactions) {
       if (reaction.fragranceId == this.fragId) {
-        console.log(reaction.type)
         return reaction.type;
       }
     }
@@ -154,7 +152,6 @@ export class FragrancePageComponent implements OnInit{
     }).subscribe({
       next: (reactions) => {
         this.reactions = reactions;
-        console.log("Reactions:", this.reactions);
       }
     });
   }

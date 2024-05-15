@@ -108,7 +108,6 @@ export class MyFragrancesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog Result:', result); // Check if result is received
       if (result) {
         this.deleteFragrance(fragrance);
       }
@@ -120,7 +119,6 @@ export class MyFragrancesComponent implements OnInit {
   }
 
   isAdmin() {
-    console.log(this.tokenService.isAdmin());
     return this.tokenService.isAdmin() == true;
   }
 }

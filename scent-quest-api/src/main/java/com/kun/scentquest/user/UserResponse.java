@@ -24,8 +24,8 @@ public class UserResponse {
     private boolean accountLocked;
     private boolean enabled;
     private String privateProfile;
-    private String profilePicture;
-    private String backgroundPicture;
+    private byte[] profilePicture;
+    private byte[] backgroundPicture;
 
 
 }

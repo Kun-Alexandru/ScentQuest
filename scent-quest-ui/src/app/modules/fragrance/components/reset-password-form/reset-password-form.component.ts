@@ -66,7 +66,6 @@ export class ResetPasswordFormComponent {
         }
       });
     } else {
-      console.log(this.newPassConfirm + ' ' + this.resetPassword.newPassword)
       this.errorMsg.push('New passwords do not match');
     }
   }

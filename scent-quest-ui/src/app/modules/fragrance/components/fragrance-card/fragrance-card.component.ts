@@ -152,19 +152,15 @@ export class FragranceCardComponent {
     const fragranceId = this._fragrance?.fragranceId;
 
     if (!fragranceId || !this.reactions) {
-      console.log('none')
       return 'none';
     }
 
     for (const reaction of this.reactions) {
-      console.log(fragranceId)
       if (reaction.fragranceId === fragranceId) {
-        console.log(reaction.type)
         return reaction.type;
       }
     }
 
-    console.log('none')
     return 'none';
   }
 

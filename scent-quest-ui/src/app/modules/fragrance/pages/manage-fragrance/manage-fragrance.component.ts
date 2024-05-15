@@ -75,7 +75,6 @@ export class ManageFragranceComponent implements OnInit {
       }).subscribe({
         next: (notes) => {
           this.notes = notes;
-          console.log(this.notes);
         }
       })
 
@@ -84,7 +83,6 @@ export class ManageFragranceComponent implements OnInit {
       }).subscribe({
         next: (perfumers) => {
           this.perfumers = perfumers;
-          console.log(this.perfumers);
         }
 
       })
@@ -93,21 +91,18 @@ export class ManageFragranceComponent implements OnInit {
       this.fragranceService.getAllNotes().subscribe({
         next: (notes) => {
           this.allNotes = notes;
-          console.log(this.allNotes)
         }
       })
 
       this.fragranceService.getAllPerfumers().subscribe({
         next: (perfumers) => {
           this.allPerfumers = perfumers;
-          console.log(this.allPerfumers)
         }
       })
   }
 
   onFileSelected(event: Event) {
     this.selectedFragranceCover = (event.target as HTMLInputElement).files?.[0];
-    console.log(this.selectedFragranceCover);
     if (this.selectedFragranceCover) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -120,9 +115,6 @@ export class ManageFragranceComponent implements OnInit {
   }
 
   saveFragrance() {
-
-    console.log(this.notes);
-    console.log(this.perfumers);
     const idfrag = this.activatedRoute.snapshot.params['id'];
 
     if (!this.selectedFragranceCover && !idfrag) {

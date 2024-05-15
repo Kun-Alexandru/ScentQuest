@@ -1,0 +1,13 @@
+<h1 mat-dialog-title class="dialog-title">Confirm Action</h1>
+<div mat-dialog-content class="dialog-content">
+  <div class="content-wrapper">
+    <img [src]="data.photo" alt="Confirmation Image" class="dialog-image" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+    <p class="message-text">{{ data.message }}</p>
+  </div>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <div class="action-buttons">
+    <button mat-button (click)="onConfirm()" class="text-primary">Yes</button>
+    <button mat-button (click)="onCancel()" class="text-danger">No</button>
+  </div>
+</div>

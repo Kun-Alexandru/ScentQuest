@@ -29,7 +29,10 @@ import { ResetPasswordFormComponent } from './components/reset-password-form/res
 import { UpdateUserInfoFormComponent } from './components/update-user-info-form/update-user-info-form.component';
 import { FragrancePageComponent } from './pages/fragrance-page/fragrance-page.component';
 import { MyOwnedListComponent } from './pages/my-owned-list/my-owned-list.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { UserProfileMemberComponent } from './pages/user-profile-member/user-profile-member.component';
+import { ImagePreviewModalComponent } from './components/image-preview-modal-component/image-preview-modal-component.component';
+import { ModalForSelectComponent } from './components/modal-for-select/modal-for-select.component';
+import { ConfirmationDialogPhotoComponent } from './components/confirmation-dialog-photo/confirmation-dialog-photo.component';
 
 
 @NgModule({
@@ -52,7 +55,10 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     UpdateUserInfoFormComponent,
     FragrancePageComponent,
     MyOwnedListComponent,
-    UserProfileComponent
+    UserProfileMemberComponent,
+    ImagePreviewModalComponent,
+    ModalForSelectComponent,
+    ConfirmationDialogPhotoComponent
   ],
   imports: [
     CommonModule,

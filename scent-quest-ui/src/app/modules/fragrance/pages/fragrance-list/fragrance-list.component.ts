@@ -91,7 +91,6 @@ export class FragranceListComponent implements OnInit {
     }).subscribe({
       next: (reactions) => {
         this.reactions = reactions;
-        console.log("Reactions:", this.reactions);
       }
     });
   }
@@ -352,7 +351,6 @@ export class FragranceListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog Result:', result);
       if (result) {
         this.deleteFragrance(fragrance);
       }

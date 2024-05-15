@@ -1809,10 +1809,18 @@
             "type": "string"
           },
           "profilePicture": {
-            "type": "string"
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
           },
           "backgroundPicture": {
-            "type": "string"
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
           },
           "userId": {
             "type": "integer",

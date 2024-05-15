@@ -12,7 +12,7 @@ import {ManageFragranceAdminComponent} from "./pages/manage-fragrance-admin/mana
 import {AdminDashboardComponent} from "./pages/admin-dashboard/admin-dashboard.component";
 import {FragrancePageComponent} from "./pages/fragrance-page/fragrance-page.component";
 import {MyOwnedListComponent} from "./pages/my-owned-list/my-owned-list.component";
-import {UserProfileComponent} from "./pages/user-profile/user-profile.component";
+import {UserProfileMemberComponent} from "./pages/user-profile-member/user-profile-member.component";
 
 const routes: Routes = [
   {
@@ -46,7 +46,7 @@ const routes: Routes = [
       },
       {
         path: 'member/:id',
-        component: UserProfileComponent,
+        component: UserProfileMemberComponent,
       },
       {
         path: 'review/:id',
