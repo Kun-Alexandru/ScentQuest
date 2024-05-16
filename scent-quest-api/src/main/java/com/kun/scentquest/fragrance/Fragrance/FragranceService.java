@@ -17,6 +17,7 @@ import com.kun.scentquest.fragrance.Perfumer.PerfumerMapper;
 import com.kun.scentquest.fragrance.Perfumer.PerfumerRepository;
 import com.kun.scentquest.fragrance.Perfumer.PerfumerResponse;
 import com.kun.scentquest.user.User;
+import com.kun.scentquest.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,6 +48,7 @@ public class FragranceService {
     private final PerfumerMapper perfumerMapper;
     private final ReviewRepository reviewRepository;
     private final OwnedRepository ownedRepository;
+    private final UserRepository userRepository;
 
     public Integer save(FragranceRequest request, Authentication connectedUser, List<Integer> noteIds, List<Integer> perfumerIds) {
         User user = (User) connectedUser.getPrincipal();
@@ -312,8 +314,46 @@ public class FragranceService {
                 fragrances.isLast());
     }
 
+    public PageResponse<FragranceResponse> findAllFavoritedFragrancesByUser(int page, int size, int userId, String season, String searchWord) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("No user found with ID:: " + userId));
+        Pageable pageable = PageRequest.of(page, size,Sort.by("fragrance.name").ascending());
+        Page<Fragrance> fragrances = favouriteRepository.findAllFavoriteFragrancesByUserId(pageable, user.getId(), season, searchWord);
+        List<FragranceResponse> fragranceResponses = fragrances.stream()
+                .map(fragranceMapper::toFragranceResponse)
+                .toList();
+        return new PageResponse<>(
+                fragranceResponses,
+                fragrances.getNumber(),
+                fragrances.getSize(),
+                fragrances.getTotalElements(),
+                fragrances.getTotalPages(),
+                fragrances.isFirst(),
+                fragrances.isLast());
+    }
+
+
+
     public PageResponse<FragranceResponse> findAllOwnedFragrancesByOwner(int page, int size, Authentication connectedUser, String season, String searchWord) {
         User user = (User) connectedUser.getPrincipal();
+        Pageable pageable = PageRequest.of(page, size,Sort.by("fragrance.name").ascending());
+        Page<Fragrance> fragrances = ownedRepository.findAllOwnedFragrancesByUserId(pageable, user.getId(), season, searchWord);
+        List<FragranceResponse> fragranceResponses = fragrances.stream()
+                .map(fragranceMapper::toFragranceResponse)
+                .toList();
+        return new PageResponse<>(
+                fragranceResponses,
+                fragrances.getNumber(),
+                fragrances.getSize(),
+                fragrances.getTotalElements(),
+                fragrances.getTotalPages(),
+                fragrances.isFirst(),
+                fragrances.isLast());
+    }
+
+    public PageResponse<FragranceResponse> findAllOwnedFragrancesByUser(int page, int size, int userId, String season, String searchWord) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("No user found with ID:: " + userId));
         Pageable pageable = PageRequest.of(page, size,Sort.by("fragrance.name").ascending());
         Page<Fragrance> fragrances = ownedRepository.findAllOwnedFragrancesByUserId(pageable, user.getId(), season, searchWord);
         List<FragranceResponse> fragranceResponses = fragrances.stream()

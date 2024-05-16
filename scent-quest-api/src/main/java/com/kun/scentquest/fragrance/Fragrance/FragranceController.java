@@ -177,6 +177,18 @@ public class FragranceController {
         return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByOwner(page, size, connectedUser, season, searchWord));
     }
 
+    @GetMapping("/favourite/{user-id}/user")
+    public ResponseEntity<PageResponse<FragranceResponse>> findAllFavoritedFragrancesByUser(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @PathVariable ("user-id") Integer userId,
+            @RequestParam(name = "searchWord", defaultValue = "", required = false) String searchWord,
+            @RequestParam(name = "season", defaultValue = "", required = false) String season
+    ) {
+        return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByUser(page, size, userId, season, searchWord));
+    }
+
+
     @GetMapping("/owned/owner")
     public ResponseEntity<PageResponse<FragranceResponse>> findAllOwnedFragrancesByOwner(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
@@ -187,6 +199,18 @@ public class FragranceController {
     ) {
         return ResponseEntity.ok(fragranceService.findAllOwnedFragrancesByOwner(page, size, connectedUser, season, searchWord));
     }
+
+    @GetMapping("/owned/{user-id}/user")
+    public ResponseEntity<PageResponse<FragranceResponse>> findAllOwnedFragrancesByUser(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @PathVariable ("user-id") Integer userId,
+            @RequestParam(name = "searchWord", defaultValue = "", required = false) String searchWord,
+            @RequestParam(name = "season", defaultValue = "", required = false) String season
+    ) {
+        return ResponseEntity.ok(fragranceService.findAllOwnedFragrancesByUser(page, size, userId, season, searchWord));
+    }
+
 
     @GetMapping("/{fragrance-id}/notes")
     public ResponseEntity<List<NoteResponse>> findAllNotesByFragranceId(
