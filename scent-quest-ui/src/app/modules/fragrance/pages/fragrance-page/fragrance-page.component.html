@@ -90,24 +90,34 @@
     <div class="col-lg-6">
       <div *ngFor="let response of reviewResponse.content" class="comment card mb-3">
         <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start">
-            <div>
-              <h5 class="card-title user fs-4" (click)="goProfile(response.creator?.userId)">{{ response.creator?.firstname }} {{ response.creator?.lastname }}  <i *ngIf="response.createdBy === this.userIdLogged()" (click)="reviewFragrance(fragrance)" class="fas fa-edit fs-4"></i></h5>
+          <div class="d-flex align-items-start">
+            <!-- Profile picture -->
+            <div class="profile-image">
+              <img class="rounded-circle" [src]="'data:image/jpg;base64,' + response.creator?.profilePicture" alt="User Profile">
+            </div>
+            <div class="user-info">
+              <h5 class="card-title user fs-4">
+              <span (click)="goProfile(response.creator?.userId)">
+                {{ response.creator?.firstname }} {{ response.creator?.lastname }}
+              </span>
+              </h5>
               <div class="d-flex gap-2">
                 <app-rating [rating]="response.rating || 0"></app-rating>
                 <span class="fw-bold fs-5" *ngIf="response.rating || 0 > 0">{{response.rating}}</span>
               </div>
+              <p class="card-text text fs-5" style="margin-top: 10px">{{ response.text }}</p>
             </div>
-            <div>
-              <div class="timestamp fs-6">Created at: {{ response.createdDate | date: 'medium' }}</div>
-              <div class="edited-timestamp fs-6" *ngIf="response.modifiedAt">Edited at: {{ response.modifiedAt | date: 'medium' }}</div>
-            </div>
+            <!-- Move the edit button to bottom right -->
+            <i *ngIf="response.createdBy === this.userIdLogged()" (click)="reviewFragrance(fragrance)" class="fas fa-edit fs-4 ml-auto mt-auto"></i>
           </div>
-          <p class="card-text text fs-5">{{ response.text }}</p>
+          <div class="timestamp fs-6">Created at: {{ response.createdDate | date: 'medium' }}</div>
+          <div class="edited-timestamp fs-6" *ngIf="response.modifiedAt">Edited at: {{ response.modifiedAt | date: 'medium' }}</div>
         </div>
       </div>
     </div>
   </div>
+
+
 
 
 
