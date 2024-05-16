@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   ConfirmationDialogPhotoComponent
 } from "../../components/confirmation-dialog-photo/confirmation-dialog-photo.component";
+import {FragranceService} from "../../../../services/services/fragrance.service";
 
 @Component({
   selector: 'app-user-profile-member',
@@ -26,16 +27,21 @@ export class UserProfileMemberComponent {
   pictureFile: any;
   backgroundSelected: boolean = false;
   backgroundFile: any;
+  page = 0;
+  size = 6;
 
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private fragranceSerivce: FragranceService
   ) { }
 
   ngOnInit(): void {
     this.getUserProfile();
+    this.getFavorites();
+    this.getOwnedCollection();
   }
 
   getUserProfile() {
@@ -57,6 +63,44 @@ export class UserProfileMemberComponent {
             console.log(error);
           }
         })
+    }
+  }
+
+  getFavorites() {
+    const userId = this.activatedRoute.snapshot.params['id'];
+    if(userId) {
+      this.fragranceSerivce.findAllFavoritedFragrancesByUser({
+        'user-id': userId as number,
+        'page': this.page,
+        'size': this.size
+      })
+        .subscribe({
+          next: (fragrances) => {
+          },
+          error: (error) => {
+            console.log(error);
+          }
+
+      })
+    }
+  }
+
+  getOwnedCollection() {
+    const userId = this.activatedRoute.snapshot.params['id'];
+    if(userId) {
+      this.fragranceSerivce.findAllOwnedFragrancesByUser({
+        'user-id': userId as number,
+        'page': this.page,
+        'size': this.size
+      })
+        .subscribe({
+          next: (fragrances) => {
+          },
+          error: (error) => {
+            console.log(error);
+          }
+
+      })
     }
   }
 

@@ -52,6 +52,9 @@ public class AuthenticationService {
                 .accountLocked(false)
                 .enabled(false)
                 .roles(List.of(userRole))
+                .privateProfile("false")
+                .profilePicture("./profiles\\users\\452\\1715886231135.jpg")
+                .backgroundPicture("./backgrounds\\users\\452\\1715886554826.jpg")
                 .build();
         userRepository.save(user);
         sendValidationEmail(user);
