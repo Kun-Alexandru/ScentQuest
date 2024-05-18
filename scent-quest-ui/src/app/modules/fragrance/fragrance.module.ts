@@ -33,6 +33,7 @@ import { UserProfileMemberComponent } from './pages/user-profile-member/user-pro
 import { ImagePreviewModalComponent } from './components/image-preview-modal-component/image-preview-modal-component.component';
 import { ModalForSelectComponent } from './components/modal-for-select/modal-for-select.component';
 import { ConfirmationDialogPhotoComponent } from './components/confirmation-dialog-photo/confirmation-dialog-photo.component';
+import { FragranceItemComponent } from './components/fragrance-item/fragrance-item.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ConfirmationDialogPhotoComponent } from './components/confirmation-dial
     UserProfileMemberComponent,
     ImagePreviewModalComponent,
     ModalForSelectComponent,
-    ConfirmationDialogPhotoComponent
+    ConfirmationDialogPhotoComponent,
+    FragranceItemComponent
   ],
   imports: [
     CommonModule,

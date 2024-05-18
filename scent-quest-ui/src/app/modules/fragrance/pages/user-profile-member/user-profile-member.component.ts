@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../../services/services/user.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserResponse} from "../../../../services/models/user-response";
 import {TokenService} from "../../../../services/token/token.service";
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
@@ -10,6 +10,8 @@ import {
   ConfirmationDialogPhotoComponent
 } from "../../components/confirmation-dialog-photo/confirmation-dialog-photo.component";
 import {FragranceService} from "../../../../services/services/fragrance.service";
+import {PageResponseFragranceResponse} from "../../../../services/models/page-response-fragrance-response";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-user-profile-member',
@@ -19,6 +21,8 @@ import {FragranceService} from "../../../../services/services/fragrance.service"
 export class UserProfileMemberComponent {
 
   user: UserResponse = {};
+  favoriteFragrances: PageResponseFragranceResponse = {};
+  ownedFragrances: PageResponseFragranceResponse = {};
   profilePicture: string | undefined;
   backgroundPicture: string | undefined;
   selectedProfilePicture: string = '';
@@ -27,15 +31,25 @@ export class UserProfileMemberComponent {
   pictureFile: any;
   backgroundSelected: boolean = false;
   backgroundFile: any;
-  page = 0;
-  size = 6;
-
+  pageOwned = 0;
+  favourites: Number[] = [];
+  pagesOwned: any = [];
+  sizeOwned = 5;
+  message = '';
+  showOwnedFragrances: boolean = false;
+  showFavoriteFragrances: boolean = false;
+  level: 'success' |'error' = 'success';
+  pageFavorites = 0;
+  sizeFavorites = 5;
+  pagesFavorites: any = [];
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenService,
     private dialog: MatDialog,
-    private fragranceSerivce: FragranceService
+    private fragranceSerivce: FragranceService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -66,16 +80,28 @@ export class UserProfileMemberComponent {
     }
   }
 
+  private showSnackbar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+  }
+
   getFavorites() {
     const userId = this.activatedRoute.snapshot.params['id'];
     if(userId) {
       this.fragranceSerivce.findAllFavoritedFragrancesByUser({
         'user-id': userId as number,
-        'page': this.page,
-        'size': this.size
+        'page': this.pageFavorites,
+        'size': this.sizeFavorites
       })
         .subscribe({
           next: (fragrances) => {
+            this.favoriteFragrances = fragrances;
+            this.pagesFavorites = Array(this.favoriteFragrances.totalPages)
+              .fill(0)
+              .map((x, i) => i);
           },
           error: (error) => {
             console.log(error);
@@ -90,11 +116,15 @@ export class UserProfileMemberComponent {
     if(userId) {
       this.fragranceSerivce.findAllOwnedFragrancesByUser({
         'user-id': userId as number,
-        'page': this.page,
-        'size': this.size
+        'page': this.pageOwned,
+        'size': this.sizeOwned
       })
         .subscribe({
           next: (fragrances) => {
+            this.ownedFragrances = fragrances;
+            this.pagesOwned = Array(this.ownedFragrances.totalPages)
+              .fill(0)
+              .map((x, i) => i);
           },
           error: (error) => {
             console.log(error);
@@ -208,7 +238,63 @@ export class UserProfileMemberComponent {
     });
   }
 
+  gotToPageOwned(page: number) {
+    this.pageOwned = page;
+    this.getOwnedCollection();
+  }
 
-  confirmProfilePicture() {
+  goToFirstPageOwned() {
+    this.pageOwned = 0;
+    this.getOwnedCollection();
+  }
+
+  goToPreviousPageOwned() {
+    this.pageOwned --;
+    this.getOwnedCollection();
+  }
+
+  goToLastPageOwned() {
+    this.pageOwned = this.ownedFragrances.totalPages as number - 1;
+    this.getOwnedCollection();
+  }
+
+  goToNextPageOwned() {
+    this.pageOwned++;
+    this.getOwnedCollection();
+  }
+
+  get isLastPageOwned() {
+    return this.pageOwned === this.ownedFragrances.totalPages as number - 1;
+  }
+
+
+
+  gotToPageFavorite(page: number) {
+    this.pageFavorites = page;
+    this.getFavorites();
+  }
+
+  goToFirstPageFavorite() {
+    this.pageFavorites = 0;
+    this.getFavorites();
+  }
+
+  goToPreviousPageFavorite() {
+    this.pageFavorites --;
+    this.getFavorites();
+  }
+
+  goToLastPageFavorite() {
+    this.pageFavorites = this.favoriteFragrances.totalPages as number - 1;
+    this.getFavorites();
+  }
+
+  goToNextPageFavorite() {
+    this.pageFavorites++;
+    this.getFavorites();
+  }
+
+  get isLastPageFavorite() {
+    return this.pageFavorites === this.favoriteFragrances.totalPages as number - 1;
   }
 }

@@ -1,0 +1,4 @@
+<div class="fragrance-item" (click)="redirectToPage()">
+  <img class="fragrance-image" [src]="'data:image/jpg;base64,' + fragrance?.picture" [alt]="fragrance?.name">
+  <p class="fragrance-name">{{ fragrance?.name }}</p>
+</div>
