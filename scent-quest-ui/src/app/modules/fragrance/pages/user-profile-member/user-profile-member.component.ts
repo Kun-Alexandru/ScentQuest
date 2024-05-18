@@ -124,6 +124,22 @@ export class UserProfileMemberComponent {
     }
   }
 
+  toggleVisibility(): void {
+    let privateAcc = this.user.privateProfile;
+    if(privateAcc == "false") {
+      this.user.privateProfile = "true";
+    } else {
+      this.user.privateProfile = "false";
+    }
+    this.userService.updatePrivacy({
+      'user-id': this.user.userId as number
+    }) .subscribe({
+      next: () => {
+        this.getUserProfile();
+      }
+    });
+  }
+
   onBackgroundPictureChange(event: any) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {

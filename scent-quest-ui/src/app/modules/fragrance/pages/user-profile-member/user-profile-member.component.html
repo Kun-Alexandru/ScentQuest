@@ -8,6 +8,17 @@
       </label>
     </div>
   </label>
+
+  <div class="visibility-toggle-container">
+    <div class="visibility-toggle">
+      <button *ngIf="isOwner()" class="btn"
+              [ngClass]="user.privateProfile === 'true' ? 'btn-success' : 'btn-danger'"
+              (click)="toggleVisibility()">
+        {{ user.privateProfile === 'true' ? 'Make profile public' : 'Make profile private' }}
+      </button>
+    </div>
+  </div>
+
   <div class="user-info">
     <h2>{{ user.firstname }} {{ user.lastname }}</h2>
     <p *ngIf="user.dateOfBirth"><strong>Date of Birth:</strong> {{ user.dateOfBirth | date }}</p>
