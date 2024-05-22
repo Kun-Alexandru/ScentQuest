@@ -241,7 +241,7 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  claimPoints$Response(params: ClaimPoints$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  claimPoints$Response(params: ClaimPoints$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
     return claimPoints(this.http, this.rootUrl, params, context);
   }
 
@@ -251,9 +251,9 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  claimPoints(params: ClaimPoints$Params, context?: HttpContext): Observable<string> {
+  claimPoints(params: ClaimPoints$Params, context?: HttpContext): Observable<number> {
     return this.claimPoints$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 

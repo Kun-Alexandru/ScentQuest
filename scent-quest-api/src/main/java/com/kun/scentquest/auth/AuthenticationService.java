@@ -140,6 +140,7 @@ public class AuthenticationService {
                 "Account activation"
         );
     }
+
     private void sendResetPasswordEmail(String email, String password, String name) throws MessagingException {
 
         emailService.sendEmailReset(

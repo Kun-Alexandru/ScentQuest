@@ -12,6 +12,8 @@ import {ReactionService} from "../../../../services/services/reaction.service";
 import {ConfirmationDialogComponent} from "../../components/confirmation-dialog/confirmation-dialog.component";
 import {ReviewFormComponent} from "../../components/review-form/review-form.component";
 import {ReviewRequest} from "../../../../services/models/review-request";
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {UserService} from "../../../../services/services/user.service";
 
 @Component({
   selector: 'app-my-owned-list',
@@ -30,6 +32,8 @@ export class MyOwnedListComponent {
   season: string = '';
   searchWord = '';
   reactions: ReactionResponse[] = [];
+  isDailyClaimed: boolean = true;
+  earnedPoints: number = 0;
 
   constructor(
       private fragranceService: FragranceService,
@@ -37,15 +41,71 @@ export class MyOwnedListComponent {
       private snackBar: MatSnackBar,
       private tokenService: TokenService,
       private dialog: MatDialog,
-      private reactionService: ReactionService
+      private reactionService: ReactionService,
+      private userService: UserService
   ) {
   }
 
   ngOnInit(): void {
+    if(this.tokenService.isLogged()) {
+      this.isDailyGiftClaimed();
+    }
     this.findAllFragrances();
     this.findAllFavourites();
     this.findAllOwned();
     this.findAllReactions();
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  isLogged() {
+    return this.tokenService.isLogged();
+  }
+
+  getCurrentDate(): string {
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
+  }
+
+  private isDailyGiftClaimed() {
+    return this.userService.isDailyGiftClaimed({
+      'user-id': this.tokenService.userId as number,
+      'date': this.getCurrentDate()
+    }).subscribe({
+      next: (response) => {
+        this.isDailyClaimed = response;
+      }
+    });
+  }
+
+  claimDaily() {
+    this.isDailyClaimed = true;
+    this.userService.claimPoints({
+      'user-id': this.tokenService.userId as number,
+      body: this.getCurrentDate()
+    }).subscribe({
+      next: (points) => {
+        this.isDailyClaimed = true;
+        this.isDailyGiftClaimed();
+        this.earnedPoints = points;
+        const modalElement = document.getElementById('dailyGiftModal');
+        if (modalElement) {
+          const modal = new (window as any).bootstrap.Modal(modalElement);
+          modal.show();
+        }
+      },
+      error: (err) => {
+        console.error('Error claiming daily points:', err);
+      }
+    });
   }
 
   isAdmin() {

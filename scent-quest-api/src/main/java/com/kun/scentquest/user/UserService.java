@@ -27,7 +27,7 @@ public class UserService {
     private final  UserMapper userMapper;
     private final ClaimRepository claimRepository;
 
-    public void claimDailyPoints(int userId, LocalDate claimDate) {
+    public int claimDailyPoints(int userId, LocalDate claimDate) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with ID::" + userId));
 
@@ -36,17 +36,24 @@ public class UserService {
         }
 
         List<Claim> existingClaims = claimRepository.findByUserAndClaimDate(user, claimDate);
+        List<Claim> giftClaims = existingClaims.stream()
+                .filter(claim -> "Daily Gift".equals(claim.getType()))
+                .toList();
 
-        if (existingClaims.isEmpty()) {
-            user.setPoints(user.getPoints() + 10);
+        //generate random number from 5 to 10
+        int randomPoints = (int) (Math.random() * 6) + 5;
+
+        if (giftClaims.isEmpty()) {
+            user.setPoints(user.getPoints() + randomPoints);
             Claim claim = Claim.builder()
                     .user(user)
                     .claimDate(claimDate)
                     .type("Daily Gift")
-                    .points(10)
+                    .points(randomPoints)
                     .build();
             claimRepository.save(claim);
             userRepository.save(user);
+            return randomPoints;
         } else {
             throw new RuntimeException("Daily gift claimed for today");
         }

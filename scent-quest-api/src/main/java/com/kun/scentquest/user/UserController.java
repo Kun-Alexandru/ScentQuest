@@ -3,6 +3,7 @@ package com.kun.scentquest.user;
 import com.kun.scentquest.common.PageResponse;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,8 @@ import java.time.LocalDate;
 public class UserController {
 
     private final UserService userService;
+    private final SitesService sitesService;
+    private final CouponsService couponsService;
 
     @GetMapping
     public ResponseEntity<PageResponse<UserResponse>> findAllUsers(
@@ -109,13 +112,12 @@ public class UserController {
     }
 
     @PostMapping("/claim-points/{user-id}")
-    public String claimPoints(
+    public ResponseEntity<Integer> claimPoints(
             @RequestParam(name = "user-id") Integer userId
             ,@RequestBody String date
     ) {
         LocalDate dateOfClaim= LocalDate.parse(date);
-        userService.claimDailyPoints(userId, dateOfClaim);
-        return "Points claimed successfully";
+        return ResponseEntity.ok(userService.claimDailyPoints(userId, dateOfClaim));
     }
 
     @GetMapping("/claim-points/{user-id}/user")
@@ -128,12 +130,27 @@ public class UserController {
     }
 
     @GetMapping("/claim-gift/{user-id}/today")
-    public boolean isDailyGiftClaimed(
+    public ResponseEntity<Boolean> isDailyGiftClaimed(
             @RequestParam(name = "user-id") Integer userId,
             @RequestParam(name = "date") String date
     ) {
         LocalDate dateOfClaim= LocalDate.parse(date);
-        return userService.isDailyGiftClaimed(userId, dateOfClaim);
+        return ResponseEntity.ok(userService.isDailyGiftClaimed(userId, dateOfClaim));
     }
 
+    @GetMapping("/sites")
+    public ResponseEntity<PageResponse<Sites>> getAllSitesPaged(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ) {
+        return ResponseEntity.ok(sitesService.findAllPaged(page, size));
+    }
+
+    @PostMapping("/sites/{site-id}/coupons/{user-id}")
+    public ResponseEntity<String> generateCoupon(
+            @RequestParam(name = "site-id") Integer siteId,
+            @RequestParam(name = "user-id") Integer userId
+    ) throws MessagingException {
+        return ResponseEntity.ok(couponsService.generateCoupon(siteId, userId));
+    }
 }

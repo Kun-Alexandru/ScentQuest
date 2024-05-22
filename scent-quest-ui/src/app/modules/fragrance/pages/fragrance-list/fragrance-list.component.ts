@@ -3,7 +3,6 @@ import {PageResponseFragranceResponse} from "../../../../services/models/page-re
 import {Router} from "@angular/router";
 import {FragranceService} from "../../../../services/services/fragrance.service";
 import {FragranceResponse} from "../../../../services/models/fragrance-response";
-import {Observable} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {TokenService} from "../../../../services/token/token.service";
 import {ConfirmationDialogComponent} from "../../components/confirmation-dialog/confirmation-dialog.component";
@@ -12,11 +11,34 @@ import {ReviewFormComponent} from "../../components/review-form/review-form.comp
 import {ReviewRequest} from "../../../../services/models/review-request";
 import {ReactionResponse} from "../../../../services/models/reaction-response";
 import {ReactionService} from "../../../../services/services/reaction.service";
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {UserService} from "../../../../services/services/user.service";
 
 @Component({
   selector: 'app-fragrance-list',
   templateUrl: './fragrance-list.component.html',
-  styleUrl: './fragrance-list.component.scss'
+  styleUrl: './fragrance-list.component.scss',
+  animations: [
+    trigger('pointsChanged', [
+      transition(':increment', [
+        style({ opacity: 0 }),
+        animate('300ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':decrement', [
+        style({ opacity: 0 }),
+        animate('300ms ease-out', style({ opacity: 1 }))
+      ])
+    ]),
+    trigger('buttonHover', [
+      state('hovered', style({
+        transform: 'scale(1.1)'
+      })),
+      state('unhovered', style({
+        transform: 'scale(1)'
+      })),
+      transition('hovered <=> unhovered', animate('200ms ease-out'))
+    ])
+  ]
 })
 export class FragranceListComponent implements OnInit {
   fragranceResponse: PageResponseFragranceResponse = {};
@@ -30,6 +52,8 @@ export class FragranceListComponent implements OnInit {
   season: string = '';
   searchWord = '';
   reactions: ReactionResponse[] = [];
+  isDailyClaimed: boolean = true;
+  earnedPoints: number = 0;
 
   constructor(
     private fragranceService: FragranceService,
@@ -37,15 +61,72 @@ export class FragranceListComponent implements OnInit {
     private snackBar: MatSnackBar,
     private tokenService: TokenService,
     private dialog: MatDialog,
-    private reactionService: ReactionService
+    private reactionService: ReactionService,
+    private userService: UserService
   ) {
   }
 
   ngOnInit(): void {
+    if(this.tokenService.isLogged()) {
+      this.isDailyGiftClaimed();
+    }
     this.findAllFragrances();
     this.findAllFavourites();
     this.findAllOwned();
     this.findAllReactions();
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js';
+    script.async = true;
+    document.head.appendChild(script);
+
+  }
+
+  isLogged() {
+    return this.tokenService.isLogged();
+  }
+
+  getCurrentDate(): string {
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
+  }
+
+  private isDailyGiftClaimed() {
+    return this.userService.isDailyGiftClaimed({
+      'user-id': this.tokenService.userId as number,
+      'date': this.getCurrentDate()
+    }).subscribe({
+      next: (response) => {
+        this.isDailyClaimed = response;
+      }
+    });
+  }
+
+  claimDaily() {
+    this.isDailyClaimed = true;
+    this.userService.claimPoints({
+      'user-id': this.tokenService.userId as number,
+      body: this.getCurrentDate()
+    }).subscribe({
+      next: (points) => {
+        this.isDailyClaimed = true;
+        this.isDailyGiftClaimed();
+        this.earnedPoints = points;
+        const modalElement = document.getElementById('dailyGiftModal');
+        if (modalElement) {
+          const modal = new (window as any).bootstrap.Modal(modalElement);
+          modal.show();
+        }
+      },
+      error: (err) => {
+        console.error('Error claiming daily points:', err);
+      }
+    });
   }
 
   isAdmin() {

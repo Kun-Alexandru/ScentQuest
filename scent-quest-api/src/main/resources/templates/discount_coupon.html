@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Activation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .activation-code {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .activation-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .activation-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .site-name {
+            font-weight: bold;
+            color: #d9534f;
+            font-size: 24px;
+        }
+        .discount {
+            font-weight: bold;
+            color: #5cb85c;
+            font-size: 24px;
+        }
+        .loyalty-points {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Discount Coupon</h1>
+    <p class="greeting loyalty-points" th:text="'Hello ' + ${username} + ','"></p>
+    <p class="loyalty-points" th:text="'You have been deducted ' + ${loyaltyPoints} + ' loyalty points.'"></p>
+    <p class="loyalty-points">
+        Here is your gift coupon code, of <span class="discount" th:text="${discount} + '%'"></span>
+        for the site <span class="site-name" th:text="${site}"></span>
+    </p>
+    <div class="activation-code"><span th:text="${generated_code}"></span></div>
+</div>
+</body>
+</html>

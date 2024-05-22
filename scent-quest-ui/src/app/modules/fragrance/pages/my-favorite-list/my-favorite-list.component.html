@@ -36,6 +36,29 @@
     </a>
   </div>
 
+
+  <button *ngIf="!isDailyClaimed && isLogged()" class="btn btn-outline-danger gift-button position-absolute top-300 start-0 m-3" (click)="claimDaily()">
+    <i class="fas fa-gift me-1"></i> Get Your Daily Gift!
+  </button>
+
+  <div class="modal fade" id="dailyGiftModal" tabindex="-1" aria-labelledby="dailyGiftModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dailyGiftModalLabel">Daily Gift</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fs-4">You've earned {{ earnedPoints }} loyalty points!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="d-flex justify-content-center flex-column align-items-center mb-5 paddingTop">
     <div class="d-flex justify-content-center gap-3 flex-wrap">
       <app-fragrance-card

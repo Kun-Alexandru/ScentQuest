@@ -10,6 +10,7 @@ import {ReviewFormComponent} from "../review-form/review-form.component";
 import {ReviewRequest} from "../../../../services/models/review-request";
 import {ResetPasswordFormComponent} from "../reset-password-form/reset-password-form.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {UserService} from "../../../../services/services/user.service";
 
 @Component({
   selector: 'app-menu',
@@ -18,12 +19,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class MenuComponent implements OnInit {
   fullName: string | null = localStorage.getItem('fullName');
+  points: number | undefined = 0;
 
   constructor(
     private tokenService: TokenService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
+    private userService: UserService
   ) {
   }
 
@@ -63,6 +66,15 @@ export class MenuComponent implements OnInit {
         link.classList.add('active');
       });
     });
+
+    if(this.tokenService.isLogged()) {
+      this.userService.findUserById({
+        "user-id": this.tokenService.userId
+      })
+        .subscribe(response => {
+          this.points = response.points;
+        });
+    }
   }
 
   logout() {

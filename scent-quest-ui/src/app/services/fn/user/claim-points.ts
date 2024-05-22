@@ -12,7 +12,7 @@ export interface ClaimPoints$Params {
       body: string
 }
 
-export function claimPoints(http: HttpClient, rootUrl: string, params: ClaimPoints$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+export function claimPoints(http: HttpClient, rootUrl: string, params: ClaimPoints$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
   const rb = new RequestBuilder(rootUrl, claimPoints.PATH, 'post');
   if (params) {
     rb.query('user-id', params['user-id'], {});
@@ -24,7 +24,7 @@ export function claimPoints(http: HttpClient, rootUrl: string, params: ClaimPoin
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<string>;
+      return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
     })
   );
 }
