@@ -14,17 +14,17 @@
 
 .fragrance-item {
   width: 180px;
-  height: 250px; /* Set a fixed height for each item */
-  margin-right: 20px; /* Adjust margin between items */
-  display: flex; /* Use flexbox to vertically center content */
-  flex-direction: column; /* Align content vertically */
-  justify-content: space-between; /* Align content vertically */
+  height: 250px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .fragrance-image {
-  max-width: 100%; /* Set maximum width to ensure the image scales down */
-  max-height: 80%; /* Set maximum height to ensure the image scales down */
-  width: auto; /* Allow the width to adjust according to the max-width */
-  height: auto; /* Allow the height to adjust according to the max-height */
-  flex: 1; /* Allow the image to grow to fill the available space */
+  max-width: 100%;
+  max-height: 80%;
+  width: auto;
+  height: auto;
+  flex: 1;
 }

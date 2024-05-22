@@ -30,6 +30,7 @@ public class UserMapper {
                 .privateProfile(user.getPrivateProfile())
                 .profilePicture(FileUtils.readFileFromLocation(user.getProfilePicture()))
                 .backgroundPicture(FileUtils.readFileFromLocation(user.getBackgroundPicture()))
+                .points(user.getPoints())
                 .build();
     }
 

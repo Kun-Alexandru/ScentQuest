@@ -2,9 +2,11 @@
 /* eslint-disable */
 export { AuthenticationRequest } from './models/authentication-request';
 export { AuthenticationResponse } from './models/authentication-response';
+export { ClaimResponse } from './models/claim-response';
 export { FragranceRequest } from './models/fragrance-request';
 export { FragranceResponse } from './models/fragrance-response';
 export { NoteResponse } from './models/note-response';
+export { PageResponseClaimResponse } from './models/page-response-claim-response';
 export { PageResponseFragranceResponse } from './models/page-response-fragrance-response';
 export { PageResponseReviewFragranceResponse } from './models/page-response-review-fragrance-response';
 export { PageResponseReviewResponse } from './models/page-response-review-response';

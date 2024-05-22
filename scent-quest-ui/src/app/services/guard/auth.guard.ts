@@ -13,7 +13,9 @@ export const authGuard: CanActivateFn = () => {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+    router.navigate(['/fragrances']);
     return false;
+
   }
   return true;
 };

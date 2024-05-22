@@ -8,6 +8,7 @@ export interface UserResponse {
   enabled?: boolean;
   firstname?: string;
   lastname?: string;
+  points?: number;
   privateProfile?: string;
   profilePicture?: Array<string>;
   userId?: number;

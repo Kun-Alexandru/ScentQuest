@@ -26,6 +26,7 @@ public class UserResponse {
     private String privateProfile;
     private byte[] profilePicture;
     private byte[] backgroundPicture;
+    private int points;
 
 
 }

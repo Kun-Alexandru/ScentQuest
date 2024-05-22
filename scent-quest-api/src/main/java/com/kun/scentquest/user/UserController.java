@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("users")
 @RequiredArgsConstructor
@@ -106,6 +108,32 @@ public class UserController {
         return ResponseEntity.accepted().build();
     }
 
+    @PostMapping("/claim-points/{user-id}")
+    public String claimPoints(
+            @RequestParam(name = "user-id") Integer userId
+            ,@RequestBody String date
+    ) {
+        LocalDate dateOfClaim= LocalDate.parse(date);
+        userService.claimDailyPoints(userId, dateOfClaim);
+        return "Points claimed successfully";
+    }
 
+    @GetMapping("/claim-points/{user-id}/user")
+    public ResponseEntity<PageResponse<ClaimResponse>> getAllClaimsByUserId(
+            @RequestParam(name = "user-id") Integer userId,
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ) {
+        return ResponseEntity.ok(userService.findAllClaimsByUserId(userId, page, size));
+    }
+
+    @GetMapping("/claim-gift/{user-id}/today")
+    public boolean isDailyGiftClaimed(
+            @RequestParam(name = "user-id") Integer userId,
+            @RequestParam(name = "date") String date
+    ) {
+        LocalDate dateOfClaim= LocalDate.parse(date);
+        return userService.isDailyGiftClaimed(userId, dateOfClaim);
+    }
 
 }

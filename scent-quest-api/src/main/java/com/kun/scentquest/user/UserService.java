@@ -13,7 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +25,67 @@ public class UserService {
     private final FileStorageProfilePicService fileStorageProfilePicService;
     private final FileStorageBackgroundPicService fileStorageBackgroundPicService;
     private final  UserMapper userMapper;
+    private final ClaimRepository claimRepository;
+
+    public void claimDailyPoints(int userId, LocalDate claimDate) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID::" + userId));
+
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        List<Claim> existingClaims = claimRepository.findByUserAndClaimDate(user, claimDate);
+
+        if (existingClaims.isEmpty()) {
+            user.setPoints(user.getPoints() + 10);
+            Claim claim = Claim.builder()
+                    .user(user)
+                    .claimDate(claimDate)
+                    .type("Daily Gift")
+                    .points(10)
+                    .build();
+            claimRepository.save(claim);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("Daily gift claimed for today");
+        }
+    }
+
+    public boolean isDailyGiftClaimed(int userId, LocalDate claimDate) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID::" + userId));
+
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        List<Claim> existingClaims = claimRepository.findByUserAndClaimDate(user, claimDate);
+
+        List<Claim> giftClaims = existingClaims.stream()
+                .filter(claim -> "Daily Gift".equals(claim.getType()))
+                .toList();
+
+        return !giftClaims.isEmpty();
+    }
+
+    public PageResponse<ClaimResponse> findAllClaimsByUserId(int userId, int page, int size) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID::" + userId));
+        Pageable pageable = PageRequest.of(page, size,Sort.by("claimDate").descending());
+        Page<Claim> claims = claimRepository.findAllClaimsByUserId(pageable, userId);
+        List<ClaimResponse> claimsResponse = claims.stream()
+                .map(ClaimMapper::toClaimResponse)
+                .toList();
+        return new PageResponse<>(
+                claimsResponse,
+                claims.getNumber(),
+                claims.getSize(),
+                claims.getTotalElements(),
+                claims.getTotalPages(),
+                claims.isFirst(),
+                claims.isLast());
+    }
 
     public UserResponse getUserById(Integer userId) {
         User u = userRepository.findById(userId)

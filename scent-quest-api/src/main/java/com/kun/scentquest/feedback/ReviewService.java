@@ -3,9 +3,7 @@ package com.kun.scentquest.feedback;
 import com.kun.scentquest.common.PageResponse;
 import com.kun.scentquest.fragrance.Fragrance.Fragrance;
 import com.kun.scentquest.fragrance.Fragrance.FragranceRepository;
-import com.kun.scentquest.user.User;
-import com.kun.scentquest.user.UserMapper;
-import com.kun.scentquest.user.UserRepository;
+import com.kun.scentquest.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -25,14 +25,24 @@ public class ReviewService {
     private final ReviewMapper reviewMapper;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final ClaimRepository claimRepository;
 
     public Integer save(ReviewRequest request, Authentication connectedUser) {
-
-        Fragrance fragrance = fragranceRepository.findById(request.fragranceId())
-                .orElseThrow(() -> new RuntimeException("Fragrance not found with ID::" + request.fragranceId()));
-
         User user = (User) connectedUser.getPrincipal();
-        Review review = reviewMapper.toReview(request);
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate claimDate = LocalDate.parse(currentDate.format(formatter));
+        user.setPoints(user.getPoints() + 3);
+        Claim claim = Claim.builder()
+                .user(user)
+                .claimDate(claimDate)
+                .type("Review points")
+                .fragName(fragranceRepository.findById(request.fragranceId()).orElseThrow().getName())
+                .points(3)
+                .build();
+        claimRepository.save(claim);
+        userRepository.save(user);
+        Review review = ReviewMapper.toReview(request);
         return reviewRepository.save(review).getId();
     }
 

@@ -9,14 +9,21 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { claimPoints } from '../fn/user/claim-points';
+import { ClaimPoints$Params } from '../fn/user/claim-points';
 import { deleteUser } from '../fn/user/delete-user';
 import { DeleteUser$Params } from '../fn/user/delete-user';
 import { findAllUsers } from '../fn/user/find-all-users';
 import { FindAllUsers$Params } from '../fn/user/find-all-users';
 import { findUserById } from '../fn/user/find-user-by-id';
 import { FindUserById$Params } from '../fn/user/find-user-by-id';
+import { getAllClaimsByUserId } from '../fn/user/get-all-claims-by-user-id';
+import { GetAllClaimsByUserId$Params } from '../fn/user/get-all-claims-by-user-id';
+import { isDailyGiftClaimed } from '../fn/user/is-daily-gift-claimed';
+import { IsDailyGiftClaimed$Params } from '../fn/user/is-daily-gift-claimed';
 import { lockUser } from '../fn/user/lock-user';
 import { LockUser$Params } from '../fn/user/lock-user';
+import { PageResponseClaimResponse } from '../models/page-response-claim-response';
 import { PageResponseUserResponse } from '../models/page-response-user-response';
 import { updatePrivacy } from '../fn/user/update-privacy';
 import { UpdatePrivacy$Params } from '../fn/user/update-privacy';
@@ -225,6 +232,31 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `claimPoints()` */
+  static readonly ClaimPointsPath = '/users/claim-points/{user-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `claimPoints()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  claimPoints$Response(params: ClaimPoints$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return claimPoints(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `claimPoints$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  claimPoints(params: ClaimPoints$Params, context?: HttpContext): Observable<string> {
+    return this.claimPoints$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
+    );
+  }
+
   /** Path part for operation `uploadBackgroundPictureAdmin()` */
   static readonly UploadBackgroundPictureAdminPath = '/users/background/admin/{user-id}';
 
@@ -305,6 +337,56 @@ export class UserService extends BaseService {
   findAllUsers(params?: FindAllUsers$Params, context?: HttpContext): Observable<PageResponseUserResponse> {
     return this.findAllUsers$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseUserResponse>): PageResponseUserResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllClaimsByUserId()` */
+  static readonly GetAllClaimsByUserIdPath = '/users/claim-points/{user-id}/user';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllClaimsByUserId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllClaimsByUserId$Response(params: GetAllClaimsByUserId$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseClaimResponse>> {
+    return getAllClaimsByUserId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllClaimsByUserId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllClaimsByUserId(params: GetAllClaimsByUserId$Params, context?: HttpContext): Observable<PageResponseClaimResponse> {
+    return this.getAllClaimsByUserId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseClaimResponse>): PageResponseClaimResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `isDailyGiftClaimed()` */
+  static readonly IsDailyGiftClaimedPath = '/users/claim-gift/{user-id}/today';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `isDailyGiftClaimed()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  isDailyGiftClaimed$Response(params: IsDailyGiftClaimed$Params, context?: HttpContext): Observable<StrictHttpResponse<boolean>> {
+    return isDailyGiftClaimed(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `isDailyGiftClaimed$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  isDailyGiftClaimed(params: IsDailyGiftClaimed$Params, context?: HttpContext): Observable<boolean> {
+    return this.isDailyGiftClaimed$Response(params, context).pipe(
+      map((r: StrictHttpResponse<boolean>): boolean => r.body)
     );
   }
 

@@ -45,9 +45,13 @@ public class User implements UserDetails, Principal {
     private String secretField;
     private String profilePicture;
     private String backgroundPicture;
+    private int points;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Claim> claims;
 
     @OneToMany(mappedBy = "adder")
     private List<Fragrance> fragrances;

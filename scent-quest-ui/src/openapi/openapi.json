@@ -590,6 +590,47 @@
         }
       }
     },
+    "/users/claim-points/{user-id}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "claimPoints",
+        "parameters": [
+          {
+            "name": "user-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/background/admin/{user-id}": {
       "post": {
         "tags": [
@@ -1130,6 +1171,96 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PageResponseUserResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/claim-points/{user-id}/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "getAllClaimsByUserId",
+        "parameters": [
+          {
+            "name": "user-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseClaimResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/claim-gift/{user-id}/today": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "isDailyGiftClaimed",
+        "parameters": [
+          {
+            "name": "user-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -1960,6 +2091,10 @@
               "format": "byte"
             }
           },
+          "points": {
+            "type": "integer",
+            "format": "int32"
+          },
           "userId": {
             "type": "integer",
             "format": "int32"
@@ -2159,6 +2294,65 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/UserResponse"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ClaimResponse": {
+        "type": "object",
+        "properties": {
+          "points": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "fragName": {
+            "type": "string"
+          },
+          "claimDate": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "claimId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PageResponseClaimResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClaimResponse"
             }
           },
           "number": {
