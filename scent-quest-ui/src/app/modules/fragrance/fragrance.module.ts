@@ -34,6 +34,8 @@ import { ImagePreviewModalComponent } from './components/image-preview-modal-com
 import { ModalForSelectComponent } from './components/modal-for-select/modal-for-select.component';
 import { ConfirmationDialogPhotoComponent } from './components/confirmation-dialog-photo/confirmation-dialog-photo.component';
 import { FragranceItemComponent } from './components/fragrance-item/fragrance-item.component';
+import { LoyaltyPageComponent } from './pages/loyalty-page/loyalty-page.component';
+import {MatCell, MatColumnDef, MatHeaderCell, MatHeaderRow, MatRow, MatTable} from "@angular/material/table";
 
 
 @NgModule({
@@ -60,7 +62,8 @@ import { FragranceItemComponent } from './components/fragrance-item/fragrance-it
     ImagePreviewModalComponent,
     ModalForSelectComponent,
     ConfirmationDialogPhotoComponent,
-    FragranceItemComponent
+    FragranceItemComponent,
+    LoyaltyPageComponent
   ],
   imports: [
     CommonModule,
@@ -86,7 +89,13 @@ import { FragranceItemComponent } from './components/fragrance-item/fragrance-it
     MatMenu,
     MatMenuTrigger,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTable,
+    MatRow,
+    MatHeaderRow,
+    MatCell,
+    MatHeaderCell,
+    MatColumnDef
   ]
 })
 export class FragranceModule { }

@@ -31,7 +31,7 @@
         <div class="my-menu-containerProfile">
           <button mat-menu-item (click)="goProfile()">Profile</button>
           <button mat-menu-item (click)="reviewFragrance()">Change Password</button>
-          <button mat-menu-item >Loyalty points: {{points}}</button>
+          <button mat-menu-item (click)="goLoyalty()">Loyalty points: {{points}}</button>
           <button mat-menu-item routerLink="/admin-dashboard" *ngIf="isAdmin()">Admin Dashboard</button>
         </div>
       </mat-menu>

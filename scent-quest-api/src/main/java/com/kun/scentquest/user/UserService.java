@@ -26,6 +26,7 @@ public class UserService {
     private final FileStorageBackgroundPicService fileStorageBackgroundPicService;
     private final  UserMapper userMapper;
     private final ClaimRepository claimRepository;
+    private final CouponsRepository counponsRepository;
 
     public int claimDailyPoints(int userId, LocalDate claimDate) {
         User user = userRepository.findById(userId)
@@ -92,6 +93,23 @@ public class UserService {
                 claims.getTotalPages(),
                 claims.isFirst(),
                 claims.isLast());
+    }
+
+    public PageResponse<Coupons> findAllCouponsByUserId(int userId, int page, int size) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID::" + userId));
+        Pageable pageable = PageRequest.of(page, size,Sort.by("createdAt").descending());
+        Page<Coupons> coupons = counponsRepository.findAllCouponsByUserId(pageable, userId);
+        List<Coupons> couponsResponse = coupons.stream()
+                .toList();
+        return new PageResponse<>(
+                couponsResponse,
+                coupons.getNumber(),
+                coupons.getSize(),
+                coupons.getTotalElements(),
+                coupons.getTotalPages(),
+                coupons.isFirst(),
+                coupons.isLast());
     }
 
     public UserResponse getUserById(Integer userId) {

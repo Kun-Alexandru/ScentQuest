@@ -100,6 +100,10 @@ export class MenuComponent implements OnInit {
     return this.tokenService.email;
   }
 
+  goLoyalty() {
+    this.router.navigate(['/loyalty']);
+  }
+
   reviewFragrance() {
     if(this.tokenService.isLogged()) {
       const dialogRef = this.dialog.open(ResetPasswordFormComponent, {

@@ -38,4 +38,6 @@ public class Coupons {
     private Integer price;
 
     private Integer discount;
+
+    private String site;
 }

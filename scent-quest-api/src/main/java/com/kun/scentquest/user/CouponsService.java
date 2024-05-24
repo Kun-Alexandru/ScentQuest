@@ -33,6 +33,13 @@ public class CouponsService {
         Sites site = sitesRepository.findById(siteId)
                 .orElseThrow(() -> new RuntimeException("Site not found"));
 
+
+        if(user.getPoints() >= site.getPrice()){
+            user.setPoints(user.getPoints() - site.getPrice());
+            userRepository.save(user);
+        } else
+            throw new RuntimeException("Not enough points");
+
         String generatedCode = codeBuilder.toString();
         Coupons coupon = Coupons.builder()
                 .generatedCode(generatedCode)
@@ -40,6 +47,7 @@ public class CouponsService {
                 .expiresAt(LocalDateTime.now().plusDays(7))
                 .userId(user.getId())
                 .sitesId(site.getId())
+                .site(site.getSite())
                 .price(site.getPrice())
                 .discount(site.getDiscount())
                 .build();

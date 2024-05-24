@@ -129,6 +129,15 @@ public class UserController {
         return ResponseEntity.ok(userService.findAllClaimsByUserId(userId, page, size));
     }
 
+    @GetMapping("/coupons/{user-id}/user")
+    public ResponseEntity<PageResponse<Coupons>> getAllCouponsByUserId(
+            @RequestParam(name = "user-id") Integer userId,
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ) {
+        return ResponseEntity.ok(userService.findAllCouponsByUserId(userId, page, size));
+    }
+
     @GetMapping("/claim-gift/{user-id}/today")
     public ResponseEntity<Boolean> isDailyGiftClaimed(
             @RequestParam(name = "user-id") Integer userId,
@@ -147,10 +156,11 @@ public class UserController {
     }
 
     @PostMapping("/sites/{site-id}/coupons/{user-id}")
-    public ResponseEntity<String> generateCoupon(
+    public ResponseEntity<?> generateCoupon(
             @RequestParam(name = "site-id") Integer siteId,
             @RequestParam(name = "user-id") Integer userId
     ) throws MessagingException {
-        return ResponseEntity.ok(couponsService.generateCoupon(siteId, userId));
+        couponsService.generateCoupon(siteId, userId);
+        return ResponseEntity.accepted().build();
     }
 }

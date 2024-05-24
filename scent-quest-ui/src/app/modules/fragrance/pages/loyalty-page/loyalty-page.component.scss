@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-side {
+  width: 45%;
+}
+
+.right-side {
+  width: 50%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+button {
+  padding: 5px 10px;
+}
+
+.red-text {
+  color: red;
+}
+
+.green-text {
+  color: green;
+}
+
+.marginTop {
+    margin-top: 30px;
+}
+
+

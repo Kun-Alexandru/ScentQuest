@@ -13,6 +13,7 @@ import {AdminDashboardComponent} from "./pages/admin-dashboard/admin-dashboard.c
 import {FragrancePageComponent} from "./pages/fragrance-page/fragrance-page.component";
 import {MyOwnedListComponent} from "./pages/my-owned-list/my-owned-list.component";
 import {UserProfileMemberComponent} from "./pages/user-profile-member/user-profile-member.component";
+import {LoyaltyPageComponent} from "./pages/loyalty-page/loyalty-page.component";
 
 const routes: Routes = [
   {
@@ -72,6 +73,11 @@ const routes: Routes = [
         path: 'admin-dashboard',
         component: AdminDashboardComponent,
         canActivate: [authGuard, AdminGuard]
+      },
+      {
+        path: 'loyalty',
+        component: LoyaltyPageComponent,
+        canActivate: [authGuard]
       }
       ]
   }

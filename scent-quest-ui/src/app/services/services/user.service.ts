@@ -17,13 +17,21 @@ import { findAllUsers } from '../fn/user/find-all-users';
 import { FindAllUsers$Params } from '../fn/user/find-all-users';
 import { findUserById } from '../fn/user/find-user-by-id';
 import { FindUserById$Params } from '../fn/user/find-user-by-id';
+import { generateCoupon } from '../fn/user/generate-coupon';
+import { GenerateCoupon$Params } from '../fn/user/generate-coupon';
 import { getAllClaimsByUserId } from '../fn/user/get-all-claims-by-user-id';
 import { GetAllClaimsByUserId$Params } from '../fn/user/get-all-claims-by-user-id';
+import { getAllCouponsByUserId } from '../fn/user/get-all-coupons-by-user-id';
+import { GetAllCouponsByUserId$Params } from '../fn/user/get-all-coupons-by-user-id';
+import { getAllSitesPaged } from '../fn/user/get-all-sites-paged';
+import { GetAllSitesPaged$Params } from '../fn/user/get-all-sites-paged';
 import { isDailyGiftClaimed } from '../fn/user/is-daily-gift-claimed';
 import { IsDailyGiftClaimed$Params } from '../fn/user/is-daily-gift-claimed';
 import { lockUser } from '../fn/user/lock-user';
 import { LockUser$Params } from '../fn/user/lock-user';
 import { PageResponseClaimResponse } from '../models/page-response-claim-response';
+import { PageResponseCoupons } from '../models/page-response-coupons';
+import { PageResponseSites } from '../models/page-response-sites';
 import { PageResponseUserResponse } from '../models/page-response-user-response';
 import { updatePrivacy } from '../fn/user/update-privacy';
 import { UpdatePrivacy$Params } from '../fn/user/update-privacy';
@@ -171,6 +179,35 @@ export class UserService extends BaseService {
   lockUser(params: LockUser$Params, context?: HttpContext): Observable<void> {
     return this.lockUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `generateCoupon()` */
+  static readonly GenerateCouponPath = '/users/sites/{site-id}/coupons/{user-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `generateCoupon()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  generateCoupon$Response(params: GenerateCoupon$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return generateCoupon(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `generateCoupon$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  generateCoupon(params: GenerateCoupon$Params, context?: HttpContext): Observable<{
+}> {
+    return this.generateCoupon$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
     );
   }
 
@@ -337,6 +374,56 @@ export class UserService extends BaseService {
   findAllUsers(params?: FindAllUsers$Params, context?: HttpContext): Observable<PageResponseUserResponse> {
     return this.findAllUsers$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseUserResponse>): PageResponseUserResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllSitesPaged()` */
+  static readonly GetAllSitesPagedPath = '/users/sites';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllSitesPaged()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllSitesPaged$Response(params?: GetAllSitesPaged$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseSites>> {
+    return getAllSitesPaged(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllSitesPaged$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllSitesPaged(params?: GetAllSitesPaged$Params, context?: HttpContext): Observable<PageResponseSites> {
+    return this.getAllSitesPaged$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseSites>): PageResponseSites => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllCouponsByUserId()` */
+  static readonly GetAllCouponsByUserIdPath = '/users/coupons/{user-id}/user';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllCouponsByUserId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllCouponsByUserId$Response(params: GetAllCouponsByUserId$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseCoupons>> {
+    return getAllCouponsByUserId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllCouponsByUserId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllCouponsByUserId(params: GetAllCouponsByUserId$Params, context?: HttpContext): Observable<PageResponseCoupons> {
+    return this.getAllCouponsByUserId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseCoupons>): PageResponseCoupons => r.body)
     );
   }
 
