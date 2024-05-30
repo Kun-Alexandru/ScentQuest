@@ -1,6 +1,6 @@
 package com.kun.scentquest.config;
 
-import com.kun.scentquest.user.User;
+import com.kun.scentquest.user.user.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

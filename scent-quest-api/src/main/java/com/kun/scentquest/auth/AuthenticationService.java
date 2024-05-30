@@ -2,12 +2,12 @@ package com.kun.scentquest.auth;
 
 import com.kun.scentquest.email.EmailService;
 import com.kun.scentquest.email.EmailTemplateName;
-import com.kun.scentquest.role.RoleRepository;
+import com.kun.scentquest.user.role.RoleRepository;
 import com.kun.scentquest.security.JwtService;
-import com.kun.scentquest.user.Token;
-import com.kun.scentquest.user.TokenRepository;
-import com.kun.scentquest.user.User;
-import com.kun.scentquest.user.UserRepository;
+import com.kun.scentquest.user.token.Token;
+import com.kun.scentquest.user.token.TokenRepository;
+import com.kun.scentquest.user.user.User;
+import com.kun.scentquest.user.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +16,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

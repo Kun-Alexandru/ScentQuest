@@ -1,6 +1,6 @@
 package com.kun.scentquest.security;
 
-import com.kun.scentquest.user.UserRepository;
+import com.kun.scentquest.user.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

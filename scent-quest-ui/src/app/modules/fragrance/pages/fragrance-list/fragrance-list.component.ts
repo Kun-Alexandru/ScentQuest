@@ -217,24 +217,36 @@ export class FragranceListComponent implements OnInit {
       });
       dialogRef.componentInstance.reviewSubmitted.subscribe((review: ReviewRequest) => {
         dialogRef.close();
+        this.findAllFavourites();
+        this.findAllOwned();
+        this.findAllReactions();
         this.findAllFragrances();
         this.findAllFavourites();
         this.findAllOwned();
         this.findAllReactions();
+        this.findAllFragrances();
       });
 
       dialogRef.afterClosed().subscribe(() => {
+        this.findAllFavourites();
+        this.findAllOwned();
+        this.findAllReactions();
         this.findAllFragrances();
         this.findAllFavourites();
         this.findAllOwned();
         this.findAllReactions();
+        this.findAllFragrances();
       });
 
       dialogRef.afterOpened().subscribe(() => {
+        this.findAllFavourites();
+        this.findAllOwned();
+        this.findAllReactions();
         this.findAllFragrances();
         this.findAllFavourites();
         this.findAllOwned();
         this.findAllReactions();
+        this.findAllFragrances();
       });
 
     } else
@@ -463,6 +475,18 @@ export class FragranceListComponent implements OnInit {
     this.findAllFavourites();
     this.findAllOwned();
     this.findAllReactions();
+  }
+
+  getVisiblePages(currentPage: number, totalPages: number): number[] {
+    const maxVisiblePages = 5;
+    let start = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 0);
+    let end = Math.min(start + maxVisiblePages, totalPages);
+
+    if (end - start < maxVisiblePages) {
+      start = Math.max(end - maxVisiblePages, 0);
+    }
+
+    return Array.from({ length: end - start }, (_, i) => start + i);
   }
 }
 

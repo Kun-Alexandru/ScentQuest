@@ -447,4 +447,16 @@ export class MyFavoriteListComponent implements OnInit {
     this.findAllOwned();
     this.findAllReactions();
   }
+
+  getVisiblePages(currentPage: number, totalPages: number): number[] {
+    const maxVisiblePages = 5;
+    let start = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 0);
+    let end = Math.min(start + maxVisiblePages, totalPages);
+
+    if (end - start < maxVisiblePages) {
+      start = Math.max(end - maxVisiblePages, 0);
+    }
+
+    return Array.from({ length: end - start }, (_, i) => start + i);
+  }
 }

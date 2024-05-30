@@ -1,0 +1,39 @@
+package com.kun.scentquest.fragrance.fragrance;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
+public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, JpaSpecificationExecutor<Fragrance> {
+    @Query("""
+            SELECT f FROM Fragrance f
+            """)
+    Page<Fragrance> findAllFragrancesPageable(Pageable pageable);
+
+    @Query("SELECT DISTINCT f FROM Fragrance f JOIN f.notes n WHERE n.name = :noteName")
+    Page<Fragrance> findAllByNotesName(Pageable pageable, String noteName);
+
+
+    @Query("SELECT DISTINCT f FROM Fragrance f JOIN f.perfumers p WHERE p.Id = :perfumerId")
+    Page<Fragrance> findAllByPerfumerId(Pageable pageable, Integer perfumerId);
+
+    @Query("""
+        SELECT f FROM Fragrance f
+        WHERE ((LOWER(f.name) LIKE CONCAT('%', LOWER(:searchWord), '%'))
+        OR (LOWER(f.brand) LIKE CONCAT('%', LOWER(:searchWord), '%')))
+        AND f.recommendedSeason LIKE CONCAT('%', :season, '%')
+        
+       """)
+    Page<Fragrance> findAllFragrancesBySearchWord(String searchWord, String season, Pageable pageable);
+
+
+    @Query("""
+        SELECT f FROM Fragrance f
+        WHERE f.adder.id = :userId
+        """)
+    Page<Fragrance> findAllFragrancesByOwner(Integer userId, Pageable pageable);
+
+
+}

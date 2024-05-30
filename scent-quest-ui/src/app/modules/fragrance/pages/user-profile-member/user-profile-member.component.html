@@ -62,7 +62,7 @@
               <i class="fas fa-solid fa-angle-left"></i>
             </a>
           </li>
-          <li class="page-item" *ngFor="let pageIndex of pagesOwned">
+          <li class="page-item" *ngFor="let pageIndex of getVisiblePages(pageOwned, pagesOwned.length)">
             <a
               (click)="gotToPageOwned(pageIndex)"
               class="page-link fs-5"
@@ -131,7 +131,7 @@
               <i class="fas fa-solid fa-angle-left"></i>
             </a>
           </li>
-          <li class="page-item" *ngFor="let pageIndex of pagesFavorites">
+          <li class="page-item" *ngFor="let pageIndex of getVisiblePages(pageFavorites, pagesFavorites.length)">
             <a
               (click)="gotToPageFavorite(pageIndex)"
               class="page-link fs-5"

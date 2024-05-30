@@ -32,7 +32,7 @@ export class LoyaltyPageComponent implements OnInit {
 
   couponsResponse: PageResponseCoupons = { content: [] };
   pageCoupons = 0;
-  sizeCoupons = 10;
+  sizeCoupons = 5;
   pagesCoupons: any = [];
 
   points: number | undefined = 0;
@@ -224,5 +224,16 @@ export class LoyaltyPageComponent implements OnInit {
     return this.pageClaims === this.claimsResponse.totalPages as number - 1;
   }
 
+  getVisiblePages(currentPage: number, totalPages: number): number[] {
+    const maxVisiblePages = 5;
+    let start = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 0);
+    let end = Math.min(start + maxVisiblePages, totalPages);
+
+    if (end - start < maxVisiblePages) {
+      start = Math.max(end - maxVisiblePages, 0);
+    }
+
+    return Array.from({ length: end - start }, (_, i) => start + i);
+  }
 
 }

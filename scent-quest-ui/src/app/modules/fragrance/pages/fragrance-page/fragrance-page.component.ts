@@ -23,7 +23,7 @@ export class FragrancePageComponent implements OnInit{
 
     fragrance: FragranceResponse = {};
     page = 0;
-    size = 2;
+    size = 5;
     pages: any = [];
     message = '';
     level: 'success' |'error' = 'success';
@@ -107,14 +107,20 @@ export class FragrancePageComponent implements OnInit{
         dialogRef.close();
         this.findFragranceById();
         this.findAllTheReviews();
+        this.findFragranceById();
+        this.findAllTheReviews();
       });
 
       dialogRef.afterClosed().subscribe(() => {
         this.findFragranceById();
         this.findAllTheReviews();
+        this.findFragranceById();
+        this.findAllTheReviews();
       });
 
       dialogRef.afterOpened().subscribe(() => {
+        this.findFragranceById();
+        this.findAllTheReviews();
         this.findFragranceById();
         this.findAllTheReviews();
       });
@@ -223,6 +229,18 @@ export class FragrancePageComponent implements OnInit{
               .map((x, i) => i);
           }
         });
+  }
+
+  getVisiblePages(currentPage: number, totalPages: number): number[] {
+    const maxVisiblePages = 5;
+    let start = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 0);
+    let end = Math.min(start + maxVisiblePages, totalPages);
+
+    if (end - start < maxVisiblePages) {
+      start = Math.max(end - maxVisiblePages, 0);
+    }
+
+    return Array.from({ length: end - start }, (_, i) => start + i);
   }
 
   gotToPage(page: number) {

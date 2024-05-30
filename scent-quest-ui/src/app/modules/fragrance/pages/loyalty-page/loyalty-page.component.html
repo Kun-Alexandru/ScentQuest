@@ -4,279 +4,183 @@
   </div>
 </div>
 
-
-  <div class="row justify-content-between marginTop">
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h2 style="font-size: 24px;">Available coupons</h2>
-        </div>
-        <div class="card-body">
-          <table class="table" style="font-size: 18px;">
-            <thead>
-            <tr>
-              <th>Site</th>
-              <th>Points Required</th>
-              <th>Discount</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let site of sitesResponse.content">
-              <td>{{ site.site }}</td>
-              <td style="{{ site.price !== undefined && points !== undefined && site.price <= points ? 'color: green;' : 'color: red;' }}">{{ site.price }}</td>
-              <td>{{ site.discount }}%</td>
-              <td>
-                <button class="btn btn-primary" (click)="generateCoupon(site.id)">Generate Coupon</button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-
-          <div class="d-flex justify-content-center mb-3">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a
-                    (click)="goToFirstPageSites()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                    [class.disabled]="pageSites === 0"
-                  >
-                    <i class="fas fa-angle-double-left"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToPreviousPageSites()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                    [class.disabled]="pageSites === 0"
-                  >
-                    <i class="fas fa-solid fa-angle-left"></i>
-                  </a>
-                </li>
-                <li class="page-item" *ngFor="let pageIndex of pagesSites">
-                  <a
-                    (click)="gotToPageSites(pageIndex)"
-                    class="page-link fs-5"
-                    [class.active]="pageSites === pageIndex"
-                    href="javascript:void(0)"
-                  >
-                    {{ pageIndex + 1 }}
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToNextPageSites()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Next"
-                    [class.disabled]="isLastPageSites"
-                  >
-                    <i class="fas fa-solid fa-chevron-right"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToLastPageSites()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Next"
-                    [class.disabled]="isLastPageSites"
-                  >
-                    <i class="fas fa-angle-double-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-        </div>
+<div class="row justify-content-between marginTop">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h2 style="font-size: 24px;">Available coupons</h2>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h2 style="font-size: 24px;">Coupons history</h2>
-        </div>
-        <div class="card-body">
-          <table class="table" style="font-size: 18px;">
-            <thead>
-            <tr>
-              <th>Coupon Code</th>
-              <th>Coupon Discount</th>
-              <th>Site</th>
-              <th>Acquired At</th>
-              <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let coupon of couponsResponse.content">
-              <td>{{ coupon.generatedCode }}</td>
-              <td>{{ coupon.discount }}</td>
-              <td>{{ coupon.site }}</td>
-              <td>{{ coupon.createdAt?.slice(0,10) }} {{ coupon.createdAt?.slice(12,16) }}</td>
-              <td>{{coupon.price}}</td>
-            </tr>
-            </tbody>
-          </table>
-
-
-          <div class="d-flex justify-content-center mb-3">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a
-                    (click)="goToFirstPageCoupons()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                    [class.disabled]="pageCoupons === 0"
-                  >
-                    <i class="fas fa-angle-double-left"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToPreviousPageCoupons()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                    [class.disabled]="pageCoupons === 0"
-                  >
-                    <i class="fas fa-solid fa-angle-left"></i>
-                  </a>
-                </li>
-                <li class="page-item" *ngFor="let pageIndex of pagesCoupons">
-                  <a
-                    (click)="gotToPageCoupons(pageIndex)"
-                    class="page-link fs-5"
-                    [class.active]="pageCoupons === pageIndex"
-                    href="javascript:void(0)"
-                  >
-                    {{ pageIndex + 1 }}
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToNextPageCoupons()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Next"
-                    [class.disabled]="isLastPageCoupons"
-                  >
-                    <i class="fas fa-solid fa-chevron-right"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToLastPageCoupons()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Next"
-                    [class.disabled]="isLastPageCoupons"
-                  >
-                    <i class="fas fa-angle-double-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h2 style="font-size: 24px;">Claims</h2>
-        </div>
-        <div class="card-body">
-          <table class="table" style="font-size: 18px;">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Type</th>
-              <th>Point Amount</th>
-              <th>Claimed At</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let claim of claimsResponse.content">
-              <td>{{ claim.claimId }}</td>
-              <td>{{ claim.type }}</td>
-              <td>{{ claim.points }}</td>
-              <td>{{ claim.claimDate }}</td>
-            </tr>
-            </tbody>
-          </table>
-
-          <div class="d-flex justify-content-center mb-3">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a
-                    (click)="goToFirstPageClaims()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                    [class.disabled]="pageClaims === 0"
-                  >
-                    <i class="fas fa-angle-double-left"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToPreviousPageClaims()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                    [class.disabled]="pageClaims === 0"
-                  >
-                    <i class="fas fa-solid fa-angle-left"></i>
-                  </a>
-                </li>
-                <li class="page-item" *ngFor="let pageIndex of pagesClaims">
-                  <a
-                    (click)="gotToPageClaims(pageIndex)"
-                    class="page-link fs-5"
-                    [class.active]="pageClaims === pageIndex"
-                    href="javascript:void(0)"
-                  >
-                    {{ pageIndex + 1 }}
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToNextPageClaims()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Next"
-                    [class.disabled]="isLastPageClaims"
-                  >
-                    <i class="fas fa-solid fa-chevron-right"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a
-                    (click)="goToLastPageClaims()"
-                    class="page-link fs-5"
-                    href="javascript:void(0)"
-                    aria-label="Next"
-                    [class.disabled]="isLastPageClaims"
-                  >
-                    <i class="fas fa-angle-double-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
+      <div class="card-body">
+        <table class="table" style="font-size: 18px;">
+          <thead>
+          <tr>
+            <th>Site</th>
+            <th>Points Required</th>
+            <th>Discount</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let site of sitesResponse.content">
+            <td>{{ site.site }}</td>
+            <td style="{{ site.price !== undefined && points !== undefined && site.price <= points ? 'color: green;' : 'color: red;' }}">{{ site.price }}</td>
+            <td>{{ site.discount }}%</td>
+            <td>
+              <button class="btn btn-primary" (click)="generateCoupon(site.id)">Generate Coupon</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center mb-3">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a (click)="goToFirstPageSites()" class="page-link fs-5" href="javascript:void(0)" aria-label="First" [class.disabled]="pageSites === 0">
+                  <i class="fas fa-angle-double-left"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToPreviousPageSites()" class="page-link fs-5" href="javascript:void(0)" aria-label="Previous" [class.disabled]="pageSites === 0">
+                  <i class="fas fa-solid fa-angle-left"></i>
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let pageIndex of getVisiblePages(pageSites, pagesSites.length)">
+                <a (click)="gotToPageSites(pageIndex)" class="page-link fs-5" [class.active]="pageSites === pageIndex" href="javascript:void(0)">
+                  {{ pageIndex + 1 }}
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToNextPageSites()" class="page-link fs-5" href="javascript:void(0)" aria-label="Next" [class.disabled]="isLastPageSites">
+                  <i class="fas fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToLastPageSites()" class="page-link fs-5" href="javascript:void(0)" aria-label="Last" [class.disabled]="isLastPageSites">
+                  <i class="fas fa-angle-double-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h2 style="font-size: 24px;">Coupons History</h2>
+      </div>
+      <div class="card-body">
+        <table class="table" style="font-size: 18px;">
+          <thead>
+          <tr>
+            <th>Coupon Code</th>
+            <th>Coupon Discount</th>
+            <th>Site</th>
+            <th>Acquired At</th>
+            <th>Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let coupon of couponsResponse.content">
+            <td>{{ coupon.generatedCode }}</td>
+            <td>{{ coupon.discount }}%</td>
+            <td>{{ coupon.site }}</td>
+            <td>{{ coupon.createdAt?.slice(0,10) }} {{ coupon.createdAt?.slice(12,16) }}</td>
+            <td>{{coupon.price}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center mb-3">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a (click)="goToFirstPageCoupons()" class="page-link fs-5" href="javascript:void(0)" aria-label="First" [class.disabled]="pageCoupons === 0">
+                  <i class="fas fa-angle-double-left"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToPreviousPageCoupons()" class="page-link fs-5" href="javascript:void(0)" aria-label="Previous" [class.disabled]="pageCoupons === 0">
+                  <i class="fas fa-solid fa-angle-left"></i>
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let pageIndex of getVisiblePages(pageCoupons, pagesCoupons.length)">
+                <a (click)="gotToPageCoupons(pageIndex)" class="page-link fs-5" [class.active]="pageCoupons === pageIndex" href="javascript:void(0)">
+                  {{ pageIndex + 1 }}
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToNextPageCoupons()" class="page-link fs-5" href="javascript:void(0)" aria-label="Next" [class.disabled]="isLastPageCoupons">
+                  <i class="fas fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToLastPageCoupons()" class="page-link fs-5" href="javascript:void(0)" aria-label="Last" [class.disabled]="isLastPageCoupons">
+                  <i class="fas fa-angle-double-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h2 style="font-size: 24px;">Claims</h2>
+      </div>
+      <div class="card-body">
+        <table class="table" style="font-size: 18px;">
+          <thead>
+          <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Earned At</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let claim of claimsResponse.content">
+            <td>{{ claim.type }}</td>
+            <td>{{ claim.points }}</td>
+            <td>{{ claim.claimDate }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center mb-3">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a (click)="goToFirstPageClaims()" class="page-link fs-5" href="javascript:void(0)" aria-label="First" [class.disabled]="pageClaims === 0">
+                  <i class="fas fa-angle-double-left"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToPreviousPageClaims()" class="page-link fs-5" href="javascript:void(0)" aria-label="Previous" [class.disabled]="pageClaims === 0">
+                  <i class="fas fa-solid fa-angle-left"></i>
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let pageIndex of getVisiblePages(pageClaims, pagesClaims.length)">
+                <a (click)="gotToPageClaims(pageIndex)" class="page-link fs-5" [class.active]="pageClaims === pageIndex" href="javascript:void(0)">
+                  {{ pageIndex + 1 }}
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToNextPageClaims()" class="page-link fs-5" href="javascript:void(0)" aria-label="Next" [class.disabled]="isLastPageClaims">
+                  <i class="fas fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToLastPageClaims()" class="page-link fs-5" href="javascript:void(0)" aria-label="Last" [class.disabled]="isLastPageClaims">
+                  <i class="fas fa-angle-double-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
