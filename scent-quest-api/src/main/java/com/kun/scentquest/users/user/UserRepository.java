@@ -1,6 +1,6 @@
-package com.kun.scentquest.user.user;
+package com.kun.scentquest.users.user;
 
-import com.kun.scentquest.user.user.User;
+import com.kun.scentquest.users.role.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

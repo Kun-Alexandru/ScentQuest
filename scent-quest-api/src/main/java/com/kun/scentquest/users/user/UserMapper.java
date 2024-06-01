@@ -1,7 +1,7 @@
-package com.kun.scentquest.user.user;
+package com.kun.scentquest.users.user;
 
 import com.kun.scentquest.file.FileUtils;
-import com.kun.scentquest.user.user.User;
+import com.kun.scentquest.users.role.User;
 import org.springframework.stereotype.Service;
 
 @Service

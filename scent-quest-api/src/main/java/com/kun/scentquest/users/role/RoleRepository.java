@@ -1,4 +1,4 @@
-package com.kun.scentquest.user.role;
+package com.kun.scentquest.users.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

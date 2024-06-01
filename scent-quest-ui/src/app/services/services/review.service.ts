@@ -13,10 +13,13 @@ import { deleteReview } from '../fn/review/delete-review';
 import { DeleteReview$Params } from '../fn/review/delete-review';
 import { findAllReviewsByFragId } from '../fn/review/find-all-reviews-by-frag-id';
 import { FindAllReviewsByFragId$Params } from '../fn/review/find-all-reviews-by-frag-id';
+import { findAllReviewsByUserId } from '../fn/review/find-all-reviews-by-user-id';
+import { FindAllReviewsByUserId$Params } from '../fn/review/find-all-reviews-by-user-id';
 import { getReviewById } from '../fn/review/get-review-by-id';
 import { GetReviewById$Params } from '../fn/review/get-review-by-id';
 import { PageResponseReviewFragranceResponse } from '../models/page-response-review-fragrance-response';
 import { PageResponseReviewResponse } from '../models/page-response-review-response';
+import { PageResponseReviewResponsePicture } from '../models/page-response-review-response-picture';
 import { ReviewResponse } from '../models/review-response';
 import { reviewsByFragrance } from '../fn/review/reviews-by-fragrance';
 import { ReviewsByFragrance$Params } from '../fn/review/reviews-by-fragrance';
@@ -82,6 +85,31 @@ export class ReviewService extends BaseService {
   saveReview(params: SaveReview$Params, context?: HttpContext): Observable<number> {
     return this.saveReview$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllReviewsByUserId()` */
+  static readonly FindAllReviewsByUserIdPath = '/reviews/fragrance/{userId}/reviewsPicture';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllReviewsByUserId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllReviewsByUserId$Response(params: FindAllReviewsByUserId$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseReviewResponsePicture>> {
+    return findAllReviewsByUserId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllReviewsByUserId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllReviewsByUserId(params: FindAllReviewsByUserId$Params, context?: HttpContext): Observable<PageResponseReviewResponsePicture> {
+    return this.findAllReviewsByUserId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseReviewResponsePicture>): PageResponseReviewResponsePicture => r.body)
     );
   }
 

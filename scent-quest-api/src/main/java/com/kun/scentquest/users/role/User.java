@@ -1,9 +1,9 @@
-package com.kun.scentquest.user.user;
+package com.kun.scentquest.users.role;
 
 import com.kun.scentquest.fragrance.favorite.Favourite;
 import com.kun.scentquest.fragrance.fragrance.Fragrance;
 import com.kun.scentquest.fragrance.owned.Owned;
-import com.kun.scentquest.user.role.Role;
+import com.kun.scentquest.users.role.Role;
 import com.kun.scentquest.points.claim.Claim;
 import jakarta.persistence.*;
 import lombok.*;

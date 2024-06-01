@@ -1,7 +1,7 @@
 package com.kun.scentquest;
 
-import com.kun.scentquest.user.role.Role;
-import com.kun.scentquest.user.role.RoleRepository;
+import com.kun.scentquest.users.role.Role;
+import com.kun.scentquest.users.role.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

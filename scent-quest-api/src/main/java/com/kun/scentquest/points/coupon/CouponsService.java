@@ -2,12 +2,10 @@ package com.kun.scentquest.points.coupon;
 
 import com.kun.scentquest.email.EmailService;
 import com.kun.scentquest.email.EmailTemplateName;
-import com.kun.scentquest.points.coupon.Coupons;
-import com.kun.scentquest.points.coupon.CouponsRepository;
 import com.kun.scentquest.points.site.Sites;
 import com.kun.scentquest.points.site.SitesRepository;
-import com.kun.scentquest.user.user.User;
-import com.kun.scentquest.user.user.UserRepository;
+import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

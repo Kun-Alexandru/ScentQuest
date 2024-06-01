@@ -1,12 +1,13 @@
 package com.kun.scentquest.feedback.review;
 
 import com.kun.scentquest.common.PageResponse;
+import com.kun.scentquest.file.FileUtils;
 import com.kun.scentquest.fragrance.fragrance.FragranceRepository;
 import com.kun.scentquest.points.claim.Claim;
 import com.kun.scentquest.points.claim.ClaimRepository;
-import com.kun.scentquest.user.user.User;
-import com.kun.scentquest.user.user.UserMapper;
-import com.kun.scentquest.user.user.UserRepository;
+import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.UserMapper;
+import com.kun.scentquest.users.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -113,6 +114,37 @@ public class ReviewService {
 
         return new PageResponse<>(
                 reviewsResponse,
+                reviews.getNumber(),
+                reviews.getSize(),
+                reviews.getTotalElements(),
+                reviews.getTotalPages(),
+                reviews.isFirst(),
+                reviews.isLast()
+        );
+    }
+
+    public PageResponse<ReviewResponsePicture> getAllReviewByUser(Integer userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").ascending());
+        Page<Review> reviews = reviewRepository.findAllReviewByCreatedAt(userId, pageable);
+
+        List<ReviewResponsePicture> reviewResponse = reviews.stream()
+                .map(f -> ReviewResponsePicture.builder()
+                        .id(f.getId())
+                        .rating(f.getRating())
+                        .text(f.getText())
+                        .createdDate(f.getCreatedAt())
+                        .createdBy(f.getCreatedBy())
+                        .modifiedBy(f.getModifiedBy())
+                        .modifiedAt(f.getModifiedAt())
+                        .fragranceId(f.getFragrance().getFragranceId())
+                        .fragranceName(f.getFragrance().getName())
+                        .fragrancePicture(FileUtils.readFileFromLocation(f.getFragrance().getPicture()))
+                        .build()
+                )
+                .toList();
+
+        return new PageResponse<>(
+                reviewResponse,
                 reviews.getNumber(),
                 reviews.getSize(),
                 reviews.getTotalElements(),

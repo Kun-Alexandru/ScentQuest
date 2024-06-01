@@ -1,4 +1,4 @@
-package com.kun.scentquest.user.user;
+package com.kun.scentquest.users.user;
 
 import lombok.*;
 

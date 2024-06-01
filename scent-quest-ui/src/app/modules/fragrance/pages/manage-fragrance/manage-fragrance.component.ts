@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NoteResponse} from "../../../../services/models/note-response";
 import {PerfumerResponse} from "../../../../services/models/perfumer-response";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-manage-fragrance',
@@ -40,7 +41,8 @@ export class ManageFragranceComponent implements OnInit {
   constructor(
     private fragranceService: FragranceService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -114,12 +116,19 @@ export class ManageFragranceComponent implements OnInit {
     }
   }
 
+  private showSnackbar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+  }
+
   saveFragrance() {
     const idfrag = this.activatedRoute.snapshot.params['id'];
-
     if (!this.selectedFragranceCover && !idfrag) {
       this.isFileSelected = false;
-      return;
+      this.showSnackbar('Not all fields are filled in');
     }
 
     if (idfrag) {
@@ -146,10 +155,11 @@ export class ManageFragranceComponent implements OnInit {
         } else {
             this.router.navigate(['/fragrances']);
           }
+        },
+        error: (err) => {
+          this.showSnackbar('Not all fields are filled in');
         }
       })
-
-
     } else {
       const noteIds: number[] = this.notes.length > 0 ? this.notes.map(note => note.id as number) : [0];
       const perfumerIds: number[] = this.perfumers.length > 0 ? this.perfumers.map(perfumer => perfumer.id as number) : [0];
@@ -167,12 +177,14 @@ export class ManageFragranceComponent implements OnInit {
           }).subscribe({
             next: () => {
               this.router.navigate(['/fragrances']);
+            },
+            error: (err) => {
+              this.showSnackbar('Not all fields are filled in');
             }
           });
         },
         error: (err) => {
-          console.log(err.error);
-          this.errorMsg = err.error.validationErrors;
+          this.showSnackbar('Not all fields are filled in');
         }
       });
     }

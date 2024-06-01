@@ -1,4 +1,4 @@
-package com.kun.scentquest.user.user;
+package com.kun.scentquest.users.user;
 
 import com.kun.scentquest.common.PageResponse;
 import com.kun.scentquest.file.FileStorageBackgroundPicService;
@@ -9,7 +9,11 @@ import com.kun.scentquest.points.claim.ClaimRepository;
 import com.kun.scentquest.points.claim.ClaimResponse;
 import com.kun.scentquest.points.coupon.Coupons;
 import com.kun.scentquest.points.coupon.CouponsRepository;
-import com.kun.scentquest.user.user.*;
+import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.UserMapper;
+import com.kun.scentquest.users.user.UserRepository;
+import com.kun.scentquest.users.user.UserRequest;
+import com.kun.scentquest.users.user.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;

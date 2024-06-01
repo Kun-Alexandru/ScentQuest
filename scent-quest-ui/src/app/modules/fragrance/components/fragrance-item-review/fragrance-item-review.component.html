@@ -1,0 +1,10 @@
+<div class="fragrance-item" (click)="redirectToPage()">
+  <img class="fragrance-image" [src]="'data:image/jpg;base64,' + review?.fragrancePicture" [alt]="review?.fragranceName">
+  <p class="fragrance-name">{{ review?.fragranceName }}</p>
+  <div class="fragrance-review">
+    <p class="review-text">{{ review?.text }}</p>
+    <div class="review-stars">
+      <app-rating [rating]="review?.rating || 0"></app-rating>
+    </div>
+  </div>
+</div>

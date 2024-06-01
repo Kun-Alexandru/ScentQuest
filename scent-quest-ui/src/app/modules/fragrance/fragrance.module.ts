@@ -36,6 +36,7 @@ import { ConfirmationDialogPhotoComponent } from './components/confirmation-dial
 import { FragranceItemComponent } from './components/fragrance-item/fragrance-item.component';
 import { LoyaltyPageComponent } from './pages/loyalty-page/loyalty-page.component';
 import {MatCell, MatColumnDef, MatHeaderCell, MatHeaderRow, MatRow, MatTable} from "@angular/material/table";
+import { FragranceItemReviewComponent } from './components/fragrance-item-review/fragrance-item-review.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import {MatCell, MatColumnDef, MatHeaderCell, MatHeaderRow, MatRow, MatTable} fr
     ModalForSelectComponent,
     ConfirmationDialogPhotoComponent,
     FragranceItemComponent,
-    LoyaltyPageComponent
+    LoyaltyPageComponent,
+    FragranceItemReviewComponent
   ],
   imports: [
     CommonModule,

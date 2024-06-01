@@ -1,6 +1,6 @@
-package com.kun.scentquest.user.token;
+package com.kun.scentquest.users.token;
 
-import com.kun.scentquest.user.token.Token;
+import com.kun.scentquest.users.token.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

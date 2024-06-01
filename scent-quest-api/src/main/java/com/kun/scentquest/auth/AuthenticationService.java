@@ -2,12 +2,12 @@ package com.kun.scentquest.auth;
 
 import com.kun.scentquest.email.EmailService;
 import com.kun.scentquest.email.EmailTemplateName;
-import com.kun.scentquest.user.role.RoleRepository;
+import com.kun.scentquest.users.role.RoleRepository;
 import com.kun.scentquest.security.JwtService;
-import com.kun.scentquest.user.token.Token;
-import com.kun.scentquest.user.token.TokenRepository;
-import com.kun.scentquest.user.user.User;
-import com.kun.scentquest.user.user.UserRepository;
+import com.kun.scentquest.users.token.Token;
+import com.kun.scentquest.users.token.TokenRepository;
+import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,5 @@
 package com.kun.scentquest.feedback.review;
+
 import com.kun.scentquest.users.user.UserResponse;
 import lombok.*;
 
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewFragranceResponse {
+public class ReviewResponsePicture {
+
 
     private Integer id;
     private String text;
@@ -18,6 +20,8 @@ public class ReviewFragranceResponse {
     private Integer createdBy;
     private Integer modifiedBy;
     private LocalDateTime modifiedAt;
-    private UserResponse creator;
+    private Integer fragranceId;
+    private String fragranceName;
+    private byte[] fragrancePicture;
 
 }

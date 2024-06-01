@@ -12,6 +12,8 @@ import {
 import {FragranceService} from "../../../../services/services/fragrance.service";
 import {PageResponseFragranceResponse} from "../../../../services/models/page-response-fragrance-response";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ReviewService} from "../../../../services/services/review.service";
+import {PageResponseReviewResponsePicture} from "../../../../services/models/page-response-review-response-picture";
 
 @Component({
   selector: 'app-user-profile-member',
@@ -23,6 +25,7 @@ export class UserProfileMemberComponent {
   user: UserResponse = {};
   favoriteFragrances: PageResponseFragranceResponse = {};
   ownedFragrances: PageResponseFragranceResponse = {};
+  reviewsFragrances: PageResponseReviewResponsePicture = {};
   profilePicture: string | undefined;
   backgroundPicture: string | undefined;
   selectedProfilePicture: string = '';
@@ -38,10 +41,16 @@ export class UserProfileMemberComponent {
   message = '';
   showOwnedFragrances: boolean = false;
   showFavoriteFragrances: boolean = false;
+  showReviews: boolean = false;
   level: 'success' |'error' = 'success';
   pageFavorites = 0;
   sizeFavorites = 5;
   pagesFavorites: any = [];
+
+  pageReviews = 0;
+  sizeReviews = 5;
+  pagesReviews: any = [];
+  reviews: Number[] = [];
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
@@ -49,12 +58,14 @@ export class UserProfileMemberComponent {
     private dialog: MatDialog,
     private fragranceSerivce: FragranceService,
     private snackBar: MatSnackBar,
+    private reviewsService: ReviewService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getUserProfile();
     this.getFavorites();
+    this.getReviews();
     this.getOwnedCollection();
   }
 
@@ -86,6 +97,29 @@ export class UserProfileMemberComponent {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  getReviews() {
+    const userId = this.activatedRoute.snapshot.params['id'];
+    if(userId) {
+      this.reviewsService.findAllReviewsByUserId({
+        'userId': userId as number,
+        'page': this.pageReviews,
+        'size': this.sizeReviews
+      })
+        .subscribe({
+          next: (reviews) => {
+            this.reviewsFragrances = reviews;
+            this.pagesReviews = Array(this.reviewsFragrances.totalPages)
+              .fill(0)
+              .map((x, i) => i);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+
+        })
+    }
   }
 
   getFavorites() {
@@ -308,5 +342,36 @@ export class UserProfileMemberComponent {
 
   get isLastPageFavorite() {
     return this.pageFavorites === this.favoriteFragrances.totalPages as number - 1;
+  }
+
+
+
+  gotToPageReview(page: number) {
+    this.pageReviews = page;
+    this.getReviews();
+  }
+
+  goToFirstPageReview() {
+    this.pageReviews = 0;
+    this.getReviews();
+  }
+
+  goToPreviousPageReview() {
+    this.pageReviews --;
+    this.getReviews();
+  }
+
+  goToLastPageReview() {
+    this.pageReviews = this.reviewsFragrances.totalPages as number - 1;
+    this.getReviews();
+  }
+
+  goToNextPageReview() {
+    this.pageReviews++;
+    this.getReviews();
+  }
+
+  get isLastPageReview() {
+    return this.pageReviews === this.reviewsFragrances.totalPages as number - 1;
   }
 }

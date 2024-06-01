@@ -1,7 +1,6 @@
-package com.kun.scentquest.user.role;
+package com.kun.scentquest.users.role;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kun.scentquest.user.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

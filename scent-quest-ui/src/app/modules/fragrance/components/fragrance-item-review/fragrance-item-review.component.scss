@@ -24,3 +24,29 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+.fragrance-review {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.review-text {
+  font-size: 1.5em;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.review-stars {
+  display: flex;
+  justify-content: center;
+}
+
+.star {
+  font-size: 1.2em;
+  color: #FFD700;
+  margin: 0 2px;
+}
+
+.star.empty {
+  color: #ddd;
+}
