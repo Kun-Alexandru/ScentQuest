@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -50,6 +51,8 @@ public class FragranceController {
     ) {
         return ResponseEntity.ok(fragranceService.findAllFragrances(page, size, season, searchWord));
     }
+
+
 
     @GetMapping("/owner")
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrancesByOwner(
@@ -174,6 +177,26 @@ public class FragranceController {
             @RequestParam(name = "season", defaultValue = "", required = false) String season
     ) {
         return ResponseEntity.ok(fragranceService.findAllFavoritedFragrancesByOwner(page, size, connectedUser, season, searchWord));
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrancesByNotesSeasonGender(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam(defaultValue = "") List<String> notes,
+            @RequestParam(defaultValue = "") List<String> unwantedNotes,
+            @RequestParam(name = "gender", defaultValue = "", required = false) String gender,
+            @RequestParam(name = "season", defaultValue = "", required = false) String season
+    ) {
+
+        if (notes.isEmpty()) {
+            notes = List.of();
+        }
+        if (unwantedNotes.isEmpty()) {
+            unwantedNotes = List.of();
+        }
+
+        return ResponseEntity.ok(fragranceService.findAllFragrancesWithNotesSeasonGender(page, size, notes, unwantedNotes,gender,season));
     }
 
     @GetMapping("/favourite/{user-id}/user")

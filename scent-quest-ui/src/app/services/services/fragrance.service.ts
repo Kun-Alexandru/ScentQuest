@@ -25,6 +25,8 @@ import { findAllFavouritesByUserId } from '../fn/fragrance/find-all-favourites-b
 import { FindAllFavouritesByUserId$Params } from '../fn/fragrance/find-all-favourites-by-user-id';
 import { findAllFragrances } from '../fn/fragrance/find-all-fragrances';
 import { FindAllFragrances$Params } from '../fn/fragrance/find-all-fragrances';
+import { findAllFragrancesByNotesSeasonGender } from '../fn/fragrance/find-all-fragrances-by-notes-season-gender';
+import { FindAllFragrancesByNotesSeasonGender$Params } from '../fn/fragrance/find-all-fragrances-by-notes-season-gender';
 import { findAllFragrancesByOwner } from '../fn/fragrance/find-all-fragrances-by-owner';
 import { FindAllFragrancesByOwner$Params } from '../fn/fragrance/find-all-fragrances-by-owner';
 import { findAllNotesByFragranceId } from '../fn/fragrance/find-all-notes-by-fragrance-id';
@@ -652,6 +654,31 @@ export class FragranceService extends BaseService {
   getAllNotes(params?: GetAllNotes$Params, context?: HttpContext): Observable<Array<NoteResponse>> {
     return this.getAllNotes$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<NoteResponse>>): Array<NoteResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllFragrancesByNotesSeasonGender()` */
+  static readonly FindAllFragrancesByNotesSeasonGenderPath = '/fragrances/find';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllFragrancesByNotesSeasonGender()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFragrancesByNotesSeasonGender$Response(params?: FindAllFragrancesByNotesSeasonGender$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFragranceResponse>> {
+    return findAllFragrancesByNotesSeasonGender(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllFragrancesByNotesSeasonGender$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFragrancesByNotesSeasonGender(params?: FindAllFragrancesByNotesSeasonGender$Params, context?: HttpContext): Observable<PageResponseFragranceResponse> {
+    return this.findAllFragrancesByNotesSeasonGender$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseFragranceResponse>): PageResponseFragranceResponse => r.body)
     );
   }
 

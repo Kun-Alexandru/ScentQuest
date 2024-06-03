@@ -28,6 +28,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -356,6 +357,31 @@ public class FragranceService {
                 .orElseThrow(() -> new EntityNotFoundException("No user found with ID:: " + userId));
         Pageable pageable = PageRequest.of(page, size,Sort.by("fragrance.name").ascending());
         Page<Fragrance> fragrances = ownedRepository.findAllOwnedFragrancesByUserId(pageable, user.getId(), season, searchWord);
+        List<FragranceResponse> fragranceResponses = fragrances.stream()
+                .map(fragranceMapper::toFragranceResponse)
+                .toList();
+        return new PageResponse<>(
+                fragranceResponses,
+                fragrances.getNumber(),
+                fragrances.getSize(),
+                fragrances.getTotalElements(),
+                fragrances.getTotalPages(),
+                fragrances.isFirst(),
+                fragrances.isLast());
+    }
+
+    public PageResponse<FragranceResponse> findAllFragrancesWithNotesSeasonGender(int page, int size, List<String> noteNames,
+                                                                                  List<String> unwantedNoteNames,
+                                                                                  String gender,
+                                                                                  String season) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        long noteCount = noteNames.size();
+        Page<Fragrance> fragrances = null;
+        if (noteCount == 0) {
+            fragrances = fragranceRepository.findAllByGenderAndSeasonExcludingUnwantedNotes(unwantedNoteNames, gender, season, pageable);
+        } else {
+            fragrances = fragranceRepository.findFragrancesByNotesAndGenderAndSeason(noteNames, noteCount, unwantedNoteNames, gender, season, pageable);
+        }
         List<FragranceResponse> fragranceResponses = fragrances.stream()
                 .map(fragranceMapper::toFragranceResponse)
                 .toList();
