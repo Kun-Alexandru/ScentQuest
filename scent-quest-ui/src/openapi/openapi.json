@@ -2026,7 +2026,7 @@
             }
           },
           {
-            "name": "notes",
+            "name": "includedNotes",
             "in": "query",
             "required": false,
             "schema": {
@@ -2038,7 +2038,7 @@
             }
           },
           {
-            "name": "unwantedNotes",
+            "name": "excludedNotes",
             "in": "query",
             "required": false,
             "schema": {
@@ -2730,11 +2730,11 @@
           "claimDate": {
             "type": "string"
           },
-          "userId": {
+          "claimId": {
             "type": "integer",
             "format": "int32"
           },
-          "claimId": {
+          "userId": {
             "type": "integer",
             "format": "int32"
           }

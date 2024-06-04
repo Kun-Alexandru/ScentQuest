@@ -11,8 +11,8 @@ import { PageResponseFragranceResponse } from '../../models/page-response-fragra
 export interface FindAllFragrancesByNotesSeasonGender$Params {
   page?: number;
   size?: number;
-  notes?: Array<string>;
-  unwantedNotes?: Array<string>;
+  includedNotes?: Array<string>;
+  excludedNotes?: Array<string>;
   gender?: string;
   season?: string;
 }
@@ -22,8 +22,8 @@ export function findAllFragrancesByNotesSeasonGender(http: HttpClient, rootUrl: 
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
-    rb.query('notes', params.notes, {});
-    rb.query('unwantedNotes', params.unwantedNotes, {});
+    rb.query('includedNotes', params.includedNotes, {});
+    rb.query('excludedNotes', params.excludedNotes, {});
     rb.query('gender', params.gender, {});
     rb.query('season', params.season, {});
   }

@@ -1,0 +1,81 @@
+<div class="container mt-5">
+  <h1 class="mb-1 text-center fs-2">Fragrance Finder</h1>
+  <div class="row marginTop">
+    <div class="col-md-6 mb-4 d-flex flex-column align-items-center">
+      <div class="w-75 d-flex flex-column align-items-center"  style="background-color: lightgreen; border-radius: 5px;">
+        <label for="includeNotes" class="form-label paddingTop">Include Notes</label>
+        <p-multiSelect id="includeNotes" [options]="allNotes" [(ngModel)]="includeNotes" optionLabel="name" [ngModelOptions]="{standalone: true}" placeholder="Select the notes you want included" class="custom-multiselect paddingTop paddingBottom"></p-multiSelect>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4 d-flex flex-column align-items-center" >
+      <div class="w-75 d-flex flex-column align-items-center" style="background-color: lightcoral; border-radius: 5px;">
+        <label for="excludeNotes" class="form-label paddingTop">Exclude Notes</label>
+        <p-multiSelect id="excludeNotes" [options]="allNotes" [(ngModel)]="excludeNotes" optionLabel="name" [ngModelOptions]="{standalone: true}" placeholder="Select the notes you want excluded" class="custom-multiselect paddingTop paddingBottom"></p-multiSelect>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 20px;">
+
+    <div class="col-md-6 mb-4">
+      <label class="form-label text-center d-block">Gender</label>
+      <div class="d-flex justify-content-between large-checkbox" style="margin-top: 40px;">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="Male" name="gender" value="Male" [(ngModel)]="selectedGender">
+          <label class="form-check-label" for="Male">Male</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="Female" name="gender" value="Female" [(ngModel)]="selectedGender">
+          <label class="form-check-label" for="Female">Female</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="Unisex" name="gender" value="Unisex" [(ngModel)]="selectedGender">
+          <label class="form-check-label" for="Unisex">Unisex</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="AnyGender" name="gender" value="" [(ngModel)]="selectedGender">
+          <label class="form-check-label" for="AnyGender">Any</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <label class="form-label text-center d-block">Preferred Season</label>
+      <div class="d-flex justify-content-between large-checkbox" style="margin-top: 40px;">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="Spring-Summer" name="season" value="Spring-Summer" [(ngModel)]="selectedSeason">
+          <label class="form-check-label" for="Spring-Summer">Spring-Summer</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="Autumn-Winter" name="season" value="Autumn-Winter" [(ngModel)]="selectedSeason">
+          <label class="form-check-label" for="Autumn-Winter">Autumn-Winter</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="All Seasons" name="season" value="All Seasons" [(ngModel)]="selectedSeason">
+          <label class="form-check-label" for="All Seasons">All Seasons</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="AnySeason" name="season" value="" [(ngModel)]="selectedSeason">
+          <label class="form-check-label" for="AnySeason">Any</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="showFragrances && numberOfFragrances != undefined && numberOfFragrances > 0" class="fragrance-section">
+    <h3 class="fs-3">There are {{numberOfFragrances}} fragrances that fit your needs, here are our picks</h3>
+    <div class="fragrance-list">
+      <app-fragrance-item *ngFor="let fragrance of fragranceResponse.content" [fragrance]="fragrance"></app-fragrance-item>
+    </div>
+  </div>
+
+  <div *ngIf="showFragrances && numberOfFragrances != undefined && numberOfFragrances == 0" class="fragrance-section">
+    <h3 class="fs-3">WOW! You searched for such a great combination of perfume notes, but it seems nobody has made a perfume like that yet!</h3>
+  </div>
+
+  <div class="row" style="margin-top: 60px;">
+    <div class="col-12 text-center">
+      <button (click)="searchFragrances()" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</div>

@@ -55,7 +55,7 @@ public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, 
     @Query("SELECT f FROM Fragrance f " +
             "LEFT JOIN f.notes un " +
             "WITH un.name IN :unwantedNoteNames " +
-            "WHERE f.gender LIKE CONCAT('%', :gender, '%') AND f.recommendedSeason LIKE CONCAT('%', :season, '%') " +
+            "WHERE f.gender LIKE CONCAT('%', :gender, '%') AND f.recommendedSeason LIKE CONCAT('%', :season, '%')" +
             "GROUP BY f " +
             "HAVING COUNT(DISTINCT un.id) = 0")
     Page<Fragrance> findAllByGenderAndSeasonExcludingUnwantedNotes(@Param("unwantedNoteNames") List<String> unwantedNoteNames,

@@ -1,0 +1,100 @@
+.container {
+  max-width: 80%;
+  margin: auto;
+}
+
+h1.text-center {
+  text-align: center;
+}
+
+.large-checkbox .form-check-input {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.large-checkbox .form-check-label {
+  font-size: 1.25em;
+  margin-left: 0.5em;
+}
+
+.large-checkbox .form-check {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-label {
+  font-size: 1.5em;
+}
+
+.form-check-input:hover, .btn:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
+.form-check-label:hover {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.btn {
+  font-size: 1.25em;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.custom-multiselect .ui-multiselect {
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.paddingTop {
+  padding-top: 20px;
+}
+
+.paddingBottom {
+  padding-bottom: 20px;
+}
+
+.marginRight {
+  margin-right: 100px;
+}
+
+.marginTop {
+  margin-top: 50px;
+}
+
+.fragrance-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.fragrance-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.fragrance-item {
+  flex: 0 1 200px;
+  margin-bottom: 10px;
+  height: 200px;
+}
+

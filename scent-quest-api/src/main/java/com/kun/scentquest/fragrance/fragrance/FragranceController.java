@@ -183,8 +183,8 @@ public class FragranceController {
     public ResponseEntity<PageResponse<FragranceResponse>> findAllFragrancesByNotesSeasonGender(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-            @RequestParam(defaultValue = "") List<String> notes,
-            @RequestParam(defaultValue = "") List<String> unwantedNotes,
+            @RequestParam(name = "includedNotes", defaultValue = "") List<String> notes,
+            @RequestParam(name = "excludedNotes", defaultValue = "") List<String> unwantedNotes,
             @RequestParam(name = "gender", defaultValue = "", required = false) String gender,
             @RequestParam(name = "season", defaultValue = "", required = false) String season
     ) {

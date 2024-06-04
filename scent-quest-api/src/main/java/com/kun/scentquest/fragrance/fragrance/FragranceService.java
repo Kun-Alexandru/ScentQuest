@@ -374,7 +374,7 @@ public class FragranceService {
                                                                                   List<String> unwantedNoteNames,
                                                                                   String gender,
                                                                                   String season) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("number_of_likes").descending());
         long noteCount = noteNames.size();
         Page<Fragrance> fragrances = null;
         if (noteCount == 0) {

@@ -37,6 +37,7 @@ import { FragranceItemComponent } from './components/fragrance-item/fragrance-it
 import { LoyaltyPageComponent } from './pages/loyalty-page/loyalty-page.component';
 import {MatCell, MatColumnDef, MatHeaderCell, MatHeaderRow, MatRow, MatTable} from "@angular/material/table";
 import { FragranceItemReviewComponent } from './components/fragrance-item-review/fragrance-item-review.component';
+import { FragranceFinderComponent } from './pages/fragrance-finder/fragrance-finder.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { FragranceItemReviewComponent } from './components/fragrance-item-review
     ConfirmationDialogPhotoComponent,
     FragranceItemComponent,
     LoyaltyPageComponent,
-    FragranceItemReviewComponent
+    FragranceItemReviewComponent,
+    FragranceFinderComponent
   ],
   imports: [
     CommonModule,

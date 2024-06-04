@@ -14,6 +14,7 @@ import {FragrancePageComponent} from "./pages/fragrance-page/fragrance-page.comp
 import {MyOwnedListComponent} from "./pages/my-owned-list/my-owned-list.component";
 import {UserProfileMemberComponent} from "./pages/user-profile-member/user-profile-member.component";
 import {LoyaltyPageComponent} from "./pages/loyalty-page/loyalty-page.component";
+import {FragranceFinderComponent} from "./pages/fragrance-finder/fragrance-finder.component";
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
         path: 'loyalty',
         component: LoyaltyPageComponent,
         canActivate: [authGuard]
+      },
+      {
+        path: 'fragrance-finder',
+        component: FragranceFinderComponent
       }
       ]
   }
