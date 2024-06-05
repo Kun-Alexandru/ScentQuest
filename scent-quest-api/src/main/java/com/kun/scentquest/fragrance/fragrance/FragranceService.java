@@ -29,10 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Console;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -370,21 +367,36 @@ public class FragranceService {
                 fragrances.isLast());
     }
 
-    public PageResponse<FragranceResponse> findAllFragrancesWithNotesSeasonGender(int page, int size, List<String> noteNames,
-                                                                                  List<String> unwantedNoteNames,
-                                                                                  String gender,
-                                                                                  String season) {
+    public PageResponse<FragranceResponse> findAllFragrancesWithNotesSeasonGender(int page, int size, List<String> noteNames, List<String> unwantedNoteNames, String gender,String season, Authentication connectedUser, String notInOwned) {
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("number_of_likes").descending());
         long noteCount = noteNames.size();
         Page<Fragrance> fragrances = null;
         if (noteCount == 0) {
-            fragrances = fragranceRepository.findAllByGenderAndSeasonExcludingUnwantedNotes(unwantedNoteNames, gender, season, pageable);
+            if(notInOwned.equals("true")) {
+                User user = (User) connectedUser.getPrincipal();
+                List<Integer> ownedFragranceIds = ownedRepository.findAllOwnedFragrancesByUserId(user.getId());
+                fragrances = fragranceRepository.findAllByGenderAndSeasonExcludingUnwantedNotes(unwantedNoteNames, gender, season, ownedFragranceIds, pageable);
+            }
+            else {
+                List<Integer> ownedFragranceIds = new ArrayList<>();
+                fragrances = fragranceRepository.findAllByGenderAndSeasonExcludingUnwantedNotes(unwantedNoteNames, gender, season, ownedFragranceIds, pageable);
+            }
         } else {
-            fragrances = fragranceRepository.findFragrancesByNotesAndGenderAndSeason(noteNames, noteCount, unwantedNoteNames, gender, season, pageable);
+            if(notInOwned.equals("true")) {
+                User user = (User) connectedUser.getPrincipal();
+                List<Integer> ownedFragranceIds = ownedRepository.findAllOwnedFragrancesByUserId(user.getId());
+                fragrances = fragranceRepository.findFragrancesByNotesAndGenderAndSeason(noteNames, noteCount, unwantedNoteNames, gender, season, ownedFragranceIds,pageable);
+            }
+            else {
+                List<Integer> ownedFragranceIds = new ArrayList<>();
+                fragrances = fragranceRepository.findFragrancesByNotesAndGenderAndSeason(noteNames, noteCount, unwantedNoteNames, gender, season, ownedFragranceIds,pageable);
+            }
         }
         List<FragranceResponse> fragranceResponses = fragrances.stream()
                 .map(fragranceMapper::toFragranceResponse)
                 .toList();
+
         return new PageResponse<>(
                 fragranceResponses,
                 fragrances.getNumber(),

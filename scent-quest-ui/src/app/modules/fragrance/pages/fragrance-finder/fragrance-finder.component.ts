@@ -20,7 +20,8 @@ export class FragranceFinderComponent implements OnInit {
   showFragrances: boolean = false;
   fragranceResponse: PageResponseFragranceResponse = {};
   numberOfFragrances: number | undefined = 0;
-
+  notInCollection: boolean = false;
+  notInCollectionString: string = 'false';
   includePerfumes: string = '';
   excludePerfumes: string = '';
   selectedGender: string = '';
@@ -45,6 +46,10 @@ export class FragranceFinderComponent implements OnInit {
     });
   }
 
+  onCheckboxChange(checked: boolean) {
+    this.notInCollectionString = checked ? 'true' : 'false';
+  }
+
   searchFragrances() {
 
     const includeNoteNames: string[] = this.includeNotes.map(note => note.name || '');
@@ -55,6 +60,7 @@ export class FragranceFinderComponent implements OnInit {
       'excludedNotes': excludeNoteNames,
       'season': this.selectedSeason,
       'gender': this.selectedGender,
+      'notInCollection': this.notInCollectionString,
       'page': this.page,
       'size': this.size
     })

@@ -82,7 +82,8 @@ const routes: Routes = [
       },
       {
         path: 'fragrance-finder',
-        component: FragranceFinderComponent
+        component: FragranceFinderComponent,
+        canActivate: [authGuard]
       }
       ]
   }

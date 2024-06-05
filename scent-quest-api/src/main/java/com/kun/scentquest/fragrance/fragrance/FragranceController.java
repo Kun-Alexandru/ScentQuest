@@ -185,6 +185,8 @@ public class FragranceController {
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
             @RequestParam(name = "includedNotes", defaultValue = "") List<String> notes,
             @RequestParam(name = "excludedNotes", defaultValue = "") List<String> unwantedNotes,
+            Authentication connectedUser,
+            @RequestParam(name = "notInCollection", defaultValue ="false") String notInCollection,
             @RequestParam(name = "gender", defaultValue = "", required = false) String gender,
             @RequestParam(name = "season", defaultValue = "", required = false) String season
     ) {
@@ -196,7 +198,7 @@ public class FragranceController {
             unwantedNotes = List.of();
         }
 
-        return ResponseEntity.ok(fragranceService.findAllFragrancesWithNotesSeasonGender(page, size, notes, unwantedNotes,gender,season));
+        return ResponseEntity.ok(fragranceService.findAllFragrancesWithNotesSeasonGender(page, size, notes, unwantedNotes,gender,season,connectedUser,notInCollection));
     }
 
     @GetMapping("/favourite/{user-id}/user")

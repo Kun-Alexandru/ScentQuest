@@ -12,12 +12,29 @@ h1.text-center {
   height: 1.5em;
 }
 
+.form-check-input {
+  width: 1.5em;
+  height: 1.5em;
+}
+
 .large-checkbox .form-check-label {
   font-size: 1.25em;
   margin-left: 0.5em;
 }
 
+.form-check-label {
+  font-size: 1.25em;
+  margin-left: 0.5em;
+}
+
 .large-checkbox .form-check {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-check {
   flex: 1;
   display: flex;
   align-items: center;

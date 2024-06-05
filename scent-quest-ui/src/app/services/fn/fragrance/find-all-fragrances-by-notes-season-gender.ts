@@ -13,6 +13,7 @@ export interface FindAllFragrancesByNotesSeasonGender$Params {
   size?: number;
   includedNotes?: Array<string>;
   excludedNotes?: Array<string>;
+  notInCollection?: string;
   gender?: string;
   season?: string;
 }
@@ -24,6 +25,7 @@ export function findAllFragrancesByNotesSeasonGender(http: HttpClient, rootUrl: 
     rb.query('size', params.size, {});
     rb.query('includedNotes', params.includedNotes, {});
     rb.query('excludedNotes', params.excludedNotes, {});
+    rb.query('notInCollection', params.notInCollection, {});
     rb.query('gender', params.gender, {});
     rb.query('season', params.season, {});
   }

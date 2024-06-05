@@ -43,4 +43,10 @@ public interface OwnedRepository extends JpaRepository<Owned, Integer> {
             LOWER(o.fragrance.brand) LIKE CONCAT('%', LOWER(:searchWord), '%'))
             """)
     Page<Fragrance> findAllOwnedFragrancesByUserId(Pageable pageable, @Param("userId") Integer userId, @Param("season") String season, @Param("searchWord") String searchWord);
+
+    @Query("""
+            SELECT o.fragrance.FragranceId FROM Owned o
+            WHERE o.user.id = :userId
+            """)
+    List<Integer> findAllOwnedFragrancesByUserId(Integer userId);
 }

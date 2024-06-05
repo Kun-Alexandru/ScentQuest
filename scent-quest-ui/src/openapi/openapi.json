@@ -2050,6 +2050,15 @@
             }
           },
           {
+            "name": "notInCollection",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "false"
+            }
+          },
+          {
             "name": "gender",
             "in": "query",
             "required": false,
@@ -2730,11 +2739,11 @@
           "claimDate": {
             "type": "string"
           },
-          "claimId": {
+          "userId": {
             "type": "integer",
             "format": "int32"
           },
-          "userId": {
+          "claimId": {
             "type": "integer",
             "format": "int32"
           }
