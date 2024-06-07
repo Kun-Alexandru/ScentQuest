@@ -1,4 +1,4 @@
-<div class="fragrance-item" (click)="redirectToPage()">
+<div class="fragrance-item" (click)="redirectToPage()" (contextmenu)="openFragranceInNewTab($event)">
   <img class="fragrance-image" [src]="'data:image/jpg;base64,' + review?.fragrancePicture" [alt]="review?.fragranceName">
   <p class="fragrance-name">{{ review?.fragranceName }}</p>
   <div class="fragrance-review">

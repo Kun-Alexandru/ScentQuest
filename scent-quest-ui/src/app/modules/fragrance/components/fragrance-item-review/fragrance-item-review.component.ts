@@ -18,4 +18,16 @@ export class FragranceItemReviewComponent {
       console.error("Fragrance is undefined");
     }
   }
+
+  openFragranceInNewTab(event: MouseEvent) {
+    event.preventDefault();
+
+    if (this.review) {
+      const fragranceUrl = `/fragrances/page/${this.review.fragranceId}`;
+
+      window.open(fragranceUrl, '_blank');
+    } else {
+      console.error('Fragrance is undefined');
+    }
+  }
 }

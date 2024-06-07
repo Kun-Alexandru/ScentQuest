@@ -150,10 +150,12 @@ export class ManageFragranceComponent implements OnInit {
             ).subscribe({
               next: () => {
                 this.router.navigate(['/fragrances']);
+                this.showSnackbar('Fragrance edited successfully');
               }
             });
         } else {
             this.router.navigate(['/fragrances']);
+            this.showSnackbar('Fragrance edited successfully');
           }
         },
         error: (err) => {
@@ -177,6 +179,7 @@ export class ManageFragranceComponent implements OnInit {
           }).subscribe({
             next: () => {
               this.router.navigate(['/fragrances']);
+              this.showSnackbar('Fragrance added successfully');
             },
             error: (err) => {
               this.showSnackbar('Not all fields are filled in');

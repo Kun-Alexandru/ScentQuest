@@ -33,4 +33,11 @@ public class RegistrationRequest {
     @NotBlank(message = "Secret key  is required")
     private String secretKey;
 
+    public RegistrationRequest(String firstname, String lastname, String email, String password, String secretKey) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.secretKey = secretKey;
+    }
 }

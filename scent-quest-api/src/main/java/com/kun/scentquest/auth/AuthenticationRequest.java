@@ -22,4 +22,9 @@ public class AuthenticationRequest {
     @NotNull(message = "Password is mandatory")
     @Size(min = 8, message = "Password should be 8 characters long minimum")
     private String password;
+
+    public AuthenticationRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }
