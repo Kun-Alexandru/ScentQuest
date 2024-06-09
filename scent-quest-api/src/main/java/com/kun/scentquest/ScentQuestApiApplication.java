@@ -23,6 +23,7 @@ public class ScentQuestApiApplication {
         return args -> {
             if(roleRepository.findByName("ROLE_USER").isEmpty()) {
                 roleRepository.save(Role.builder().name("ROLE_USER").build());
+                roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
             }
         };
     }

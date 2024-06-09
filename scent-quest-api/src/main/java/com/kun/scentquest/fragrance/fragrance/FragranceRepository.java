@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Set;
 
-public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, JpaSpecificationExecutor<Fragrance> {
+public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, JpaSpecificationExecutor<Fragrance>, CustomFragranceRepository<Integer> {
     @Query("""
             SELECT f FROM Fragrance f
             """)
@@ -67,4 +67,5 @@ public interface FragranceRepository extends JpaRepository<Fragrance, Integer>, 
                                                                    @Param("season") String season,
                                                                    @Param("unwantedFragranceIds") List<Integer> unwantedFragranceIds,
                                                                    Pageable pageable);
+
 }

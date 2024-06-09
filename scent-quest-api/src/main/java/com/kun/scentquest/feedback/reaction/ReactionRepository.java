@@ -2,6 +2,7 @@ package com.kun.scentquest.feedback.reaction;
 
 import com.kun.scentquest.feedback.reaction.Reaction;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -30,5 +31,12 @@ public interface ReactionRepository extends JpaRepository<Reaction, Integer> {
             WHERE r.user.id = :userId
     """)
     List<Reaction> findAllByUser_Id(Integer userId);
+
+    @Query("""
+            DELETE FROM Reaction r
+            WHERE r.fragrance.FragranceId = :fragranceId
+    """)
+    @Modifying
+    void deleteByFragrance_FragranceId(Integer fragranceId);
 
 }
