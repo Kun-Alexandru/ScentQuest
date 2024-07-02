@@ -37,18 +37,18 @@ export class UserProfileMemberComponent {
   pageOwned = 0;
   favourites: Number[] = [];
   pagesOwned: any = [];
-  sizeOwned = 5;
+  sizeOwned = 4;
   message = '';
   showOwnedFragrances: boolean = false;
   showFavoriteFragrances: boolean = false;
   showReviews: boolean = false;
   level: 'success' |'error' = 'success';
   pageFavorites = 0;
-  sizeFavorites = 5;
+  sizeFavorites = 4;
   pagesFavorites: any = [];
 
   pageReviews = 0;
-  sizeReviews = 5;
+  sizeReviews = 4;
   pagesReviews: any = [];
   reviews: Number[] = [];
   constructor(

@@ -4,6 +4,7 @@ export interface UserResponse {
   accountLocked?: boolean;
   backgroundPicture?: Array<string>;
   dateOfBirth?: string;
+  description?: string;
   email?: string;
   enabled?: boolean;
   firstname?: string;

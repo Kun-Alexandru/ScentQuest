@@ -40,7 +40,7 @@ const routes: Routes = [
       {
         path: 'manage/:id',
         component: ManageFragranceComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard, AdminGuard]
       },
       {
         path: 'page/:id',

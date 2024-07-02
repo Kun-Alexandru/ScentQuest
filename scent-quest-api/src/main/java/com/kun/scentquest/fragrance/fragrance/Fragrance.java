@@ -5,7 +5,7 @@ import com.kun.scentquest.feedback.review.Review;
 import com.kun.scentquest.fragrance.note.Note;
 import com.kun.scentquest.fragrance.owned.Owned;
 import com.kun.scentquest.fragrance.perfumer.Perfumer;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

@@ -6,7 +6,7 @@ import com.kun.scentquest.users.role.RoleRepository;
 import com.kun.scentquest.security.JwtService;
 import com.kun.scentquest.users.token.Token;
 import com.kun.scentquest.users.token.TokenRepository;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +49,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
+                .description("")
                 .roles(List.of(userRole))
                 .privateProfile("false")
                 .profilePicture("./profiles\\users\\452\\1715886231135.jpg")

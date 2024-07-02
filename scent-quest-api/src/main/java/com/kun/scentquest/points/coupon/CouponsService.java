@@ -4,7 +4,7 @@ import com.kun.scentquest.email.EmailService;
 import com.kun.scentquest.email.EmailTemplateName;
 import com.kun.scentquest.points.site.Sites;
 import com.kun.scentquest.points.site.SitesRepository;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;

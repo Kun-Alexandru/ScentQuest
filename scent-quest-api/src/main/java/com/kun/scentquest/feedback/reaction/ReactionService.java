@@ -2,7 +2,7 @@ package com.kun.scentquest.feedback.reaction;
 
 import com.kun.scentquest.fragrance.fragrance.Fragrance;
 import com.kun.scentquest.fragrance.fragrance.FragranceRepository;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

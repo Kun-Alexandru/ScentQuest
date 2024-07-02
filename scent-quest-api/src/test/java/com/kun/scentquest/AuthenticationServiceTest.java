@@ -2,19 +2,16 @@ package com.kun.scentquest;
 
 import static org.mockito.Mockito.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Optional;
 
 import com.kun.scentquest.auth.*;
 import com.kun.scentquest.email.EmailService;
-import com.kun.scentquest.email.EmailTemplateName;
 import com.kun.scentquest.users.role.Role;
 import com.kun.scentquest.users.role.RoleRepository;
 import com.kun.scentquest.security.JwtService;
-import com.kun.scentquest.users.token.Token;
 import com.kun.scentquest.users.token.TokenRepository;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserRepository;
 import jakarta.mail.MessagingException;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +23,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootTest

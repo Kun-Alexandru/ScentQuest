@@ -3,7 +3,6 @@ package com.kun.scentquest;
 import static org.mockito.Mockito.*;
 
 import com.kun.scentquest.common.PageResponse;
-import com.kun.scentquest.exception.OperationNotPermittedException;
 import com.kun.scentquest.feedback.review.ReviewRepository;
 import com.kun.scentquest.file.FileStorageService;
 import com.kun.scentquest.fragrance.favorite.FavouriteRepository;
@@ -13,7 +12,7 @@ import com.kun.scentquest.fragrance.note.NoteRepository;
 import com.kun.scentquest.fragrance.owned.OwnedRepository;
 import com.kun.scentquest.fragrance.perfumer.PerfumerMapper;
 import com.kun.scentquest.fragrance.perfumer.PerfumerRepository;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

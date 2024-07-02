@@ -16,7 +16,7 @@ import com.kun.scentquest.fragrance.perfumer.Perfumer;
 import com.kun.scentquest.fragrance.perfumer.PerfumerMapper;
 import com.kun.scentquest.fragrance.perfumer.PerfumerRepository;
 import com.kun.scentquest.fragrance.perfumer.PerfumerResponse;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.Console;
 import java.util.*;
 import java.util.stream.Collectors;
 

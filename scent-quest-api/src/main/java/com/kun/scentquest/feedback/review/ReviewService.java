@@ -5,7 +5,7 @@ import com.kun.scentquest.file.FileUtils;
 import com.kun.scentquest.fragrance.fragrance.FragranceRepository;
 import com.kun.scentquest.points.claim.Claim;
 import com.kun.scentquest.points.claim.ClaimRepository;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserMapper;
 import com.kun.scentquest.users.user.UserRepository;
 import lombok.RequiredArgsConstructor;

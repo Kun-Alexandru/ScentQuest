@@ -15,7 +15,7 @@ export class FragranceFinderComponent implements OnInit {
   excludeNotes: NoteResponse[] = [];
   allNotes: NoteResponse[] = [];
   page = 0;
-  size = 6;
+  size = 5;
   pages: any = [];
   showFragrances: boolean = false;
   fragranceResponse: PageResponseFragranceResponse = {};

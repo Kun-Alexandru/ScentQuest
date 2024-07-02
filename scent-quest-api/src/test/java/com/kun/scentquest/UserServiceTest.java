@@ -2,7 +2,6 @@ package com.kun.scentquest;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +9,9 @@ import java.util.Optional;
 import com.kun.scentquest.common.PageResponse;
 import com.kun.scentquest.points.claim.Claim;
 import com.kun.scentquest.points.claim.ClaimRepository;
-import com.kun.scentquest.points.claim.ClaimResponse;
 import com.kun.scentquest.points.coupon.Coupons;
 import com.kun.scentquest.points.coupon.CouponsRepository;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import com.kun.scentquest.users.user.UserRepository;
 
 import com.kun.scentquest.users.user.UserRequest;

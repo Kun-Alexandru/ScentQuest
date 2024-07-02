@@ -1,6 +1,6 @@
 package com.kun.scentquest.points.claim;
 
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;

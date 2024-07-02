@@ -1,7 +1,7 @@
 package com.kun.scentquest.fragrance.favorite;
 
 import com.kun.scentquest.fragrance.fragrance.Fragrance;
-import com.kun.scentquest.users.role.User;
+import com.kun.scentquest.users.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 

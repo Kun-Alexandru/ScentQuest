@@ -1,4 +1,4 @@
-package com.kun.scentquest.users.role;
+package com.kun.scentquest.users.user;
 
 import com.kun.scentquest.fragrance.favorite.Favourite;
 import com.kun.scentquest.fragrance.fragrance.Fragrance;
@@ -39,6 +39,7 @@ public class User implements UserDetails, Principal {
     private LocalDate dateOfBirth;
     @Column(unique = true)
     private String email;
+    private String description;
     private String password;
     private boolean accountLocked;
     private boolean enabled;

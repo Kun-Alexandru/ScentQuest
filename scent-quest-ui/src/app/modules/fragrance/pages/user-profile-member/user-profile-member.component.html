@@ -20,9 +20,12 @@
   </div>
 
   <div class="user-info">
-    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <h2><strong>{{ user.firstname }} {{ user.lastname }}</strong></h2>
+    <!--
     <p *ngIf="user.dateOfBirth && (user.privateProfile == 'false' || isOwner() == true)" ><strong>Date of Birth:</strong> {{ user.dateOfBirth | date }}</p>
     <p *ngIf="user.privateProfile == 'false' || isOwner() == true"><strong>User ID:</strong> {{ user.userId }}</p>
+    -->
+    <p *ngIf="user.description != '' && (user.privateProfile == 'false' || isOwner() == true)"><strong></strong> {{ user.description }}</p>
     <p *ngIf="user.privateProfile == 'true' && isOwner() == false"> PROFILE IS PRIVATE </p>
   </div>
 
